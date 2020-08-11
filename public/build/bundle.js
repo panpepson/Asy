@@ -3183,8 +3183,8 @@ var app = (function () {
     Model został wytrenowany na 30 zdjęciach dla każdej z czterech figur/karty,
     w tym wypadku były to Asy.
     <br>
-    Model dość dobrze radzi sobie, również z innymi kartami tego &quot;samego koloru&quot;
-    - zapraszam od zabawy ツ
+    Model dość dobrze radzi sobie, również z innymi kartami tego samego koloru -
+    zapraszam od zabawy ツ
     <br> 
     <a href="https://trochymiak.net" alt="website Piotr Trochymiak" class="svelte-n5yb99">^p^</a>`;
 
