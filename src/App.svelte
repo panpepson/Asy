@@ -119,14 +119,26 @@
     Prosta aplikacja ML/AI, która wykrywa przy pomocy kamery internetowej rodzaj
     <a
       href="https://pl.wikipedia.org/wiki/Karty"
-      alt="Wikipedia opis kart do gry">
+      alt="Wikipedia opis kart do gry"
+      rel="noopener noreferrer"
+      target="_blank">
       karty do gry.
     </a>
     <br />
     Aplikacja napisana przy użyciu frameworka
-    <a href="https://svelte.dev" alt="Svelte website">Svelte.js</a>
+    <a
+      href="https://svelte.dev"
+      alt="Svelte website"
+      rel="noopener noreferrer"
+      target="_blank">
+      Svelte.js
+    </a>
     oraz biblioteki
-    <a href="https://www.tensorflow.org/" alt="Website Tensorflow Google">
+    <a
+      href="https://www.tensorflow.org/"
+      alt="Website Tensorflow Google"
+      rel="noopener noreferrer"
+      target="_blank">
       TF.js/tensorflow.keras.
     </a>
     <br />
@@ -136,6 +148,12 @@
     Model dość dobrze radzi sobie, również z innymi kartami tego samego koloru -
     zapraszam od zabawy ツ
     <br />
-    <a href="https://trochymiak.net" alt="website Piotr Trochymiak">^p^</a>
+    <a
+      href="https://trochymiak.net"
+      alt="website Piotr Trochymiak"
+      rel="noopener noreferrer"
+      target="_blank">
+      ^p^
+    </a>
   </div>
 </main>
