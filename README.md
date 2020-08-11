@@ -6,7 +6,7 @@ Prosta aplikacja ML/AI która wykrywa przy pomocy kamery karty do gry.
 Apka została napisana przy uzyciu Svelte oraz bibliteki TF.js/tensorflow.keras.  
 Model został wytrenowany na około 30 zdjęciach dla każdej karty w tym wypadku były to Asy. 
 
-### DEMO  https://panpepson.github.io/asy/
+### DEMO  https://panpepson.github.io/Asy/
 
 
 <<<<<<< HEAD
@@ -114,7 +114,7 @@ Then, from within your project folder:
 npm run build
 surge public my-project.surge.sh
 ```
-### DEMO  https://panpepson.github.io/asy/
+### DEMO  https://panpepson.github.io/Asy/
 =======
 # asy
 >>>>>>> 0851fc31a490097069882767647d878a801697c1
