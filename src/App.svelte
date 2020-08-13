@@ -25,7 +25,7 @@
       loading = false;
     } catch (e) {
       console.error(e, "camera access denied");
-      errorMessage = "Kamera nie podłączona i nie dziąła :(";
+      errorMessage = "Kamera nie podłączona i nie działa :(";
     }
   });
 
