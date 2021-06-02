@@ -310,4 +310,3013 @@ var app = (function () {
      * limitations under the License.
      * =============================================================================
      */
-    var DataType,SaverDef,__assign$1=function(){return (__assign$1=Object.assign||function(e){for(var t,a=1,r=arguments.length;a<r;a++)for(var n in t=arguments[a])Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e}).apply(this,arguments)};function __awaiter$1(e,t,a,r){return new(a||(a=Promise))(function(n,s){function o(e){try{u(r.next(e));}catch(e){s(e);}}function p(e){try{u(r.throw(e));}catch(e){s(e);}}function u(e){e.done?n(e.value):new a(function(t){t(e.value);}).then(o,p);}u((r=r.apply(e,t||[])).next());})}function __generator$1(e,t){var a,r,n,s,o={label:0,sent:function(){if(1&n[0])throw n[1];return n[1]},trys:[],ops:[]};return s={next:p(0),throw:p(1),return:p(2)},"function"==typeof Symbol&&(s[Symbol.iterator]=function(){return this}),s;function p(s){return function(p){return function(s){if(a)throw new TypeError("Generator is already executing.");for(;o;)try{if(a=1,r&&(n=2&s[0]?r.return:s[0]?r.throw||((n=r.return)&&n.call(r),0):r.next)&&!(n=n.call(r,s[1])).done)return n;switch(r=0,n&&(s=[2&s[0],n.value]),s[0]){case 0:case 1:n=s;break;case 4:return o.label++,{value:s[1],done:!1};case 5:o.label++,r=s[1],s=[0];continue;case 7:s=o.ops.pop(),o.trys.pop();continue;default:if(!(n=(n=o.trys).length>0&&n[n.length-1])&&(6===s[0]||2===s[0])){o=0;continue}if(3===s[0]&&(!n||s[1]>n[0]&&s[1]<n[3])){o.label=s[1];break}if(6===s[0]&&o.label<n[1]){o.label=n[1],n=s;break}if(n&&o.label<n[2]){o.label=n[2],o.ops.push(s);break}n[2]&&o.ops.pop(),o.trys.pop();continue}s=t.call(e,o);}catch(e){s=[6,e],r=0;}finally{a=n=0;}if(5&s[0])throw s[1];return {value:s[0]?s[1]:void 0,done:!0}}([s,p])}}}!function(e){e[e.DT_INVALID=0]="DT_INVALID",e[e.DT_FLOAT=1]="DT_FLOAT",e[e.DT_DOUBLE=2]="DT_DOUBLE",e[e.DT_INT32=3]="DT_INT32",e[e.DT_UINT8=4]="DT_UINT8",e[e.DT_INT16=5]="DT_INT16",e[e.DT_INT8=6]="DT_INT8",e[e.DT_STRING=7]="DT_STRING",e[e.DT_COMPLEX64=8]="DT_COMPLEX64",e[e.DT_INT64=9]="DT_INT64",e[e.DT_BOOL=10]="DT_BOOL",e[e.DT_QINT8=11]="DT_QINT8",e[e.DT_QUINT8=12]="DT_QUINT8",e[e.DT_QINT32=13]="DT_QINT32",e[e.DT_BFLOAT16=14]="DT_BFLOAT16",e[e.DT_FLOAT_REF=101]="DT_FLOAT_REF",e[e.DT_DOUBLE_REF=102]="DT_DOUBLE_REF",e[e.DT_INT32_REF=103]="DT_INT32_REF",e[e.DT_UINT8_REF=104]="DT_UINT8_REF",e[e.DT_INT16_REF=105]="DT_INT16_REF",e[e.DT_INT8_REF=106]="DT_INT8_REF",e[e.DT_STRING_REF=107]="DT_STRING_REF",e[e.DT_COMPLEX64_REF=108]="DT_COMPLEX64_REF",e[e.DT_INT64_REF=109]="DT_INT64_REF",e[e.DT_BOOL_REF=110]="DT_BOOL_REF",e[e.DT_QINT8_REF=111]="DT_QINT8_REF",e[e.DT_QUINT8_REF=112]="DT_QUINT8_REF",e[e.DT_QINT32_REF=113]="DT_QINT32_REF",e[e.DT_BFLOAT16_REF=114]="DT_BFLOAT16_REF";}(DataType||(DataType={})),function(e){!function(e){e[e.LEGACY=0]="LEGACY",e[e.V1=1]="V1",e[e.V2=2]="V2";}(e.CheckpointFormatVersion||(e.CheckpointFormatVersion={}));}(SaverDef||(SaverDef={}));var CUSTOM_OPS={};function registerOp(e,t){var a={tfOpName:e,category:"custom",inputs:[],attrs:[],customExecutor:t};CUSTOM_OPS[e]=a;}function getRegisteredOp(e){return CUSTOM_OPS[e]}function deregisterOp(e){delete CUSTOM_OPS[e];}function getParamValue(e,t,a,r){var n=t.inputParams[e];if(n&&void 0!==n.inputIndexStart){var s=n.inputIndexStart,o=0===n.inputIndexEnd?void 0:void 0===n.inputIndexEnd?s+1:n.inputIndexEnd;if("tensor"===n.type)return getTensor(t.inputNames[n.inputIndexStart],a,r);if("tensors"===n.type)return t.inputNames.slice(s,o).map(function(e){return getTensor(e,a,r)});var p=Array.prototype.slice.call(getTensor(t.inputNames.slice(s)[0],a,r).dataSync());return "number"===n.type?p[0]:p}var u=t.attrParams[e];return u&&u.value}function getTensor(e,t,a){var r=parseNodeName(e),n=r[0],s=r[1],o=a.currentContextIds.find(function(e){return !!t[getNodeNameWithContextId(n,e)]});return void 0!==o?t[getNodeNameWithContextId(n,o)][s]:void 0}function getTensorsForCurrentContenxt(e,t,a){return t[getNodeNameWithContextId(e,a.currentContextId)]}function getNodeNameAndIndex(e,t){var a=parseNodeName(e),r=a[0],n=a[1];return [getNodeNameWithContextId(r,t&&t.currentContextId),n]}function getNodeNameWithContextId(e,t){return t?e+"-"+t:e}function parseNodeName(e){var t=e.lastIndexOf(":");return -1===t?[e,0]:[e.substring(0,t),Number(e.substring(t+1))]}function split$1(e,t){for(var a=[],r=0;r<e.length;r+=t)a.push(e.slice(r,r+t));return a}var json=[{tfOpName:"Add",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"AddV2",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"AddN",category:"arithmetic",inputs:[{start:0,end:0,name:"tensors",type:"tensors"}]},{tfOpName:"BiasAdd",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Sub",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"RealDiv",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Div",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"DivNoNan",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"FloorDiv",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Mul",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Maximum",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}]},{tfOpName:"Minimum",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}]},{tfOpName:"Pow",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"SquaredDifference",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Mod",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"FloorMod",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]}],arithmetic=Object.freeze({json:json}),json$1=[{tfOpName:"Abs",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Acos",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Asin",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Atan",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Atan2",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"y",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Ceil",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"ClipByValue",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"clip_value_min",name:"clipValueMin",type:"number"},{tfName:"clip_value_max",name:"clipValueMax",type:"number"}]},{tfOpName:"Complex",category:"basic_math",inputs:[{start:0,name:"real",type:"tensor"},{start:1,name:"imag",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"ComplexAbs",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Cos",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Cosh",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Elu",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Exp",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Floor",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Log",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Imag",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"Tout",name:"outputType",type:"dtype",notSupported:!0}]},{tfOpName:"Neg",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Real",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"Tout",name:"outputType",type:"dtype",notSupported:!0}]},{tfOpName:"Prelu",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"alpha",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Relu",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Relu6",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"clipValueMin",name:"clipValueMin",type:"number",defaultValue:0},{tfName:"clipValueMax",name:"clipValueMax",type:"number",defaultValue:6}]},{tfOpName:"Selu",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Sigmoid",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Sin",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Sinh",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Sqrt",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Rsqrt",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Square",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Tan",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Tanh",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Sign",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Round",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Expm1",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Log1p",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Reciprocal",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Softplus",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Asinh",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Acosh",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Atanh",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Erf",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Prod",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axes",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool",notSupported:!0},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"LeakyRelu",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"alpha",name:"alpha",type:"number",defaultValue:.2},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]}],basicMath=Object.freeze({json:json$1}),json$2=[{tfOpName:"LoopCond",category:"control",inputs:[{start:0,name:"pred",type:"tensor"}]},{tfOpName:"Switch",category:"control",inputs:[{start:0,name:"data",type:"tensor"},{start:1,name:"pred",type:"tensor"}]},{tfOpName:"Merge",category:"control",inputs:[{start:0,end:0,name:"tensors",type:"tensors"}]},{tfOpName:"Enter",category:"control",inputs:[{start:0,name:"tensor",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"frame_name",name:"frameName",type:"string"},{tfName:"is_constant",name:"isConstant",type:"bool"}]},{tfOpName:"Exit",category:"control",inputs:[{start:0,name:"tensor",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"NextIteration",category:"control",inputs:[{start:0,name:"tensor",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"TensorArrayV3",category:"control",inputs:[{start:0,name:"size",type:"number"}],attrs:[{tfName:"dtype",name:"dtype",type:"dtype"},{tfName:"element_shape",name:"elementShape",type:"shape"},{tfName:"dynamic_size",name:"dynamicSize",type:"bool"},{tfName:"clear_after_read",name:"clearAfterRead",type:"bool"},{tfName:"identical_element_shapes",name:"identicalElementShapes",type:"bool"},{tfName:"tensor_array_name",name:"name",type:"string"}]},{tfOpName:"TensorArrayWriteV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"index",type:"number"},{start:2,name:"tensor",type:"tensor"},{start:3,name:"flowIn",type:"number"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"TensorArrayReadV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"index",type:"number"},{start:2,name:"flowIn",type:"number"}],attrs:[{tfName:"dtype",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"TensorArrayGatherV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"indices",type:"number[]"},{start:2,name:"flowIn",type:"number"}],attrs:[{tfName:"dtype",name:"dtype",type:"dtype"},{tfName:"element_shape",name:"elementShape",type:"shape"}]},{tfOpName:"TensorArrayScatterV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"indices",type:"number[]"},{start:2,name:"tensor",type:"tensor"},{start:3,name:"flowIn",type:"number"}],attrs:[{tfName:"T",name:"dtype",type:"dtype"}]},{tfOpName:"TensorArrayConcatV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"flowIn",type:"number"}],attrs:[{tfName:"dtype",name:"dtype",type:"dtype"},{tfName:"element_shape_except0",name:"elementShapeExcept0",type:"shape",notSupported:!0}]},{tfOpName:"TensorArraySplitV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"tensor",type:"tensor"},{start:2,name:"lengths",type:"number[]"},{start:3,name:"flowIn",type:"number"}],attrs:[{tfName:"T",name:"dtype",type:"dtype"}]},{tfOpName:"TensorArraySizeV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"flowIn",type:"number"}]},{tfOpName:"TensorArrayCloseV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"}]}],control=Object.freeze({json:json$2}),json$3=[{tfOpName:"AvgPool",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0},{tfName:"ksize",name:"kernelSize",type:"number[]"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"MaxPool",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0},{tfName:"ksize",name:"kernelSize",type:"number[]"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"MaxPoolWithArgmax",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"ksize",name:"kernelSize",type:"number[]"},{tfName:"include_batch_in_index",name:"includeBatchInIndex",type:"bool"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"AvgPool3D",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0},{tfName:"ksize",name:"kernelSize",type:"number[]"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"MaxPool3D",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0},{tfName:"ksize",name:"kernelSize",type:"number[]"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Conv1D",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"filter",type:"tensor"}],attrs:[{tfName:"stride",name:"stride",type:"number"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NWC"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"dilation",name:"dilation",type:"number",defaultValue:1}]},{tfOpName:"Conv2D",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"filter",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"useCudnnOnGpu",name:"useCudnnOnGpu",type:"bool"},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NHWC"},{tfName:"dilations",name:"dilations",type:"number[]"}]},{tfOpName:"_FusedConv2D",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"filter",type:"tensor"},{start:2,end:0,name:"args",type:"tensors"}],attrs:[{tfName:"num_args",name:"numArgs",type:"number"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"explicit_paddings",name:"explicitPaddings",type:"number[]",defaultValue:[]},{tfName:"use_cudnn_on_gpu",name:"useCudnnOnGpu",type:"bool",defaultValue:!0},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NHWC"},{tfName:"dilations",name:"dilations",type:"number[]",defaultValue:[1,1,1,1]},{tfName:"fused_ops",name:"fusedOps",type:"string[]",defaultValue:[]},{tfName:"epsilon",name:"epsilon",type:"number",defaultValue:1e-4}]},{tfOpName:"Conv2DBackpropInput",category:"convolution",inputs:[{start:2,name:"x",type:"tensor"},{start:1,name:"filter",type:"tensor"},{start:0,name:"outputShape",type:"number[]"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0}]},{tfOpName:"DepthwiseConv2d",category:"convolution",inputs:[{start:0,name:"input",type:"tensor"},{start:1,name:"filter",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NHWC"},{tfName:"dilations",name:"dilations",type:"number[]"}]},{tfOpName:"DepthwiseConv2dNative",category:"convolution",inputs:[{start:0,name:"input",type:"tensor"},{start:1,name:"filter",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NHWC"},{tfName:"dilations",name:"dilations",type:"number[]"}]},{tfOpName:"FusedDepthwiseConv2dNative",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"filter",type:"tensor"},{start:2,end:0,name:"args",type:"tensors"}],attrs:[{tfName:"num_args",name:"numArgs",type:"number"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NHWC"},{tfName:"dilations",name:"dilations",type:"number[]",defaultValue:[1,1,1,1]},{tfName:"fused_ops",name:"fusedOps",type:"string[]",defaultValue:[]}]},{tfOpName:"Conv3D",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"filter",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NHWC"},{tfName:"dilations",name:"dilations",type:"number[]"}]}],convolution=Object.freeze({json:json$3}),json$4=[{tfOpName:"Fill",category:"creation",inputs:[{start:0,name:"shape",type:"number[]"},{start:1,name:"value",type:"number"}],attrs:[{tfName:"T",name:"dtype",type:"dtype"}]},{tfOpName:"LinSpace",category:"creation",inputs:[{start:0,name:"start",type:"number"},{start:1,name:"stop",type:"number"},{start:2,name:"num",type:"number"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"OneHot",category:"creation",inputs:[{start:0,name:"indices",type:"tensor"},{start:1,name:"depth",type:"number"},{start:2,name:"onValue",type:"number",defaultValue:1},{start:3,name:"offValue",type:"number",defaultValue:0}],attrs:[{tfName:"axis",name:"axis",type:"number",notSupported:!0},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Ones",category:"creation",inputs:[{start:0,name:"shape",type:"number[]"}],attrs:[{tfName:"T",name:"dtype",type:"dtype"}]},{tfOpName:"OnesLike",category:"creation",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"dtype",name:"dtype",type:"dtype"}]},{tfOpName:"RandomUniform",category:"creation",inputs:[{start:0,name:"shape",type:"number[]"}],attrs:[{tfName:"minval",name:"minval",type:"number",defaultValue:0},{tfName:"maxval",name:"maxval",type:"number",defaultValue:1},{tfName:"dtype",name:"dtype",type:"dtype"},{tfName:"seed",name:"seed",type:"number",defaultValue:0},{tfName:"seed2",name:"seed2",type:"number",defaultValue:0,notSupported:!0},{tfName:"T",name:"T",type:"number",notSupported:!0}]},{tfOpName:"Range",category:"creation",inputs:[{start:0,name:"start",type:"number"},{start:1,name:"stop",type:"number"},{start:2,name:"step",type:"number",defaultValue:0}],attrs:[{tfName:"Tidx",name:"dtype",type:"dtype"}]},{tfOpName:"TruncatedNormal",category:"creation",inputs:[{start:0,name:"shape",type:"number[]"}],attrs:[{tfName:"means",name:"mean",type:"number",defaultValue:0},{tfName:"stddev",name:"stdDev",type:"number",defaultValue:1},{tfName:"seed",name:"seed",type:"number"},{tfName:"seed2",name:"seed2",type:"number",defaultValue:0,notSupported:!0},{tfName:"dtype",name:"dtype",type:"dtype"},{tfName:"T",name:"T",type:"number",notSupported:!0}]},{tfOpName:"Zeros",category:"creation",inputs:[{start:0,name:"shape",type:"number[]"}],attrs:[{tfName:"T",name:"dtype",type:"dtype"}]},{tfOpName:"ZerosLike",category:"creation",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype"}]},{tfOpName:"Multinomial",category:"creation",inputs:[{start:0,name:"logits",type:"tensor"},{start:1,name:"numSamples",type:"number"}],attrs:[{tfName:"seed",name:"seed",type:"number"},{tfName:"seed2",name:"seed2",type:"number"},{tfName:"T",name:"dtype",type:"dtype"},{tfName:"output_dtype",name:"output_dtype",type:"dtype"}]}],creation=Object.freeze({json:json$4}),json$5=[{tfOpName:"NonMaxSuppressionV2",category:"dynamic",inputs:[{start:0,name:"boxes",type:"tensor"},{start:1,name:"scores",type:"tensor"},{start:2,name:"maxOutputSize",type:"number"},{start:3,name:"iouThreshold",type:"number"}]},{tfOpName:"NonMaxSuppressionV3",category:"dynamic",inputs:[{start:0,name:"boxes",type:"tensor"},{start:1,name:"scores",type:"tensor"},{start:2,name:"maxOutputSize",type:"number"},{start:3,name:"iouThreshold",type:"number"},{start:4,name:"scoreThreshold",type:"number"}]},{tfOpName:"NonMaxSuppressionV5",category:"dynamic",inputs:[{start:0,name:"boxes",type:"tensor"},{start:1,name:"scores",type:"tensor"},{start:2,name:"maxOutputSize",type:"number"},{start:3,name:"iouThreshold",type:"number"},{start:4,name:"scoreThreshold",type:"number"},{start:5,name:"softNmsSigma",type:"number"}]},{tfOpName:"Where",category:"dynamic",inputs:[{start:0,name:"condition",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"ListDiff",category:"dynamic",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"y",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]}],dynamic=Object.freeze({json:json$5}),json$6=[{tfOpName:"TopKV2",category:"evaluation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"k",type:"number"}],attrs:[{tfName:"sorted",name:"sorted",type:"bool"}]}],evaluation=Object.freeze({json:json$6}),json$7=[{tfOpName:"PlaceholderWithDefault",category:"graph",inputs:[{start:0,name:"default",type:"tensor"}],attrs:[{tfName:"shape",name:"shape",type:"shape"},{tfName:"dtype",name:"dtype",type:"dtype"}]},{tfOpName:"Placeholder",category:"graph",attrs:[{tfName:"shape",name:"shape",type:"shape"},{tfName:"dtype",name:"dtype",type:"dtype"}]},{tfOpName:"Const",category:"graph"},{tfOpName:"Identity",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"IdentityN",category:"graph",inputs:[{start:0,end:0,name:"x",type:"tensors"}]},{tfOpName:"Snapshot",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"Rank",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"Size",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"Shape",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"ShapeN",category:"graph",inputs:[{start:0,end:0,name:"x",type:"tensors"}]},{tfOpName:"Print",category:"graph",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"data",type:"tensors"}],attrs:[{tfName:"message",name:"message",type:"string"},{tfName:"first_n",name:"firstN",type:"number",notSupported:!0},{tfName:"summarize",name:"summarize",type:"number",defaultValue:3}]},{tfOpName:"NoOp",category:"graph",inputs:[]},{tfOpName:"StopGradient",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"FakeQuantWithMinMaxVars",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"min",name:"min",type:"number"},{tfName:"max",name:"max",type:"number"}]}],graph=Object.freeze({json:json$7}),json$8=[{tfOpName:"ResizeBilinear",category:"image",inputs:[{start:0,name:"images",type:"tensor"},{start:1,name:"size",type:"number[]"}],attrs:[{tfName:"align_corners",name:"alignCorners",type:"bool"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"ResizeNearestNeighbor",category:"image",inputs:[{start:0,name:"images",type:"tensor"},{start:1,name:"size",type:"number[]"}],attrs:[{tfName:"align_corners",name:"alignCorners",type:"bool"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"CropAndResize",category:"image",inputs:[{start:0,name:"image",type:"tensor"},{start:1,name:"boxes",type:"tensor"},{start:2,name:"boxInd",type:"tensor"},{start:3,name:"cropSize",type:"number[]"}],attrs:[{tfName:"method",name:"method",type:"string"},{tfName:"extrapolation_value",name:"extrapolationValue",type:"number"}]}],image$1=Object.freeze({json:json$8}),json$9=[{tfOpName:"Equal",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"NotEqual",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Greater",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"GreaterEqual",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Less",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"LessEqual",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"LogicalAnd",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"LogicalNot",category:"logical",inputs:[{start:0,name:"a",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"LogicalOr",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Select",category:"logical",inputs:[{start:0,name:"condition",type:"tensor"},{start:1,name:"a",type:"tensor"},{start:2,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"SelectV2",category:"logical",inputs:[{start:0,name:"condition",type:"tensor"},{start:1,name:"a",type:"tensor"},{start:2,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]}],logical=Object.freeze({json:json$9}),json$10=[{tfOpName:"_FusedMatMul",category:"matrices",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"},{start:2,end:0,name:"args",type:"tensors"}],attrs:[{tfName:"num_args",name:"numArgs",type:"number"},{tfName:"fused_ops",name:"fusedOps",type:"string[]",defaultValue:[]},{tfName:"epsilon",name:"epsilon",type:"number",defaultValue:1e-4},{tfName:"transpose_a",name:"transposeA",type:"bool",defaultValue:!1},{tfName:"transpose_b",name:"transposeB",type:"bool",defaultValue:!1},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"MatMul",category:"matrices",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"transpose_a",name:"transposeA",type:"bool",defaultValue:!1},{tfName:"transpose_b",name:"transposeB",type:"bool",defaultValue:!1},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"BatchMatMul",category:"matrices",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"adj_x",name:"transposeA",type:"bool",defaultValue:!1},{tfName:"adj_y",name:"transposeB",type:"bool",defaultValue:!1},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"BatchMatMulV2",category:"matrices",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"adj_x",name:"transposeA",type:"bool",defaultValue:!1},{tfName:"adj_y",name:"transposeB",type:"bool",defaultValue:!1},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Transpose",category:"matrices",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"perm",type:"number[]"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]}],matrices=Object.freeze({json:json$10}),json$11=[{tfOpName:"FusedBatchNorm",category:"normalization",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"scale",type:"tensor"},{start:2,name:"offset",type:"tensor"},{start:3,name:"mean",type:"tensor"},{start:4,name:"variance",type:"tensor"}],attrs:[{tfName:"epsilon",name:"epsilon",type:"number",defaultValue:.001},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0}]},{tfOpName:"FusedBatchNormV2",category:"normalization",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"scale",type:"tensor"},{start:2,name:"offset",type:"tensor"},{start:3,name:"mean",type:"tensor"},{start:4,name:"variance",type:"tensor"}],attrs:[{tfName:"epsilon",name:"epsilon",type:"number",defaultValue:.001},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0}]},{tfOpName:"FusedBatchNormV3",category:"normalization",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"scale",type:"tensor"},{start:2,name:"offset",type:"tensor"},{start:3,name:"mean",type:"tensor"},{start:4,name:"variance",type:"tensor"}],attrs:[{tfName:"epsilon",name:"epsilon",type:"number",defaultValue:.001},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0}]},{tfOpName:"LRN",category:"normalization",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"depth_radius",name:"radius",type:"number",defaultValue:5},{tfName:"bias",name:"bias",type:"number",defaultValue:1},{tfName:"alpha",name:"alpha",type:"number",defaultValue:1},{tfName:"beta",name:"beta",type:"number",defaultValue:.5}]},{tfOpName:"Softmax",category:"normalization",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"LogSoftmax",category:"normalization",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"SparseToDense",category:"normalization",inputs:[{start:0,name:"sparseIndices",type:"tensor"},{start:1,name:"outputShape",type:"number[]"},{start:2,name:"sparseValues",type:"tensor"},{start:3,name:"defaultValue",type:"tensor"}],attrs:[{tfName:"validate_indices",name:"validateIndices",type:"bool",defaultValue:!0,notSupported:!0}]}],normalization=Object.freeze({json:json$11}),json$12=[{tfOpName:"Max",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]},{tfOpName:"Mean",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]},{tfOpName:"Min",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]},{tfOpName:"Sum",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]},{tfOpName:"All",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]},{tfOpName:"Any",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]},{tfOpName:"ArgMax",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number"}]},{tfOpName:"ArgMin",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number"}]},{tfOpName:"Prod",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]}],reduction=Object.freeze({json:json$12}),json$13=[{tfOpName:"ConcatV2",category:"slice_join",inputs:[{start:0,end:-1,name:"tensors",type:"tensors"},{start:-1,name:"axis",type:"number"}],attrs:[{tfName:"N",name:"n",type:"number",defaultValue:2}]},{tfOpName:"Concat",category:"slice_join",inputs:[{start:1,end:0,name:"tensors",type:"tensors"},{start:0,name:"axis",type:"number"}],attrs:[{tfName:"N",name:"n",type:"number",defaultValue:2}]},{tfOpName:"GatherV2",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"indices",type:"tensor"},{start:2,name:"axis",type:"number",defaultValue:0}]},{tfOpName:"Gather",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"indices",type:"tensor"}],attrs:[{tfName:"axis",name:"axis",type:"number",defaultValue:0},{tfName:"validate_indices",name:"validateIndices",type:"bool",notSupported:!0}]},{tfOpName:"Reverse",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"dims",type:"bool",notSupported:!0}]},{tfOpName:"ReverseV2",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}]},{tfOpName:"Slice",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"begin",type:"number[]"},{start:2,name:"size",type:"number[]"}]},{tfOpName:"StridedSlice",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"begin",type:"number[]"},{start:2,name:"end",type:"number[]"},{start:3,name:"strides",type:"number[]"}],attrs:[{tfName:"begin_mask",name:"beginMask",type:"number",defaultValue:0},{tfName:"end_mask",name:"endMask",type:"number",defaultValue:0},{tfName:"new_axis_mask",name:"newAxisMask",type:"number",defaultValue:0},{tfName:"ellipsis_mask",name:"ellipsisMask",type:"number",defaultValue:0},{tfName:"shrink_axis_mask",name:"shrinkAxisMask",type:"number",defaultValue:0}]},{tfOpName:"Pack",category:"slice_join",inputs:[{start:0,end:0,name:"tensors",type:"tensors"}],attrs:[{tfName:"axis",name:"axis",type:"number",defaultValue:0}]},{tfOpName:"Unpack",category:"slice_join",inputs:[{start:0,name:"tensor",type:"tensor"}],attrs:[{tfName:"axis",name:"axis",type:"number",defaultValue:0},{tfName:"num",name:"num",type:"number",defaultValue:0,notSupported:!0}]},{tfOpName:"Tile",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"reps",type:"number[]"}]},{tfOpName:"Split",category:"slice_join",inputs:[{start:0,name:"axis",type:"number",defaultValue:0},{start:1,name:"x",type:"tensor"}],attrs:[{tfName:"num_split",name:"numOrSizeSplits",type:"number",defaultValue:1}]},{tfOpName:"SplitV",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"numOrSizeSplits",type:"number[]"},{start:2,name:"axis",type:"number",defaultValue:0}]},{tfOpName:"ScatterNd",category:"slice_join",inputs:[{start:0,name:"indices",type:"tensor"},{start:1,name:"values",type:"tensor"},{start:2,name:"shape",type:"number[]"}]},{tfOpName:"GatherNd",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"indices",type:"tensor"}]},{tfOpName:"SparseToDense",category:"slice_join",inputs:[{start:0,name:"sparseIndices",type:"tensor"},{start:1,name:"outputShape",type:"number[]"},{start:2,name:"sparseValues",type:"tensor"},{start:3,name:"defaultValue",type:"tensor"}],attrs:[{tfName:"validate_indices",name:"validateIndices",type:"bool",defaultValue:!1,notSupported:!0}]}],sliceJoin=Object.freeze({json:json$13}),json$14=[{tfOpName:"FFT",category:"spectral",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"IFFT",category:"spectral",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"RFFT",category:"spectral",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"fft_length",type:"number",notSupported:!0}]},{tfOpName:"IRFFT",category:"spectral",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"fft_length",type:"number",notSupported:!0}]}],spectral=Object.freeze({json:json$14}),json$15=[{tfOpName:"Cast",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"SrcT",name:"sdtype",type:"dtype",notSupported:!0},{tfName:"DstT",name:"dtype",type:"dtype"}]},{tfOpName:"ExpandDims",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number"}]},{tfOpName:"Pad",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"padding",type:"number[]"}],attrs:[{tfName:"constant_value",name:"constantValue",type:"number",defaultValue:0}]},{tfOpName:"PadV2",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"padding",type:"number[]"},{start:2,name:"constantValue",type:"number",defaultValue:0}]},{tfOpName:"Reshape",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"shape",type:"number[]"}]},{tfOpName:"Squeeze",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"axis",tfDeprecatedName:"squeeze_dims",name:"axis",type:"number[]"}]},{tfOpName:"SpaceToBatchND",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"blockShape",type:"number[]"},{start:2,name:"paddings",type:"number[]"}]},{tfOpName:"BatchToSpaceND",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"blockShape",type:"number[]"},{start:2,name:"crops",type:"number[]"}]},{tfOpName:"DepthToSpace",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"block_size",name:"blockSize",type:"number"},{tfName:"data_format",name:"dataFormat",type:"string"}]}],transformation=Object.freeze({json:json$15}),OperationMapper=function(){function e(){var e=[arithmetic,basicMath,control,convolution,creation,dynamic,evaluation,logical,image$1,graph,matrices,normalization,reduction,sliceJoin,spectral,transformation],t=[].concat.apply([],e.map(function(e){return e.json}));this.opMappers=t.reduce(function(e,t){return e[t.tfOpName]=t,e},{});}return Object.defineProperty(e,"Instance",{get:function(){return this._instance||(this._instance=new this)},enumerable:!0,configurable:!0}),e.prototype.transformGraph=function(e,t){var a=this;void 0===t&&(t={});var r=[],n=[],s=e.node.reduce(function(e,t){return e[t.name]=a.mapNode(t),t.op.startsWith("Placeholder")&&r.push(e[t.name]),"Const"===t.op&&n.push(e[t.name]),e},{}),o=[],p=[],u={},i={};null!=t&&(u=this.mapSignatureEntries(t.inputs),i=this.mapSignatureEntries(t.outputs));var m=Object.keys(s);return m.forEach(function(e){var t=s[e];t.inputNames.forEach(function(e){var a=getNodeNameAndIndex(e)[0];t.inputs.push(s[a]),s[a].children.push(t);});}),0===Object.keys(i).length?m.forEach(function(e){var t=s[e];0===t.children.length&&p.push(t);}):Object.keys(i).forEach(function(e){var t=getNodeNameAndIndex(e)[0],a=s[t];null!=a&&(a.signatureKey=i[e],p.push(a));}),Object.keys(u).length>0?Object.keys(u).forEach(function(e){var t=getNodeNameAndIndex(e)[0],a=s[t];a&&(a.signatureKey=u[e],o.push(a));}):o=r,{nodes:s,inputs:o,outputs:p,weights:n,placeholders:r,signature:t}},e.prototype.mapSignatureEntries=function(e){return Object.keys(e||{}).reduce(function(t,a){return t[e[a].name]=a,t},{})},e.prototype.mapNode=function(e){var t=getRegisteredOp(e.op)||this.opMappers[e.op]||{};null==e.attr&&(e.attr={});var a={name:e.name,op:e.op,category:t.category,inputNames:(e.input||[]).map(function(e){return e.startsWith("^")?e.substr(1):e}),inputs:[],children:[],inputParams:{},attrParams:{},rawAttrs:e.attr};return null!=t.inputs&&(a.inputParams=t.inputs.reduce(function(e,t){return e[t.name]={type:t.type,inputIndexStart:t.start,inputIndexEnd:t.end},e},{})),null!=t.attrs&&(a.attrParams=t.attrs.reduce(function(t,a){var r=a.type,n=void 0;switch(a.type){case"string":void 0===(n=getStringParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getStringParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"string[]":void 0===(n=getStringArrayParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getStringArrayParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"number":void 0===(n=getNumberParam(e.attr,a.tfName,a.defaultValue||0))&&a.tfDeprecatedName&&(n=getNumberParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"number[]":void 0===(n=getNumericArrayParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getNumericArrayParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"bool":void 0===(n=getBoolParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getBoolParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"bool[]":void 0===(n=getBoolArrayParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getBoolArrayParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"shape":void 0===(n=getTensorShapeParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getTensorShapeParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"shape[]":void 0===(n=getTensorShapeArrayParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getTensorShapeArrayParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"dtype":void 0===(n=getDtypeParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getDtypeParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"dtype[]":void 0===(n=getDtypeArrayParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getDtypeArrayParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"tensor":case"tensors":break;default:throw new Error("Unsupported param type: "+a.type+" for op: "+e.op)}return t[a.name]={value:n,type:r},t},{})),a},e}();function decodeBase64(e){var t=i().global;if(void 0!==t.atob)return t.atob(e);if("undefined"!=typeof Buffer)return new Buffer(e,"base64").toString();throw new Error("Unable to decode base64 in this environment. Missing built-in atob() or Buffer()")}function parseStringParam(e,t){var a=Array.isArray(e)?String.fromCharCode.apply(null,e):decodeBase64(e);return t?a:a.toLowerCase()}function getStringParam(e,t,a,r){void 0===r&&(r=!1);var n=e[t];return null!=n?parseStringParam(n.s,r):a}function getBoolParam(e,t,a){var r=e[t];return r?r.b:a}function getNumberParam(e,t,a){var r=e[t]||{},n=null!=r.i?r.i:null!=r.f?r.f:a;return "number"==typeof n?n:parseInt(n,10)}function parseDtypeParam(e){switch("string"==typeof e&&(e=DataType[e]),e){case DataType.DT_FLOAT:return "float32";case DataType.DT_INT32:case DataType.DT_INT64:case DataType.DT_INT8:case DataType.DT_UINT8:return "int32";case DataType.DT_BOOL:return "bool";case DataType.DT_DOUBLE:return "float32";case DataType.DT_STRING:return "string";default:return null}}function getDtypeParam(e,t,a){var r=e[t];return r&&r.type?parseDtypeParam(r.type):a}function getDtypeArrayParam(e,t,a){var r=e[t];return r&&r.list&&r.list.type?r.list.type.map(function(e){return parseDtypeParam(e)}):a}function parseTensorShapeParam(e){if(!e.unknownRank)return null!=e.dim?e.dim.map(function(e){return "number"==typeof e.size?e.size:parseInt(e.size,10)}):[]}function getTensorShapeParam(e,t,a){var r=e[t];return r&&r.shape?parseTensorShapeParam(r.shape):a}function getNumericArrayParam(e,t,a){var r=e[t];return r?((r.list.f&&r.list.f.length?r.list.f:r.list.i)||[]).map(function(e){return "number"==typeof e?e:parseInt(e,10)}):a}function getStringArrayParam(e,t,a,r){void 0===r&&(r=!1);var n=e[t];return n&&n.list&&n.list.s?n.list.s.map(function(e){return parseStringParam(e,r)}):a}function getTensorShapeArrayParam(e,t,a){var r=e[t];return r&&r.list&&r.list.shape?r.list.shape.map(function(e){return parseTensorShapeParam(e)}):a}function getBoolArrayParam(e,t,a){var r=e[t];return r&&r.list&&r.list.b?r.list.b:a}var NodeValueImpl=function(){function e(e,t,a){var r=this;this.node=e,this.tensorMap=t,this.context=a,this.inputs=[],this.attrs={},this.inputs=e.inputNames.map(function(e){return r.getInput(e)}),null!=e.rawAttrs&&(this.attrs=Object.keys(e.rawAttrs).reduce(function(e,t){return e[t]=r.getAttr(t),e},{}));}return e.prototype.getInput=function(e){return getTensor(e,this.tensorMap,this.context)},e.prototype.getAttr=function(e,t){var a=this.node.rawAttrs[e];if(null!=a.tensor)return getTensor(e,this.tensorMap,this.context);if(null!=a.i||null!=a.f)return getNumberParam(this.node.rawAttrs,e,t);if(null!=a.s)return getStringParam(this.node.rawAttrs,e,t);if(null!=a.b)return getBoolParam(this.node.rawAttrs,e,t);if(null!=a.shape)return getTensorShapeParam(this.node.rawAttrs,e,t);if(null!=a.type)return getDtypeParam(this.node.rawAttrs,e,t);if(null!=a.list){if(null!=a.list.i||null!=a.list.f)return getNumericArrayParam(this.node.rawAttrs,e,t);if(null!=a.list.s)return getStringArrayParam(this.node.rawAttrs,e,t);if(null!=a.list.shape)return getTensorShapeArrayParam(this.node.rawAttrs,e,t);if(null!=a.list.b)return getBoolArrayParam(this.node.rawAttrs,e,t);if(null!=a.list.type)return getDtypeArrayParam(this.node.rawAttrs,e,t)}return t},e}(),executeOp=function(e,t,a){switch(e.op){case"BiasAdd":case"AddV2":case"Add":return [Or(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"AddN":return [$u(getParamValue("tensors",e,t,a))];case"FloorMod":case"Mod":return [So(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Mul":return [To(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"RealDiv":case"Div":return [Bo(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"DivNoNan":return [bc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"FloorDiv":return [Co(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Sub":return [Oo(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Minimum":return [Io(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Maximum":return [Eo(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Pow":return [No(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"SquaredDifference":return [Hc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$1=function(e,t,a){switch(e.op){case"Abs":case"ComplexAbs":return [Lr(getParamValue("x",e,t,a))];case"Acos":return [Wr(getParamValue("x",e,t,a))];case"Acosh":return [Ur(getParamValue("x",e,t,a))];case"Asin":return [Vr(getParamValue("x",e,t,a))];case"Asinh":return [zr(getParamValue("x",e,t,a))];case"Atan":return [Gr(getParamValue("x",e,t,a))];case"Atan2":return [bo(getParamValue("x",e,t,a),getParamValue("y",e,t,a))];case"Atanh":return [Hr(getParamValue("x",e,t,a))];case"Ceil":return [qr(getParamValue("x",e,t,a))];case"Complex":return [Tn(getParamValue("real",e,t,a),getParamValue("imag",e,t,a))];case"Cos":return [jr(getParamValue("x",e,t,a))];case"Cosh":return [Xr(getParamValue("x",e,t,a))];case"Elu":return [nh(getParamValue("x",e,t,a))];case"Erf":return [Yr(getParamValue("x",e,t,a))];case"Exp":return [$r(getParamValue("x",e,t,a))];case"Expm1":return [Qr(getParamValue("x",e,t,a))];case"Floor":return [Jr(getParamValue("x",e,t,a))];case"Log":return [Zr(getParamValue("x",e,t,a))];case"Log1p":return [to(getParamValue("x",e,t,a))];case"Imag":return [Nn(getParamValue("x",e,t,a))];case"Neg":return [no(getParamValue("x",e,t,a))];case"Reciprocal":return [ro(getParamValue("x",e,t,a))];case"Real":return [Dn(getParamValue("x",e,t,a))];case"Relu":return [ah(getParamValue("x",e,t,a))];case"Round":return [oo(getParamValue("x",e,t,a))];case"Selu":return [sh(getParamValue("x",e,t,a))];case"Sigmoid":return [io(getParamValue("x",e,t,a))];case"Sin":return [ho(getParamValue("x",e,t,a))];case"Sign":return [so(getParamValue("x",e,t,a))];case"Sinh":return [fo(getParamValue("x",e,t,a))];case"Softplus":return [po(getParamValue("x",e,t,a))];case"Sqrt":return [vo(getParamValue("x",e,t,a))];case"Square":return [Gc(getParamValue("x",e,t,a))];case"Tanh":return [yo(getParamValue("x",e,t,a))];case"Tan":return [mo(getParamValue("x",e,t,a))];case"Relu6":case"ClipByValue":return [Kr(getParamValue("x",e,t,a),getParamValue("clipValueMin",e,t,a),getParamValue("clipValueMax",e,t,a))];case"Rsqrt":return [ao(getTensor(e.inputNames[0],t,a))];case"Prod":return [eh(getParamValue("x",e,t,a),getParamValue("axes",e,t,a))];case"LeakyRelu":return [rh(getParamValue("x",e,t,a),getParamValue("alpha",e,t,a))];case"Prelu":return [oh(getParamValue("x",e,t,a),getParamValue("alpha",e,t,a))];default:throw TypeError("Node type "+e.op+" is not implemented")}},TensorArray=function(){function e(t,a,r,n,s,o,p){this.name=t,this.dtype=a,this.maxSize=r,this.elementShape=n,this.identicalElementShapes=s,this.dynamicSize=o,this.clearAfterRead=p,this.tensors=[],this.closed_=!1,this.id=e.nextId++;}return Object.defineProperty(e.prototype,"closed",{get:function(){return this.closed_},enumerable:!0,configurable:!0}),e.prototype.clearAndClose=function(){this.tensors.forEach(function(e){return e.tensor.dispose()}),this.tensors=[],this.closed_=!0;},e.prototype.size=function(){return this.tensors.length},e.prototype.read=function(e){if(this.closed_)throw new Error("TensorArray "+this.name+" has already been closed.");if(e<0||e>=this.tensors.length)throw new Error("Tried to read from index "+e+", but array size is: "+this.tensors.length);var t=this.tensors[e];if(t.cleared)throw new Error("TensorArray "+this.name+": Could not read index "+e+" twice because it was cleared after a previous read (perhaps try setting clear_after_read = false?).");return this.clearAfterRead&&(t.cleared=!0),t.read=!0,t.tensor},e.prototype.readMany=function(e){var t=this;return e.map(function(e){return t.read(e)})},e.prototype.write=function(e,t){if(this.closed_)throw new Error("TensorArray "+this.name+" has already been closed.");if(e<0||!this.dynamicSize&&e>=this.maxSize)throw new Error("Tried to write to index "+e+", but array is not resizeable and size is: "+this.maxSize);var a=this.tensors[e]||{};if(t.dtype!==this.dtype)throw new Error("TensorArray "+this.name+": Could not write to TensorArray index "+e+",\n          because the value dtype is "+t.dtype+", but TensorArray dtype is "+this.dtype+".");if(0!==this.size()||null!=this.elementShape&&0!==this.elementShape.length||(this.elementShape=t.shape),this.assertShapesMatchAllowUndefinedSize(this.elementShape,t.shape,"TensorArray "+this.name+": Could not write to TensorArray index "+e+"."),a&&a.read)throw new Error("TensorArray "+this.name+": Could not write to TensorArray index "+e+", because it has already been read.");if(a&&a.written)throw new Error("TensorArray "+this.name+": Could not write to TensorArray index "+e+", because it has already been written.");a.tensor=t,a.written=!0,this.tensors[e]=a;},e.prototype.writeMany=function(e,t){var a=this;if(e.length!==t.length)throw new Error("TensorArray "+this.name+": could not write multiple tensors,because the index size: "+e.length+" is not the same as tensors size: "+t.length+".");e.forEach(function(e,r){return a.write(e,t[r])});},e.prototype.gather=function(e,t){if(t&&t!==this.dtype)throw new Error("TensorArray dtype is "+this.dtype+" but gather requested dtype "+t);if(!e){e=[];for(var a=0;a<this.size();a++)e.push(a);}if(0===e.length)return Fn([],[0].concat(this.elementShape));var r=this.readMany(e);return this.assertShapesMatchAllowUndefinedSize(this.elementShape,r[0].shape,"TensorArray shape mismatch: "),hr(r,0)},e.prototype.concat=function(e){if(e&&e!==this.dtype)throw new Error("TensorArray dtype is "+this.dtype+" but concat requested dtype "+e);if(0===this.size())return Fn([],[0].concat(this.elementShape));for(var t=[],a=0;a<this.size();a++)t.push(a);var r=this.readMany(t);return this.assertShapesMatchAllowUndefinedSize(this.elementShape,r[0].shape,"TensorArray shape mismatch: tensor array shape ("+this.elementShape+") vs first tensor shape ("+r[0].shape+")"),Yn(r,0)},e.prototype.scatter=function(e,t){if(t.dtype!==this.dtype)throw new Error("TensorArray dtype is "+this.dtype+" but tensor has dtype "+t.dtype);if(e.length!==t.shape[0])throw new Error("Expected len(indices) == tensor.shape[0], but saw: "+e.length+" vs. "+t.shape[0]);var a=Math.max.apply(Math,e);if(!this.dynamicSize&&a>=this.maxSize)throw new Error("Max index must be < array size ("+a+"  vs. "+this.maxSize+")");this.writeMany(e,fr(t,0));},e.prototype.split=function(e,t){var a=this;if(t.dtype!==this.dtype)throw new Error("TensorArray dtype is "+this.dtype+" but tensor has dtype "+t.dtype);var r=0,n=e.map(function(e){return r+=e});if(r!==t.shape[0])throw new Error("Expected sum of lengths to be equal to\n          tensor.shape[0], but sum of lengths is\n        "+r+", and tensor's shape is: "+t.shape);if(!this.dynamicSize&&e.length!==this.maxSize)throw new Error("TensorArray's size is not equal to the size of lengths ("+this.maxSize+" vs. "+e.length+"), and the TensorArray is not marked as dynamically resizeable");var s=0===r?0:t.size/r,o=[];Ze(function(){t=t.reshape([1,r,s]);for(var p=0;p<e.length;++p){var u=[0,0===p?0:n[p-1],0],i=[1,e[p],s];o[p]=Wl(t,u,i).reshape(a.elementShape);}return o});for(var p=[],u=0;u<e.length;u++)p[u]=u;this.writeMany(p,o);},e.prototype.assertShapesMatchAllowUndefinedSize=function(e,t,a){void 0===a&&(a=""),st.assert(this.shapesEqualAllowUndefinedSize(e,t),function(){return a+" Shapes "+e+" and "+t+" must match"});},e.prototype.shapesEqualAllowUndefinedSize=function(e,t){if(e.length!==t.length)return !1;for(var a=0;a<e.length;a++)if(-1!==e[a]&&-1!==t[a]&&e[a]!==t[a])return !1;return !0},e.nextId=0,e}(),_this=void 0,executeOp$2=function(e,t,a){return __awaiter$1(_this,void 0,void 0,function(){var r,n,s,o,p,u,i,m,l,c,d,y,f,g,h,N,x,V,b,P,T,v,O,S,_,w,A,D,E,I,M,C,k,z,F;return __generator$1(this,function(j){switch(j.label){case 0:switch(e.op){case"LoopCond":return [3,1];case"Switch":return [3,2];case"Merge":return [3,4];case"Enter":return [3,5];case"Exit":return [3,6];case"NextIteration":return [3,7];case"TensorArrayV3":return [3,8];case"TensorArrayWriteV3":return [3,9];case"TensorArrayReadV3":return [3,10];case"TensorArrayGatherV3":return [3,11];case"TensorArrayScatterV3":return [3,12];case"TensorArrayConcatV3":return [3,13];case"TensorArraySplitV3":return [3,14];case"TensorArraySizeV3":return [3,15];case"TensorArrayCloseV3":return [3,16]}return [3,17];case 1:return [2,[getParamValue("pred",e,t,a).clone()]];case 2:return r=getParamValue("pred",e,t,a),n=getParamValue("data",e,t,a),[4,r.data()];case 3:return [2,j.sent()[0]?[void 0,n.clone()]:[n.clone(),void 0]];case 4:return [2,(s=e.inputNames.find(function(e){return void 0!==getTensor(e,t,a)}))?[getTensor(s,t,a).clone()]:void 0];case 5:return o=getParamValue("frameName",e,t,a),p=getParamValue("tensor",e,t,a),a.enterFrame(o),[2,[p.clone()]];case 6:return u=getParamValue("tensor",e,t,a),a.exitFrame(),[2,[u.clone()]];case 7:return i=getParamValue("tensor",e,t,a),a.nextIteration(),[2,[i.clone()]];case 8:return m=getParamValue("size",e,t,a),l=getParamValue("dtype",e,t,a),c=getParamValue("elementShape",e,t,a),d=getParamValue("dynamicSize",e,t,a),y=getParamValue("clearAfterRead",e,t,a),f=getParamValue("identicalElementShapes",e,t,a),g=getParamValue("name",e,t,a),h=new TensorArray(g,l,m,c,f,d,y),a.addTensorArray(h),[2,[On(h.id),On(1)]];case 9:return N=getParamValue("tensorArrayId",e,t,a),x=getParamValue("index",e,t,a),V=getParamValue("tensor",e,t,a),a.getTensorArray(N).write(x,V),[2,[On(1)]];case 10:return b=getParamValue("tensorArrayId",e,t,a),P=getParamValue("index",e,t,a),[2,[a.getTensorArray(b).read(P)]];case 11:return T=getParamValue("tensorArrayId",e,t,a),v=getParamValue("indices",e,t,a),O=getParamValue("dtype",e,t,a),[2,[a.getTensorArray(T).gather(v,O)]];case 12:return S=getParamValue("tensorArrayId",e,t,a),_=getParamValue("indices",e,t,a),w=getParamValue("tensor",e,t,a),a.getTensorArray(S).scatter(_,w),[2,[On(1)]];case 13:return A=getParamValue("tensorArrayId",e,t,a),D=a.getTensorArray(A),E=getParamValue("dtype",e,t,a),[2,[D.concat(E)]];case 14:return I=getParamValue("tensorArrayId",e,t,a),M=getParamValue("tensor",e,t,a),C=getParamValue("lengths",e,t,a),a.getTensorArray(I).split(C,M),[2,[On(1)]];case 15:return k=getParamValue("tensorArrayId",e,t,a),z=a.getTensorArray(k),[2,[On(z.size(),"int32")]];case 16:return F=getParamValue("tensorArrayId",e,t,a),a.getTensorArray(F).clearAndClose(),[2,[On(0)]];case 17:throw TypeError("Node type "+e.op+" is not implemented")}})})},executeOp$3=function(e,t,a){switch(e.op){case"Conv1D":var r=getParamValue("stride",e,t,a),n=getParamValue("pad",e,t,a),s=getParamValue("dataFormat",e,t,a).toUpperCase(),o=getParamValue("dilation",e,t,a);return [fl(getParamValue("x",e,t,a),getParamValue("filter",e,t,a),r,n,s,o)];case"Conv2D":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),s=getParamValue("dataFormat",e,t,a).toUpperCase();var p=getParamValue("dilations",e,t,a);return [dl(getParamValue("x",e,t,a),getParamValue("filter",e,t,a),[r[1],r[2]],n,s,[p[1],p[2]])];case"_FusedConv2D":case"FusedDepthwiseConv2dNative":var u=getParamValue("fusedOps",e,t,a),i=u[0],m=u[1],l="biasadd"===i,c="prelu"===m,d="fusedbatchnorm"===i,y=getParamValue("numArgs",e,t,a);if(l){if(c&&2!==y)throw new Error("FusedConv2d and DepthwiseConv2d with BiasAdd and Prelu must have two extra arguments: bias and alpha.");if(!c&&1!==y)throw new Error("FusedConv2d and DepthwiseConv2d with BiasAdd must have one extra argument: bias.")}if(d)throw new Error("FusedConv2d and DepthwiseConv2d with FusedBatchNorm is not supported.");r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),s=getParamValue("dataFormat",e,t,a).toUpperCase(),p=getParamValue("dilations",e,t,a);var f=getParamValue("args",e,t,a),g=f[0],h=f[1];return [("_FusedConv2D"===e.op?hf.conv2d:hf.depthwiseConv2d)({x:getParamValue("x",e,t,a),filter:getParamValue("filter",e,t,a),strides:[r[1],r[2]],pad:n,dataFormat:s,dilations:[p[1],p[2]],bias:g,activation:m,preluActivationWeights:h})];case"Conv2DBackpropInput":case"Conv2dTranspose":var N=getParamValue("outputShape",e,t,a);r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a);return [wl(getParamValue("x",e,t,a),getParamValue("filter",e,t,a),N,[r[1],r[2]],n)];case"DepthwiseConv2dNative":case"DepthwiseConv2d":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),p=getParamValue("dilations",e,t,a),s=getParamValue("dataFormat",e,t,a).toUpperCase();return [ml(getParamValue("input",e,t,a),getParamValue("filter",e,t,a),[r[1],r[2]],n,s,[p[1],p[2]])];case"Conv3D":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),s=getParamValue("dataFormat",e,t,a).toUpperCase(),p=getParamValue("dilations",e,t,a);return [pl(getParamValue("x",e,t,a),getParamValue("filter",e,t,a),[r[1],r[2],r[3]],n,s,[p[1],p[2],p[3]])];case"AvgPool":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a);var x=getParamValue("kernelSize",e,t,a);return [Ol(getParamValue("x",e,t,a),[x[1],x[2]],[r[1],r[2]],n)];case"MaxPool":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),x=getParamValue("kernelSize",e,t,a);return [_l(getParamValue("x",e,t,a),[x[1],x[2]],[r[1],r[2]],n)];case"MaxPoolWithArgmax":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),x=getParamValue("kernelSize",e,t,a);var V=getParamValue("includeBatchInIndex",e,t,a),b=Ll(getParamValue("x",e,t,a),[x[1],x[2]],[r[1],r[2]],n,V);return [b.result,b.indexes];case"AvgPool3D":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),x=getParamValue("kernelSize",e,t,a);return [Pl(getParamValue("x",e,t,a),[x[1],x[2],x[3]],[r[1],r[2],r[3]],n)];case"MaxPool3D":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),x=getParamValue("kernelSize",e,t,a);return [Bl(getParamValue("x",e,t,a),[x[1],x[2],x[3]],[r[1],r[2],r[3]],n)];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$4=function(e,t,a){switch(e.op){case"Fill":var r=getParamValue("shape",e,t,a),n=getParamValue("dtype",e,t,a),s=getParamValue("value",e,t,a);return [Hn(r,s,n)];case"LinSpace":var o=getParamValue("start",e,t,a),p=getParamValue("stop",e,t,a),u=getParamValue("num",e,t,a);return [qn(o,p,u)];case"Multinomial":var i=getParamValue("logits",e,t,a),m=getParamValue("numSamples",e,t,a),l=getParamValue("seed",e,t,a);return [Ec(i,m,l)];case"OneHot":var c=getParamValue("indices",e,t,a),d=getParamValue("depth",e,t,a),y=getParamValue("onValue",e,t,a),f=getParamValue("offValue",e,t,a);return [Rc(c,d,y,f)];case"Ones":return [zn(getParamValue("shape",e,t,a),getParamValue("dtype",e,t,a))];case"OnesLike":return [jn(getParamValue("x",e,t,a))];case"RandomUniform":return [zc(getParamValue("shape",e,t,a),getParamValue("minval",e,t,a),getParamValue("maxval",e,t,a),getParamValue("dtype",e,t,a))];case"Range":o=getParamValue("start",e,t,a);var g=getParamValue("stop",e,t,a),h=getParamValue("step",e,t,a);return [Kn(o,g,h,getParamValue("dtype",e,t,a))];case"TruncatedNormal":r=getParamValue("shape",e,t,a);var N=getParamValue("mean",e,t,a),x=getParamValue("stdDev",e,t,a);l=getParamValue("seed",e,t,a);return [qc(r,N,x,getParamValue("dtype",e,t,a),l)];case"Zeros":return [Gn(getParamValue("shape",e,t,a),getParamValue("dtype",e,t,a))];case"ZerosLike":return [Xn(getParamValue("x",e,t,a))];default:throw TypeError("Node type "+e.op+" is not implemented")}},_this$1=void 0,executeOp$5=function(e,t,a){return __awaiter$1(_this$1,void 0,void 0,function(){var r,n,s,o,p,u,i,m;return __generator$1(this,function(l){switch(l.label){case 0:switch(e.op){case"NonMaxSuppressionV5":case"NonMaxSuppressionV3":case"NonMaxSuppressionV2":return [3,1];case"Where":return [3,5];case"ListDiff":return [3,7]}return [3,8];case 1:return r=getParamValue("boxes",e,t,a),n=getParamValue("scores",e,t,a),s=getParamValue("maxOutputSize",e,t,a),o=getParamValue("iouThreshold",e,t,a),p=getParamValue("scoreThreshold",e,t,a),"NonMaxSuppressionV5"!==e.op?[3,3]:(u=getParamValue("softNmsSigma",e,t,a),[4,nf.nonMaxSuppressionWithScoreAsync(r,n,s,o,p,u)]);case 2:return [2,[(m=l.sent()).selectedIndices,m.selectedScores]];case 3:return [4,nf.nonMaxSuppressionAsync(r,n,s,o,p)];case 4:return [2,[l.sent()]];case 5:return i=getParamValue("condition",e,t,a).asType("bool"),[4,xc(i)];case 6:return m=[l.sent()],i.dispose(),[2,m];case 7:return [2,dr(getParamValue("x",e,t,a),getParamValue("y",e,t,a))];case 8:throw TypeError("Node type "+e.op+" is not implemented")}})})},executeOp$6=function(e,t,a){switch(e.op){case"TopKV2":var r=getParamValue("x",e,t,a),n=getParamValue("k",e,t,a),s=getParamValue("sorted",e,t,a),o=ph(r,n,s);return [o.values,o.indices];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$7=function(e,t,a){switch(e.op){case"Const":return t[e.name];case"PlaceholderWithDefault":var r=getParamValue("default",e,t,a);return [getTensor(e.name,t,a)||r];case"Placeholder":return [getTensor(e.name,t,a)];case"Identity":case"StopGradient":case"FakeQuantWithMinMaxVars":return [getParamValue("x",e,t,a).clone()];case"IdentityN":return getParamValue("x",e,t,a).map(function(e){return e.clone()});case"Snapshot":return [getParamValue("x",e,t,a).clone()];case"Shape":return [Mn(getParamValue("x",e,t,a).shape,"int32")];case"ShapeN":return getParamValue("x",e,t,a).map(function(e){return Mn(e.shape)});case"Size":return [On(getParamValue("x",e,t,a).size,"int32")];case"Rank":return [On(getParamValue("x",e,t,a).rank,"int32")];case"NoOp":return [On(1)];case"Print":var n=getParamValue("x",e,t,a),s=getParamValue("data",e,t,a),o=getParamValue("message",e,t,a),p=getParamValue("summarize",e,t,a);console.warn("The graph has a tf.print() operation,usually used for debugging, which slows down performance."),console.log(o);for(var u=0;u<s.length;u++)console.log(Array.prototype.slice.call(s[u].dataSync()).slice(0,p));return [n];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$8=function(e,t,a){switch(e.op){case"ResizeBilinear":var r=getParamValue("images",e,t,a),n=getParamValue("size",e,t,a),s=getParamValue("alignCorners",e,t,a);return [nf.resizeBilinear(r,[n[0],n[1]],s)];case"ResizeNearestNeighbor":r=getParamValue("images",e,t,a),n=getParamValue("size",e,t,a),s=getParamValue("alignCorners",e,t,a);return [nf.resizeNearestNeighbor(r,[n[0],n[1]],s)];case"CropAndResize":var o=getParamValue("image",e,t,a),p=getParamValue("boxes",e,t,a),u=getParamValue("boxInd",e,t,a),i=getParamValue("cropSize",e,t,a),m=getParamValue("method",e,t,a),l=getParamValue("extrapolationValue",e,t,a);return [nf.cropAndResize(o,p,u,i,m,l)];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$9=function(e,t,a){switch(e.op){case"Equal":return [Kc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"NotEqual":return [nl(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Greater":return [Xc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"GreaterEqual":return [Yc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Less":return [Jc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"LessEqual":return [Zc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"LogicalAnd":return [pc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"LogicalNot":return [vc(getParamValue("a",e,t,a))];case"LogicalOr":return [gc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Select":case"SelectV2":return [yc(getParamValue("condition",e,t,a),getParamValue("a",e,t,a),getParamValue("b",e,t,a))];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$10=function(e,t,a){switch(e.op){case"BatchMatMul":case"BatchMatMulV2":case"MatMul":return [El(getParamValue("a",e,t,a),getParamValue("b",e,t,a),getParamValue("transposeA",e,t,a),getParamValue("transposeB",e,t,a))];case"Transpose":return [ua(getParamValue("x",e,t,a),getParamValue("perm",e,t,a))];case"_FusedMatMul":var r=getParamValue("fusedOps",e,t,a),n=r[0],s=r[1],o="biasadd"===n,p="prelu"===s,u=getParamValue("numArgs",e,t,a);if(o){if(p&&2!==u)throw new Error("Fused MatMul with BiasAdd and Prelu must have two extra arguments: bias and alpha.");if(!p&&1!==u)throw new Error("Fused MatMul with BiasAdd must have one extra argument: bias.")}var i=getParamValue("args",e,t,a),m=i[0],l=i[1];return [hf.matMul({a:getParamValue("a",e,t,a),b:getParamValue("b",e,t,a),transposeA:getParamValue("transposeA",e,t,a),transposeB:getParamValue("transposeB",e,t,a),bias:m,activation:s,preluActivationWeights:l})];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$11=function(e,t,a){switch(e.op){case"FusedBatchNorm":case"FusedBatchNormV2":case"FusedBatchNormV3":return [nc(getParamValue("x",e,t,a),getParamValue("mean",e,t,a),getParamValue("variance",e,t,a),getParamValue("offset",e,t,a),getParamValue("scale",e,t,a),getParamValue("epsilon",e,t,a))];case"LRN":return [uh(getParamValue("x",e,t,a),getParamValue("radius",e,t,a),getParamValue("bias",e,t,a),getParamValue("alpha",e,t,a),getParamValue("beta",e,t,a))];case"Softmax":return [ia(getParamValue("x",e,t,a))];case"LogSoftmax":return [sa(getParamValue("x",e,t,a))];case"SparseToDense":return [wh(getParamValue("sparseIndices",e,t,a),getParamValue("outputShape",e,t,a),getParamValue("sparseValues",e,t,a),getParamValue("defaultValue",e,t,a))];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$12=function(e,t,a){switch(e.op){case"Max":var r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [$l(getParamValue("x",e,t,a),r,n)];case"Mean":r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [Ql(getParamValue("x",e,t,a),r,n)];case"Min":r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [Jl(getParamValue("x",e,t,a),r,n)];case"Sum":r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [th(getParamValue("x",e,t,a),r,n)];case"All":r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [ql(getParamValue("x",e,t,a),r,n)];case"Any":r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [Kl(getParamValue("x",e,t,a),r,n)];case"ArgMax":r=getParamValue("axis",e,t,a);return [jl(getParamValue("x",e,t,a),r)];case"ArgMin":r=getParamValue("axis",e,t,a);return [Xl(getParamValue("x",e,t,a),r)];case"Prod":r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [eh(getParamValue("x",e,t,a),r,n)];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$13=function(e,t,a){switch(e.op){case"ConcatV2":case"Concat":var r=getParamValue("n",e,t,a),n=getParamValue("axis",e,t,a),s=getParamValue("tensors",e,t,a);return s=s.slice(0,r),[Yn(s,n)];case"GatherV2":case"Gather":n=getParamValue("axis",e,t,a);var o=getParamValue("x",e,t,a),p=getParamValue("indices",e,t,a);return [il(o,p.asType("int32"),n)];case"ReverseV2":case"Reverse":n=getParamValue("axis",e,t,a),o=getParamValue("x",e,t,a);return [kl(o,n)];case"Slice":var u=getParamValue("begin",e,t,a),i=getParamValue("size",e,t,a);return [Wl(getParamValue("x",e,t,a),u,i)];case"StridedSlice":u=getParamValue("begin",e,t,a);var m=getParamValue("end",e,t,a),l=getParamValue("strides",e,t,a),c=getParamValue("beginMask",e,t,a),d=getParamValue("endMask",e,t,a),y=getParamValue("ellipsisMask",e,t,a),f=getParamValue("newAxisMask",e,t,a),g=getParamValue("shrinkAxisMask",e,t,a),h=getParamValue("x",e,t,a);if(1===u.length&&h.shape.length>1)for(var N=1;N<h.shape.length;N++)u.push(0),m.push(h.shape[N]),l.push(l[0]);return [dh(h,u,m,l,c,d,y,f,g)];case"Pack":return Ze(function(){var r=getParamValue("axis",e,t,a),n=getParamValue("tensors",e,t,a),s=n[0].shape,o=n[0].squeeze().shape,p=n.map(function(e){var t=st.arraysEqual(e.shape,s);if(!t&&!st.arraysEqual(e.squeeze().shape,o))throw new Error("the input tensors shape does not match");return t?e:e.reshape(s)});return [hr(p,r)]});case"Unpack":return Ze(function(){var r=getParamValue("axis",e,t,a),n=getParamValue("tensor",e,t,a);return fr(n,r)});case"Tile":var x=getParamValue("reps",e,t,a);return [wc(getParamValue("x",e,t,a),x)];case"Split":case"SplitV":n=getParamValue("axis",e,t,a);var V=getParamValue("numOrSizeSplits",e,t,a);return tr(getParamValue("x",e,t,a),V,n);case"ScatterNd":p=getParamValue("indices",e,t,a);var b=getParamValue("values",e,t,a),P=getParamValue("shape",e,t,a);return [vh(p,b,P)];case"GatherNd":var T=getParamValue("x",e,t,a);p=getParamValue("indices",e,t,a);return [Ch(T,p)];case"SparseToDense":p=getParamValue("sparseIndices",e,t,a),P=getParamValue("outputShape",e,t,a);var v=getParamValue("sparseValues",e,t,a),O=getParamValue("defaultValue",e,t,a);return [wh(p,v,P,v.dtype===O.dtype?O:O.asType(v.dtype))];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$14=function(e,t,a){switch(e.op){case"FFT":return [gh(getParamValue("x",e,t,a))];case"IFFT":return [mh(getParamValue("x",e,t,a))];case"RFFT":return [yh(getParamValue("x",e,t,a))];case"IRFFT":return [xh(getParamValue("x",e,t,a))];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$15=function(e,t,a){switch(e.op){case"Cast":return [or(getParamValue("x",e,t,a),getParamValue("dtype",e,t,a))];case"ExpandDims":var r=getParamValue("axis",e,t,a);return [sr(getParamValue("x",e,t,a),r)];case"Squeeze":r=getParamValue("axis",e,t,a);return [lr(getParamValue("x",e,t,a),r)];case"Reshape":return [ur(getParamValue("x",e,t,a),getParamValue("shape",e,t,a))];case"PadV2":case"Pad":return [Ic(getParamValue("x",e,t,a),split$1(getParamValue("padding",e,t,a),2),getParamValue("constantValue",e,t,a))];case"SpaceToBatchND":var n=getParamValue("blockShape",e,t,a),s=split$1(getParamValue("paddings",e,t,a),2);return [cr(getParamValue("x",e,t,a),n,s)];case"BatchToSpaceND":n=getParamValue("blockShape",e,t,a);var o=split$1(getParamValue("crops",e,t,a),2);return [rr(getParamValue("x",e,t,a),n,o)];case"DepthToSpace":var p=getParamValue("blockSize",e,t,a),u=getParamValue("dataFormat",e,t,a).toUpperCase();return [ir(getParamValue("x",e,t,a),p,u)];default:throw TypeError("Node type "+e.op+" is not implemented")}};function executeOp$16(e,t,a){var r=function(e,t,a){switch(e.category){case"arithmetic":return Ze(function(){return executeOp(e,t,a)});case"basic_math":return Ze(function(){return executeOp$1(e,t,a)});case"control":return executeOp$2(e,t,a);case"convolution":return Ze(function(){return executeOp$3(e,t,a)});case"creation":return Ze(function(){return executeOp$4(e,t,a)});case"dynamic":return executeOp$5(e,t,a);case"evaluation":return Ze(function(){return executeOp$6(e,t,a)});case"image":return Ze(function(){return executeOp$8(e,t,a)});case"graph":return Ze(function(){return executeOp$7(e,t,a)});case"logical":return Ze(function(){return executeOp$9(e,t,a)});case"matrices":return Ze(function(){return executeOp$10(e,t,a)});case"normalization":return Ze(function(){return executeOp$11(e,t,a)});case"reduction":return Ze(function(){return executeOp$12(e,t,a)});case"slice_join":return Ze(function(){return executeOp$13(e,t,a)});case"spectral":return Ze(function(){return executeOp$14(e,t,a)});case"transformation":return Ze(function(){return executeOp$15(e,t,a)});case"custom":var r=getRegisteredOp(e.op);if(r&&r.customExecutor)return r.customExecutor(new NodeValueImpl(e,t,a));throw TypeError("Custom op "+e.op+" is not registered.");default:throw TypeError("Unknown op '"+e.op+"'. File an issue at https://github.com/tensorflow/tfjs/issues so we can add it, or register a custom execution with tf.registerOp()")}}(e,t,a);return r instanceof Promise?r.then(function(e){return [].concat(e)}):[].concat(r)}var ExecutionContext=function(){function e(e,t){this.weightMap=e,this.tensorArrayMap=t,this.rootContext={id:0,frameName:"",iterationId:0},this.contexts=[this.rootContext],this.lastId=0,this.generateCurrentContextIds();}return e.prototype.newFrame=function(e,t){return {id:e,frameName:t,iterationId:0}},Object.defineProperty(e.prototype,"currentContext",{get:function(){return this.contexts},set:function(e){this.contexts!==e&&(this.contexts=e,this.generateCurrentContextIds());},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"currentContextId",{get:function(){return this._currentContextIds[0]},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"currentContextIds",{get:function(){return this._currentContextIds},enumerable:!0,configurable:!0}),e.prototype.generateCurrentContextIds=function(){for(var e=[],t=0;t<this.contexts.length-1;t++){var a=this.contexts.slice(0,this.contexts.length-t);e.push(this.contextIdforContexts(a));}e.push(""),this._currentContextIds=e;},e.prototype.contextIdforContexts=function(e){return e?e.map(function(e){return 0===e.id&&0===e.iterationId?"":e.frameName+"-"+e.iterationId}).join("/"):""},e.prototype.enterFrame=function(e){this.contexts&&(this.lastId++,this.contexts=this.contexts.slice(),this.contexts.push(this.newFrame(this.lastId,e)),this._currentContextIds.unshift(this.contextIdforContexts(this.contexts)));},e.prototype.exitFrame=function(){if(!(this.contexts&&this.contexts.length>1))throw new Error("Cannot exit frame, the context is empty");this.contexts=this.contexts.slice(),this.contexts.splice(-1),this.currentContextIds.shift();},e.prototype.nextIteration=function(){if(!(this.contexts&&this.contexts.length>0))throw new Error("Cannot increase frame iteration, the context is empty");this.contexts=this.contexts.slice(),this.lastId++;var e=Object.assign({},this.contexts[this.contexts.length-1]);e.iterationId+=1,e.id=this.lastId,this.contexts.splice(-1,1,e),this._currentContextIds.splice(0,1,this.contextIdforContexts(this.contexts));},e.prototype.getWeight=function(e){return this.weightMap[e]},e.prototype.addTensorArray=function(e){this.tensorArrayMap[e.id]=e;},e.prototype.getTensorArray=function(e){return this.tensorArrayMap[e]},e}();function getExecutionSubgraph(e,t,a){for(var r=new Set,n=[],s=null,o=null,p=new Set,u=Object.keys(e).map(function(e){return parseNodeName(e)[0]}),i=t.slice();i.length>0;){var m=i.pop();(isControlFlow(m)||isDynamicShape(m))&&null==s&&(o=(s=m).children.map(function(e){return e.name}).filter(function(e){return r.has(e)})),r.add(m.name),null==a[m.name]&&(-1===u.indexOf(m.name)&&(0!==m.inputs.length?m.inputs.forEach(function(e){p.has(e.name)||(p.add(e.name),i.push(e));}):n.push(m.name)));}return {inputs:e,outputs:t,usedNodes:r,missingInputs:n,dynamicNode:s,syncInputs:o}}function getNodesInTopologicalOrder(e,t,a){var r=a.usedNodes,n=a.inputs,s=[];Object.keys(n).map(function(e){return parseNodeName(e)[0]}).map(function(t){return e.nodes[t]}).forEach(function(e){r.has(e.name)&&s.push(e);}),e.weights.forEach(function(e){r.has(e.name)&&s.push(e);});for(var o=new Set,p=[];s.length>0;){var u=s.pop();o.add(u.name),t[u.name]||p.push(u),u.children.forEach(function(e){!o.has(e.name)&&r.has(e.name)&&e.inputs.every(function(e){return o.has(e.name)})&&s.push(e);});}return p}var CONTROL_FLOW_OPS=["Switch","Merge","Enter","Exit","NextIteration"],DYNAMIC_SHAPE_OPS=["NonMaxSuppressionV2","NonMaxSuppressionV3","NonMaxSuppressionV5","Where"];function isControlFlow(e){return CONTROL_FLOW_OPS.indexOf(e.op)>=0}function isDynamicShape(e){return DYNAMIC_SHAPE_OPS.indexOf(e.op)>=0}var GraphExecutor=function(){function e(e){this.graph=e,this.compiledMap=new Map,this._weightMap={},this.SEPERATOR=",",this._outputs=e.outputs,this._inputs=e.inputs,this._signature=e.signature;}return Object.defineProperty(e.prototype,"weightMap",{get:function(){return this._weightMap},set:function(e){var t=Object.keys(e).map(function(t){return e[t].map(function(e){return e.id})});this.weightIds=[].concat.apply([],t),this._weightMap=e;},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"inputs",{get:function(){return this._inputs.map(function(e){return {name:e.name,shape:e.attrParams.shape?e.attrParams.shape.value:void 0,dtype:e.attrParams.dtype?e.attrParams.dtype.value:void 0}})},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"outputs",{get:function(){return this._outputs.map(function(e){return {name:e.name,shape:e.attrParams.shape?e.attrParams.shape.value:void 0,dtype:e.attrParams.dtype?e.attrParams.dtype.value:void 0}})},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"inputNodes",{get:function(){return this._inputs.map(function(e){return e.signatureKey||e.name})},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"outputNodes",{get:function(){return this._outputs.map(function(e){return e.signatureKey||e.name})},enumerable:!0,configurable:!0}),e.prototype.getCompilationKey=function(e,t){var a=e.map(function(e){return e.name}).sort(),r=t.map(function(e){return e.name}).sort();return a.join(this.SEPERATOR)+"--"+r.join(this.SEPERATOR)},e.prototype.compile=function(e,t){var a=getExecutionSubgraph(e,t,this.weightMap),r=a.missingInputs,n=a.dynamicNode,s=a.syncInputs;if(null!=n)throw new Error("This execution contains the node '"+n.name+"', which has the dynamic op '"+n.op+"'. Please use model.executeAsync() instead. Alternatively, to avoid the dynamic ops, specify the inputs ["+s+"]");if(r.length>0){var o=t.map(function(e){return e.name}),p=Object.keys(e);throw new Error("Cannot compute the outputs ["+o+"] from the provided inputs ["+p+"]. Missing the following inputs: ["+r+"]")}return getNodesInTopologicalOrder(this.graph,this.weightMap,a)},e.prototype.execute=function(e,t){var a=this;e=this.mapInputs(e);var r=Object.keys(e).sort();this.checkInputs(e),this.checkInputShapeAndType(e),t=this.mapOutputs(t),this.checkOutputs(t);var n=r.map(function(e){return a.graph.nodes[parseNodeName(e)[0]]}),s=t.map(function(e){return a.graph.nodes[parseNodeName(e)[0]]}),o=this.getCompilationKey(n,s),p=this.compiledMap.get(o);null==p&&(p=this.compile(e,s),this.compiledMap.set(o,p));var u={};return Ze(function(){var r=new ExecutionContext(a._weightMap,u),n=__assign$1({},a.weightMap);Object.keys(e).forEach(function(t){var a=parseNodeName(t),r=a[0],s=[];s[a[1]]=e[t],n[r]=s;});for(var s=a.getFrozenTensorIds(n),o={},i=0;i<p.length;i++){var m=p[i];if(!n[m.name]){var l=executeOp$16(m,n,r);if(l instanceof Promise)throw new Error("The execution of the op '"+m.op+"' returned a promise. Please use model.executeAsync() instead.");n[m.name]=l,a.checkTensorForDisposal(m.name,m,n,r,s,t,o);}}return t.map(function(e){return getTensor(e,n,r)})})},e.prototype.getFrozenTensorIds=function(e){var t=[].concat.apply([],Object.keys(e).map(function(t){return e[t]}).map(function(e){return e.map(function(e){return e.id})}));return new Set(t)},e.prototype.checkTensorForDisposal=function(e,t,a,r,n,s,o){"control"!==t.category&&-1===s.indexOf(e)&&(a[e].forEach(function(e){null!=e&&(o[e.id]=(o[e.id]||0)+t.children.length);}),t.inputs.forEach(function(e){if("control"!==e.category){var t=getTensorsForCurrentContenxt(e.name,a,r);null!=t&&t.forEach(function(e){if(e&&!n.has(e.id)){var t=o[e.id];1===t?(e.dispose(),delete o[e.id]):null!=t&&o[e.id]--;}});}}));},e.prototype.executeAsync=function(e,t){return __awaiter$1(this,void 0,void 0,function(){var a,r,n,s,o,p,u=this;return __generator$1(this,function(i){switch(i.label){case 0:return e=this.mapInputs(e),this.checkInputs(e),this.checkInputShapeAndType(e),t=this.mapOutputs(t),this.checkOutputs(t),a={},r=new ExecutionContext(this._weightMap,a),[4,this.executeWithControlFlow(e,r,t)];case 1:return n=i.sent(),s=t.map(function(e){return getTensor(e,n,r)}),o=new Set(s.map(function(e){return e.id})),p=new Set(Object.keys(e).map(function(t){return e[t].id})),Object.keys(n).forEach(function(e){n[e].forEach(function(e){!e||e.isDisposed||o.has(e.id)||p.has(e.id)||-1!==u.weightIds.indexOf(e.id)||e.dispose();});}),[2,s]}})})},e.prototype.executeWithControlFlow=function(e,t,a){return __awaiter$1(this,void 0,void 0,function(){var r,n,s,o,p,u,i,m,l,c,d,y,f,g,h,N,x=this;return __generator$1(this,function(V){switch(V.label){case 0:r=Object.keys(e),n=r.map(function(e){return x.graph.nodes[parseNodeName(e)[0]]}),s=a.map(function(e){return x.graph.nodes[parseNodeName(e)[0]]}),o=getExecutionSubgraph(e,s,this.weightMap),p=o.usedNodes,u=o.missingInputs,i=o.dynamicNode,m=o.syncInputs,l=n.concat(this.graph.weights).map(function(e){return {node:e,contexts:t.currentContext}}),c=__assign$1({},this.weightMap),Object.keys(e).forEach(function(t){var a=parseNodeName(t),r=a[0],n=[];n[a[1]]=e[t],c[r]=n;}),d={},y=this.getFrozenTensorIds(c),f={},V.label=1;case 1:return l.length>0?(g=this.processStack(n,l,t,c,f,y,a,d,p),[4,Promise.all(g)]):[3,3];case 2:return V.sent(),[3,1];case 3:if(null==i&&console.warn("This model execution did not contain any nodes with control flow or dynamic output shapes. You can use model.execute() instead."),(h=s.filter(function(e){return !isControlFlow(e)&&!getTensor(e.name,c,t)}).map(function(e){return e.name})).length>0)throw N="",null!=i&&(N="Alternatively, to avoid the dynamic ops, use model.execute() and specify the inputs ["+m+"]"),new Error("Cannot compute the outputs ["+h+"] from the provided inputs ["+r+"]. Consider providing the following inputs: ["+u+"]. "+N);return [2,c]}})})},e.prototype.processStack=function(e,t,a,r,n,s,o,p,u){for(var i=this,m=[],l=function(){var l=t.pop();a.currentContext=l.contexts;var d="";if("Enter"===l.node.op&&getParamValue("isConstant",l.node,r,a)&&(d=getNodeNameAndIndex(l.node.name,a)[0]),-1===e.indexOf(l.node)){var y=executeOp$16(l.node,r,a);d||(d=getNodeNameAndIndex(l.node.name,a)[0]);var f=a.currentContext;y instanceof Promise?m.push(y.then(function(e){return r[d]=e,a.currentContext=f,i.checkTensorForDisposal(d,l.node,r,a,s,o,p),i.processChildNodes(l.node,t,a,r,n,u),e})):(r[d]=y,c.checkTensorForDisposal(d,l.node,r,a,s,o,p),c.processChildNodes(l.node,t,a,r,n,u));}else c.processChildNodes(l.node,t,a,r,n,u);},c=this;t.length>0;)l();return m},e.prototype.processChildNodes=function(e,t,a,r,n,s){e.children.forEach(function(e){var o=getNodeNameAndIndex(e.name,a)[0];!n[o]&&s.has(e.name)&&("Merge"===e.op?e.inputNames.some(function(e){return !!getTensor(e,r,a)})&&(n[o]=!0,t.push({contexts:a.currentContext,node:e})):e.inputNames.every(function(e){return !!getTensor(e,r,a)})&&(n[o]=!0,t.push({contexts:a.currentContext,node:e})));});},e.prototype.dispose=function(){var e=this;Object.keys(this.weightMap).forEach(function(t){return e.weightMap[t].forEach(function(e){return e.dispose()})});},e.prototype.checkInputShapeAndType=function(e){var t=this;Object.keys(e).forEach(function(a){var r=e[a],n=parseNodeName(a)[0],s=t.graph.nodes[n];if(s.attrParams.shape&&s.attrParams.shape.value){var o=s.attrParams.shape.value,p=o.length===r.shape.length&&r.shape.every(function(e,t){return -1===o[t]||o[t]===e});st.assert(p,function(){return "The shape of dict['"+s.name+"'] provided in model.execute(dict) must be ["+o+"], but was ["+r.shape+"]"});}s.attrParams.dtype&&s.attrParams.dtype.value&&st.assert(r.dtype===s.attrParams.dtype.value,function(){return "The dtype of dict['"+s.name+"'] provided in model.execute(dict) must be "+s.attrParams.dtype.value+", but was "+r.dtype});});},e.prototype.mapInputs=function(e){var t={};for(var a in e){if(null!=this._signature&&null!=this._signature.inputs&&null!=this._signature.inputs[a])t[this._signature.inputs[a].name]=e[a];else t[a]=e[a];}return t},e.prototype.checkInputs=function(e){var t=this,a=Object.keys(e).filter(function(e){var a=parseNodeName(e)[0];return null==t.graph.nodes[a]});if(a.length>0)throw new Error("The dict provided in model.execute(dict) has keys: ["+a+"] that are not part of graph")},e.prototype.mapOutputs=function(e){var t=this;return e.map(function(e){return null!=t._signature&&null!=t._signature.outputs&&null!=t._signature.outputs[e]?t._signature.outputs[e].name:e},{})},e.prototype.checkOutputs=function(e){var t=this;e.forEach(function(e){var a=parseNodeName(e)[0];if(!t.graph.nodes[a])throw new Error("The output '"+e+"' is not found in the graph")});},e}(),TFHUB_SEARCH_PARAM="?tfjs-format=file",DEFAULT_MODEL_NAME="model.json",GraphModel=function(){function e(e,t){void 0===t&&(t={}),this.modelUrl=e,this.loadOptions=t,this.version="n/a",null==t&&(this.loadOptions={});}return Object.defineProperty(e.prototype,"modelVersion",{get:function(){return this.version},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"inputNodes",{get:functi
+    var DataType,SaverDef,__assign$1=function(){return (__assign$1=Object.assign||function(e){for(var t,a=1,r=arguments.length;a<r;a++)for(var n in t=arguments[a])Object.prototype.hasOwnProperty.call(t,n)&&(e[n]=t[n]);return e}).apply(this,arguments)};function __awaiter$1(e,t,a,r){return new(a||(a=Promise))(function(n,s){function o(e){try{u(r.next(e));}catch(e){s(e);}}function p(e){try{u(r.throw(e));}catch(e){s(e);}}function u(e){e.done?n(e.value):new a(function(t){t(e.value);}).then(o,p);}u((r=r.apply(e,t||[])).next());})}function __generator$1(e,t){var a,r,n,s,o={label:0,sent:function(){if(1&n[0])throw n[1];return n[1]},trys:[],ops:[]};return s={next:p(0),throw:p(1),return:p(2)},"function"==typeof Symbol&&(s[Symbol.iterator]=function(){return this}),s;function p(s){return function(p){return function(s){if(a)throw new TypeError("Generator is already executing.");for(;o;)try{if(a=1,r&&(n=2&s[0]?r.return:s[0]?r.throw||((n=r.return)&&n.call(r),0):r.next)&&!(n=n.call(r,s[1])).done)return n;switch(r=0,n&&(s=[2&s[0],n.value]),s[0]){case 0:case 1:n=s;break;case 4:return o.label++,{value:s[1],done:!1};case 5:o.label++,r=s[1],s=[0];continue;case 7:s=o.ops.pop(),o.trys.pop();continue;default:if(!(n=(n=o.trys).length>0&&n[n.length-1])&&(6===s[0]||2===s[0])){o=0;continue}if(3===s[0]&&(!n||s[1]>n[0]&&s[1]<n[3])){o.label=s[1];break}if(6===s[0]&&o.label<n[1]){o.label=n[1],n=s;break}if(n&&o.label<n[2]){o.label=n[2],o.ops.push(s);break}n[2]&&o.ops.pop(),o.trys.pop();continue}s=t.call(e,o);}catch(e){s=[6,e],r=0;}finally{a=n=0;}if(5&s[0])throw s[1];return {value:s[0]?s[1]:void 0,done:!0}}([s,p])}}}!function(e){e[e.DT_INVALID=0]="DT_INVALID",e[e.DT_FLOAT=1]="DT_FLOAT",e[e.DT_DOUBLE=2]="DT_DOUBLE",e[e.DT_INT32=3]="DT_INT32",e[e.DT_UINT8=4]="DT_UINT8",e[e.DT_INT16=5]="DT_INT16",e[e.DT_INT8=6]="DT_INT8",e[e.DT_STRING=7]="DT_STRING",e[e.DT_COMPLEX64=8]="DT_COMPLEX64",e[e.DT_INT64=9]="DT_INT64",e[e.DT_BOOL=10]="DT_BOOL",e[e.DT_QINT8=11]="DT_QINT8",e[e.DT_QUINT8=12]="DT_QUINT8",e[e.DT_QINT32=13]="DT_QINT32",e[e.DT_BFLOAT16=14]="DT_BFLOAT16",e[e.DT_FLOAT_REF=101]="DT_FLOAT_REF",e[e.DT_DOUBLE_REF=102]="DT_DOUBLE_REF",e[e.DT_INT32_REF=103]="DT_INT32_REF",e[e.DT_UINT8_REF=104]="DT_UINT8_REF",e[e.DT_INT16_REF=105]="DT_INT16_REF",e[e.DT_INT8_REF=106]="DT_INT8_REF",e[e.DT_STRING_REF=107]="DT_STRING_REF",e[e.DT_COMPLEX64_REF=108]="DT_COMPLEX64_REF",e[e.DT_INT64_REF=109]="DT_INT64_REF",e[e.DT_BOOL_REF=110]="DT_BOOL_REF",e[e.DT_QINT8_REF=111]="DT_QINT8_REF",e[e.DT_QUINT8_REF=112]="DT_QUINT8_REF",e[e.DT_QINT32_REF=113]="DT_QINT32_REF",e[e.DT_BFLOAT16_REF=114]="DT_BFLOAT16_REF";}(DataType||(DataType={})),function(e){!function(e){e[e.LEGACY=0]="LEGACY",e[e.V1=1]="V1",e[e.V2=2]="V2";}(e.CheckpointFormatVersion||(e.CheckpointFormatVersion={}));}(SaverDef||(SaverDef={}));var CUSTOM_OPS={};function registerOp(e,t){var a={tfOpName:e,category:"custom",inputs:[],attrs:[],customExecutor:t};CUSTOM_OPS[e]=a;}function getRegisteredOp(e){return CUSTOM_OPS[e]}function deregisterOp(e){delete CUSTOM_OPS[e];}function getParamValue(e,t,a,r){var n=t.inputParams[e];if(n&&void 0!==n.inputIndexStart){var s=n.inputIndexStart,o=0===n.inputIndexEnd?void 0:void 0===n.inputIndexEnd?s+1:n.inputIndexEnd;if("tensor"===n.type)return getTensor(t.inputNames[n.inputIndexStart],a,r);if("tensors"===n.type)return t.inputNames.slice(s,o).map(function(e){return getTensor(e,a,r)});var p=Array.prototype.slice.call(getTensor(t.inputNames.slice(s)[0],a,r).dataSync());return "number"===n.type?p[0]:p}var u=t.attrParams[e];return u&&u.value}function getTensor(e,t,a){var r=parseNodeName(e),n=r[0],s=r[1],o=a.currentContextIds.find(function(e){return !!t[getNodeNameWithContextId(n,e)]});return void 0!==o?t[getNodeNameWithContextId(n,o)][s]:void 0}function getTensorsForCurrentContenxt(e,t,a){return t[getNodeNameWithContextId(e,a.currentContextId)]}function getNodeNameAndIndex(e,t){var a=parseNodeName(e),r=a[0],n=a[1];return [getNodeNameWithContextId(r,t&&t.currentContextId),n]}function getNodeNameWithContextId(e,t){return t?e+"-"+t:e}function parseNodeName(e){var t=e.lastIndexOf(":");return -1===t?[e,0]:[e.substring(0,t),Number(e.substring(t+1))]}function split$1(e,t){for(var a=[],r=0;r<e.length;r+=t)a.push(e.slice(r,r+t));return a}var json=[{tfOpName:"Add",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"AddV2",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"AddN",category:"arithmetic",inputs:[{start:0,end:0,name:"tensors",type:"tensors"}]},{tfOpName:"BiasAdd",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Sub",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"RealDiv",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Div",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"DivNoNan",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"FloorDiv",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Mul",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Maximum",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}]},{tfOpName:"Minimum",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}]},{tfOpName:"Pow",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"SquaredDifference",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Mod",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"FloorMod",category:"arithmetic",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]}],arithmetic=Object.freeze({json:json}),json$1=[{tfOpName:"Abs",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Acos",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Asin",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Atan",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Atan2",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"y",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Ceil",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"ClipByValue",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"clip_value_min",name:"clipValueMin",type:"number"},{tfName:"clip_value_max",name:"clipValueMax",type:"number"}]},{tfOpName:"Complex",category:"basic_math",inputs:[{start:0,name:"real",type:"tensor"},{start:1,name:"imag",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"ComplexAbs",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Cos",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Cosh",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Elu",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Exp",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Floor",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Log",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Imag",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"Tout",name:"outputType",type:"dtype",notSupported:!0}]},{tfOpName:"Neg",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Real",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"Tout",name:"outputType",type:"dtype",notSupported:!0}]},{tfOpName:"Prelu",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"alpha",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Relu",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Relu6",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"clipValueMin",name:"clipValueMin",type:"number",defaultValue:0},{tfName:"clipValueMax",name:"clipValueMax",type:"number",defaultValue:6}]},{tfOpName:"Selu",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Sigmoid",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Sin",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Sinh",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Sqrt",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Rsqrt",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Square",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Tan",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Tanh",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Sign",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Round",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Expm1",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Log1p",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Reciprocal",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Softplus",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Asinh",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Acosh",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Atanh",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Erf",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Prod",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axes",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool",notSupported:!0},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"LeakyRelu",category:"basic_math",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"alpha",name:"alpha",type:"number",defaultValue:.2},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]}],basicMath=Object.freeze({json:json$1}),json$2=[{tfOpName:"LoopCond",category:"control",inputs:[{start:0,name:"pred",type:"tensor"}]},{tfOpName:"Switch",category:"control",inputs:[{start:0,name:"data",type:"tensor"},{start:1,name:"pred",type:"tensor"}]},{tfOpName:"Merge",category:"control",inputs:[{start:0,end:0,name:"tensors",type:"tensors"}]},{tfOpName:"Enter",category:"control",inputs:[{start:0,name:"tensor",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"frame_name",name:"frameName",type:"string"},{tfName:"is_constant",name:"isConstant",type:"bool"}]},{tfOpName:"Exit",category:"control",inputs:[{start:0,name:"tensor",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"NextIteration",category:"control",inputs:[{start:0,name:"tensor",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"TensorArrayV3",category:"control",inputs:[{start:0,name:"size",type:"number"}],attrs:[{tfName:"dtype",name:"dtype",type:"dtype"},{tfName:"element_shape",name:"elementShape",type:"shape"},{tfName:"dynamic_size",name:"dynamicSize",type:"bool"},{tfName:"clear_after_read",name:"clearAfterRead",type:"bool"},{tfName:"identical_element_shapes",name:"identicalElementShapes",type:"bool"},{tfName:"tensor_array_name",name:"name",type:"string"}]},{tfOpName:"TensorArrayWriteV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"index",type:"number"},{start:2,name:"tensor",type:"tensor"},{start:3,name:"flowIn",type:"number"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"TensorArrayReadV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"index",type:"number"},{start:2,name:"flowIn",type:"number"}],attrs:[{tfName:"dtype",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"TensorArrayGatherV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"indices",type:"number[]"},{start:2,name:"flowIn",type:"number"}],attrs:[{tfName:"dtype",name:"dtype",type:"dtype"},{tfName:"element_shape",name:"elementShape",type:"shape"}]},{tfOpName:"TensorArrayScatterV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"indices",type:"number[]"},{start:2,name:"tensor",type:"tensor"},{start:3,name:"flowIn",type:"number"}],attrs:[{tfName:"T",name:"dtype",type:"dtype"}]},{tfOpName:"TensorArrayConcatV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"flowIn",type:"number"}],attrs:[{tfName:"dtype",name:"dtype",type:"dtype"},{tfName:"element_shape_except0",name:"elementShapeExcept0",type:"shape",notSupported:!0}]},{tfOpName:"TensorArraySplitV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"tensor",type:"tensor"},{start:2,name:"lengths",type:"number[]"},{start:3,name:"flowIn",type:"number"}],attrs:[{tfName:"T",name:"dtype",type:"dtype"}]},{tfOpName:"TensorArraySizeV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"},{start:1,name:"flowIn",type:"number"}]},{tfOpName:"TensorArrayCloseV3",category:"control",inputs:[{start:0,name:"tensorArrayId",type:"number"}]}],control=Object.freeze({json:json$2}),json$3=[{tfOpName:"AvgPool",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0},{tfName:"ksize",name:"kernelSize",type:"number[]"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"MaxPool",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0},{tfName:"ksize",name:"kernelSize",type:"number[]"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"MaxPoolWithArgmax",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"ksize",name:"kernelSize",type:"number[]"},{tfName:"include_batch_in_index",name:"includeBatchInIndex",type:"bool"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"AvgPool3D",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0},{tfName:"ksize",name:"kernelSize",type:"number[]"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"MaxPool3D",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0},{tfName:"ksize",name:"kernelSize",type:"number[]"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Conv1D",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"filter",type:"tensor"}],attrs:[{tfName:"stride",name:"stride",type:"number"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NWC"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"dilation",name:"dilation",type:"number",defaultValue:1}]},{tfOpName:"Conv2D",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"filter",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"useCudnnOnGpu",name:"useCudnnOnGpu",type:"bool"},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NHWC"},{tfName:"dilations",name:"dilations",type:"number[]"}]},{tfOpName:"_FusedConv2D",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"filter",type:"tensor"},{start:2,end:0,name:"args",type:"tensors"}],attrs:[{tfName:"num_args",name:"numArgs",type:"number"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"explicit_paddings",name:"explicitPaddings",type:"number[]",defaultValue:[]},{tfName:"use_cudnn_on_gpu",name:"useCudnnOnGpu",type:"bool",defaultValue:!0},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NHWC"},{tfName:"dilations",name:"dilations",type:"number[]",defaultValue:[1,1,1,1]},{tfName:"fused_ops",name:"fusedOps",type:"string[]",defaultValue:[]},{tfName:"epsilon",name:"epsilon",type:"number",defaultValue:1e-4}]},{tfOpName:"Conv2DBackpropInput",category:"convolution",inputs:[{start:2,name:"x",type:"tensor"},{start:1,name:"filter",type:"tensor"},{start:0,name:"outputShape",type:"number[]"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0}]},{tfOpName:"DepthwiseConv2d",category:"convolution",inputs:[{start:0,name:"input",type:"tensor"},{start:1,name:"filter",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NHWC"},{tfName:"dilations",name:"dilations",type:"number[]"}]},{tfOpName:"DepthwiseConv2dNative",category:"convolution",inputs:[{start:0,name:"input",type:"tensor"},{start:1,name:"filter",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NHWC"},{tfName:"dilations",name:"dilations",type:"number[]"}]},{tfOpName:"FusedDepthwiseConv2dNative",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"filter",type:"tensor"},{start:2,end:0,name:"args",type:"tensors"}],attrs:[{tfName:"num_args",name:"numArgs",type:"number"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0},{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NHWC"},{tfName:"dilations",name:"dilations",type:"number[]",defaultValue:[1,1,1,1]},{tfName:"fused_ops",name:"fusedOps",type:"string[]",defaultValue:[]}]},{tfOpName:"Conv3D",category:"convolution",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"filter",type:"tensor"}],attrs:[{tfName:"strides",name:"strides",type:"number[]"},{tfName:"padding",name:"pad",type:"string"},{tfName:"data_format",name:"dataFormat",type:"string",defaultValue:"NHWC"},{tfName:"dilations",name:"dilations",type:"number[]"}]}],convolution=Object.freeze({json:json$3}),json$4=[{tfOpName:"Fill",category:"creation",inputs:[{start:0,name:"shape",type:"number[]"},{start:1,name:"value",type:"number"}],attrs:[{tfName:"T",name:"dtype",type:"dtype"}]},{tfOpName:"LinSpace",category:"creation",inputs:[{start:0,name:"start",type:"number"},{start:1,name:"stop",type:"number"},{start:2,name:"num",type:"number"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"OneHot",category:"creation",inputs:[{start:0,name:"indices",type:"tensor"},{start:1,name:"depth",type:"number"},{start:2,name:"onValue",type:"number",defaultValue:1},{start:3,name:"offValue",type:"number",defaultValue:0}],attrs:[{tfName:"axis",name:"axis",type:"number",notSupported:!0},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Ones",category:"creation",inputs:[{start:0,name:"shape",type:"number[]"}],attrs:[{tfName:"T",name:"dtype",type:"dtype"}]},{tfOpName:"OnesLike",category:"creation",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"dtype",name:"dtype",type:"dtype"}]},{tfOpName:"RandomUniform",category:"creation",inputs:[{start:0,name:"shape",type:"number[]"}],attrs:[{tfName:"minval",name:"minval",type:"number",defaultValue:0},{tfName:"maxval",name:"maxval",type:"number",defaultValue:1},{tfName:"dtype",name:"dtype",type:"dtype"},{tfName:"seed",name:"seed",type:"number",defaultValue:0},{tfName:"seed2",name:"seed2",type:"number",defaultValue:0,notSupported:!0},{tfName:"T",name:"T",type:"number",notSupported:!0}]},{tfOpName:"Range",category:"creation",inputs:[{start:0,name:"start",type:"number"},{start:1,name:"stop",type:"number"},{start:2,name:"step",type:"number",defaultValue:0}],attrs:[{tfName:"Tidx",name:"dtype",type:"dtype"}]},{tfOpName:"TruncatedNormal",category:"creation",inputs:[{start:0,name:"shape",type:"number[]"}],attrs:[{tfName:"means",name:"mean",type:"number",defaultValue:0},{tfName:"stddev",name:"stdDev",type:"number",defaultValue:1},{tfName:"seed",name:"seed",type:"number"},{tfName:"seed2",name:"seed2",type:"number",defaultValue:0,notSupported:!0},{tfName:"dtype",name:"dtype",type:"dtype"},{tfName:"T",name:"T",type:"number",notSupported:!0}]},{tfOpName:"Zeros",category:"creation",inputs:[{start:0,name:"shape",type:"number[]"}],attrs:[{tfName:"T",name:"dtype",type:"dtype"}]},{tfOpName:"ZerosLike",category:"creation",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype"}]},{tfOpName:"Multinomial",category:"creation",inputs:[{start:0,name:"logits",type:"tensor"},{start:1,name:"numSamples",type:"number"}],attrs:[{tfName:"seed",name:"seed",type:"number"},{tfName:"seed2",name:"seed2",type:"number"},{tfName:"T",name:"dtype",type:"dtype"},{tfName:"output_dtype",name:"output_dtype",type:"dtype"}]}],creation=Object.freeze({json:json$4}),json$5=[{tfOpName:"NonMaxSuppressionV2",category:"dynamic",inputs:[{start:0,name:"boxes",type:"tensor"},{start:1,name:"scores",type:"tensor"},{start:2,name:"maxOutputSize",type:"number"},{start:3,name:"iouThreshold",type:"number"}]},{tfOpName:"NonMaxSuppressionV3",category:"dynamic",inputs:[{start:0,name:"boxes",type:"tensor"},{start:1,name:"scores",type:"tensor"},{start:2,name:"maxOutputSize",type:"number"},{start:3,name:"iouThreshold",type:"number"},{start:4,name:"scoreThreshold",type:"number"}]},{tfOpName:"NonMaxSuppressionV5",category:"dynamic",inputs:[{start:0,name:"boxes",type:"tensor"},{start:1,name:"scores",type:"tensor"},{start:2,name:"maxOutputSize",type:"number"},{start:3,name:"iouThreshold",type:"number"},{start:4,name:"scoreThreshold",type:"number"},{start:5,name:"softNmsSigma",type:"number"}]},{tfOpName:"Where",category:"dynamic",inputs:[{start:0,name:"condition",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"ListDiff",category:"dynamic",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"y",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]}],dynamic=Object.freeze({json:json$5}),json$6=[{tfOpName:"TopKV2",category:"evaluation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"k",type:"number"}],attrs:[{tfName:"sorted",name:"sorted",type:"bool"}]}],evaluation=Object.freeze({json:json$6}),json$7=[{tfOpName:"PlaceholderWithDefault",category:"graph",inputs:[{start:0,name:"default",type:"tensor"}],attrs:[{tfName:"shape",name:"shape",type:"shape"},{tfName:"dtype",name:"dtype",type:"dtype"}]},{tfOpName:"Placeholder",category:"graph",attrs:[{tfName:"shape",name:"shape",type:"shape"},{tfName:"dtype",name:"dtype",type:"dtype"}]},{tfOpName:"Const",category:"graph"},{tfOpName:"Identity",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"IdentityN",category:"graph",inputs:[{start:0,end:0,name:"x",type:"tensors"}]},{tfOpName:"Snapshot",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"Rank",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"Size",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"Shape",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"ShapeN",category:"graph",inputs:[{start:0,end:0,name:"x",type:"tensors"}]},{tfOpName:"Print",category:"graph",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"data",type:"tensors"}],attrs:[{tfName:"message",name:"message",type:"string"},{tfName:"first_n",name:"firstN",type:"number",notSupported:!0},{tfName:"summarize",name:"summarize",type:"number",defaultValue:3}]},{tfOpName:"NoOp",category:"graph",inputs:[]},{tfOpName:"StopGradient",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"FakeQuantWithMinMaxVars",category:"graph",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"min",name:"min",type:"number"},{tfName:"max",name:"max",type:"number"}]}],graph=Object.freeze({json:json$7}),json$8=[{tfOpName:"ResizeBilinear",category:"image",inputs:[{start:0,name:"images",type:"tensor"},{start:1,name:"size",type:"number[]"}],attrs:[{tfName:"align_corners",name:"alignCorners",type:"bool"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"ResizeNearestNeighbor",category:"image",inputs:[{start:0,name:"images",type:"tensor"},{start:1,name:"size",type:"number[]"}],attrs:[{tfName:"align_corners",name:"alignCorners",type:"bool"},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"CropAndResize",category:"image",inputs:[{start:0,name:"image",type:"tensor"},{start:1,name:"boxes",type:"tensor"},{start:2,name:"boxInd",type:"tensor"},{start:3,name:"cropSize",type:"number[]"}],attrs:[{tfName:"method",name:"method",type:"string"},{tfName:"extrapolation_value",name:"extrapolationValue",type:"number"}]}],image$1=Object.freeze({json:json$8}),json$9=[{tfOpName:"Equal",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"NotEqual",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Greater",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"GreaterEqual",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Less",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"LessEqual",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"LogicalAnd",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"LogicalNot",category:"logical",inputs:[{start:0,name:"a",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"LogicalOr",category:"logical",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Select",category:"logical",inputs:[{start:0,name:"condition",type:"tensor"},{start:1,name:"a",type:"tensor"},{start:2,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"SelectV2",category:"logical",inputs:[{start:0,name:"condition",type:"tensor"},{start:1,name:"a",type:"tensor"},{start:2,name:"b",type:"tensor"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]}],logical=Object.freeze({json:json$9}),json$10=[{tfOpName:"_FusedMatMul",category:"matrices",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"},{start:2,end:0,name:"args",type:"tensors"}],attrs:[{tfName:"num_args",name:"numArgs",type:"number"},{tfName:"fused_ops",name:"fusedOps",type:"string[]",defaultValue:[]},{tfName:"epsilon",name:"epsilon",type:"number",defaultValue:1e-4},{tfName:"transpose_a",name:"transposeA",type:"bool",defaultValue:!1},{tfName:"transpose_b",name:"transposeB",type:"bool",defaultValue:!1},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"MatMul",category:"matrices",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"transpose_a",name:"transposeA",type:"bool",defaultValue:!1},{tfName:"transpose_b",name:"transposeB",type:"bool",defaultValue:!1},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"BatchMatMul",category:"matrices",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"adj_x",name:"transposeA",type:"bool",defaultValue:!1},{tfName:"adj_y",name:"transposeB",type:"bool",defaultValue:!1},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"BatchMatMulV2",category:"matrices",inputs:[{start:0,name:"a",type:"tensor"},{start:1,name:"b",type:"tensor"}],attrs:[{tfName:"adj_x",name:"transposeA",type:"bool",defaultValue:!1},{tfName:"adj_y",name:"transposeB",type:"bool",defaultValue:!1},{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]},{tfOpName:"Transpose",category:"matrices",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"perm",type:"number[]"}],attrs:[{tfName:"T",name:"dtype",type:"dtype",notSupported:!0}]}],matrices=Object.freeze({json:json$10}),json$11=[{tfOpName:"FusedBatchNorm",category:"normalization",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"scale",type:"tensor"},{start:2,name:"offset",type:"tensor"},{start:3,name:"mean",type:"tensor"},{start:4,name:"variance",type:"tensor"}],attrs:[{tfName:"epsilon",name:"epsilon",type:"number",defaultValue:.001},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0}]},{tfOpName:"FusedBatchNormV2",category:"normalization",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"scale",type:"tensor"},{start:2,name:"offset",type:"tensor"},{start:3,name:"mean",type:"tensor"},{start:4,name:"variance",type:"tensor"}],attrs:[{tfName:"epsilon",name:"epsilon",type:"number",defaultValue:.001},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0}]},{tfOpName:"FusedBatchNormV3",category:"normalization",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"scale",type:"tensor"},{start:2,name:"offset",type:"tensor"},{start:3,name:"mean",type:"tensor"},{start:4,name:"variance",type:"tensor"}],attrs:[{tfName:"epsilon",name:"epsilon",type:"number",defaultValue:.001},{tfName:"data_format",name:"dataFormat",type:"string",notSupported:!0}]},{tfOpName:"LRN",category:"normalization",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"depth_radius",name:"radius",type:"number",defaultValue:5},{tfName:"bias",name:"bias",type:"number",defaultValue:1},{tfName:"alpha",name:"alpha",type:"number",defaultValue:1},{tfName:"beta",name:"beta",type:"number",defaultValue:.5}]},{tfOpName:"Softmax",category:"normalization",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"LogSoftmax",category:"normalization",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"SparseToDense",category:"normalization",inputs:[{start:0,name:"sparseIndices",type:"tensor"},{start:1,name:"outputShape",type:"number[]"},{start:2,name:"sparseValues",type:"tensor"},{start:3,name:"defaultValue",type:"tensor"}],attrs:[{tfName:"validate_indices",name:"validateIndices",type:"bool",defaultValue:!0,notSupported:!0}]}],normalization=Object.freeze({json:json$11}),json$12=[{tfOpName:"Max",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]},{tfOpName:"Mean",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]},{tfOpName:"Min",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]},{tfOpName:"Sum",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]},{tfOpName:"All",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]},{tfOpName:"Any",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]},{tfOpName:"ArgMax",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number"}]},{tfOpName:"ArgMin",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number"}]},{tfOpName:"Prod",category:"reduction",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}],attrs:[{tfName:"keep_dims",name:"keepDims",type:"bool"}]}],reduction=Object.freeze({json:json$12}),json$13=[{tfOpName:"ConcatV2",category:"slice_join",inputs:[{start:0,end:-1,name:"tensors",type:"tensors"},{start:-1,name:"axis",type:"number"}],attrs:[{tfName:"N",name:"n",type:"number",defaultValue:2}]},{tfOpName:"Concat",category:"slice_join",inputs:[{start:1,end:0,name:"tensors",type:"tensors"},{start:0,name:"axis",type:"number"}],attrs:[{tfName:"N",name:"n",type:"number",defaultValue:2}]},{tfOpName:"GatherV2",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"indices",type:"tensor"},{start:2,name:"axis",type:"number",defaultValue:0}]},{tfOpName:"Gather",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"indices",type:"tensor"}],attrs:[{tfName:"axis",name:"axis",type:"number",defaultValue:0},{tfName:"validate_indices",name:"validateIndices",type:"bool",notSupported:!0}]},{tfOpName:"Reverse",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"dims",type:"bool",notSupported:!0}]},{tfOpName:"ReverseV2",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number[]"}]},{tfOpName:"Slice",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"begin",type:"number[]"},{start:2,name:"size",type:"number[]"}]},{tfOpName:"StridedSlice",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"begin",type:"number[]"},{start:2,name:"end",type:"number[]"},{start:3,name:"strides",type:"number[]"}],attrs:[{tfName:"begin_mask",name:"beginMask",type:"number",defaultValue:0},{tfName:"end_mask",name:"endMask",type:"number",defaultValue:0},{tfName:"new_axis_mask",name:"newAxisMask",type:"number",defaultValue:0},{tfName:"ellipsis_mask",name:"ellipsisMask",type:"number",defaultValue:0},{tfName:"shrink_axis_mask",name:"shrinkAxisMask",type:"number",defaultValue:0}]},{tfOpName:"Pack",category:"slice_join",inputs:[{start:0,end:0,name:"tensors",type:"tensors"}],attrs:[{tfName:"axis",name:"axis",type:"number",defaultValue:0}]},{tfOpName:"Unpack",category:"slice_join",inputs:[{start:0,name:"tensor",type:"tensor"}],attrs:[{tfName:"axis",name:"axis",type:"number",defaultValue:0},{tfName:"num",name:"num",type:"number",defaultValue:0,notSupported:!0}]},{tfOpName:"Tile",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"reps",type:"number[]"}]},{tfOpName:"Split",category:"slice_join",inputs:[{start:0,name:"axis",type:"number",defaultValue:0},{start:1,name:"x",type:"tensor"}],attrs:[{tfName:"num_split",name:"numOrSizeSplits",type:"number",defaultValue:1}]},{tfOpName:"SplitV",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"numOrSizeSplits",type:"number[]"},{start:2,name:"axis",type:"number",defaultValue:0}]},{tfOpName:"ScatterNd",category:"slice_join",inputs:[{start:0,name:"indices",type:"tensor"},{start:1,name:"values",type:"tensor"},{start:2,name:"shape",type:"number[]"}]},{tfOpName:"GatherNd",category:"slice_join",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"indices",type:"tensor"}]},{tfOpName:"SparseToDense",category:"slice_join",inputs:[{start:0,name:"sparseIndices",type:"tensor"},{start:1,name:"outputShape",type:"number[]"},{start:2,name:"sparseValues",type:"tensor"},{start:3,name:"defaultValue",type:"tensor"}],attrs:[{tfName:"validate_indices",name:"validateIndices",type:"bool",defaultValue:!1,notSupported:!0}]}],sliceJoin=Object.freeze({json:json$13}),json$14=[{tfOpName:"FFT",category:"spectral",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"IFFT",category:"spectral",inputs:[{start:0,name:"x",type:"tensor"}]},{tfOpName:"RFFT",category:"spectral",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"fft_length",type:"number",notSupported:!0}]},{tfOpName:"IRFFT",category:"spectral",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"fft_length",type:"number",notSupported:!0}]}],spectral=Object.freeze({json:json$14}),json$15=[{tfOpName:"Cast",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"SrcT",name:"sdtype",type:"dtype",notSupported:!0},{tfName:"DstT",name:"dtype",type:"dtype"}]},{tfOpName:"ExpandDims",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"axis",type:"number"}]},{tfOpName:"Pad",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"padding",type:"number[]"}],attrs:[{tfName:"constant_value",name:"constantValue",type:"number",defaultValue:0}]},{tfOpName:"PadV2",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"padding",type:"number[]"},{start:2,name:"constantValue",type:"number",defaultValue:0}]},{tfOpName:"Reshape",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"shape",type:"number[]"}]},{tfOpName:"Squeeze",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"axis",tfDeprecatedName:"squeeze_dims",name:"axis",type:"number[]"}]},{tfOpName:"SpaceToBatchND",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"blockShape",type:"number[]"},{start:2,name:"paddings",type:"number[]"}]},{tfOpName:"BatchToSpaceND",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"},{start:1,name:"blockShape",type:"number[]"},{start:2,name:"crops",type:"number[]"}]},{tfOpName:"DepthToSpace",category:"transformation",inputs:[{start:0,name:"x",type:"tensor"}],attrs:[{tfName:"block_size",name:"blockSize",type:"number"},{tfName:"data_format",name:"dataFormat",type:"string"}]}],transformation=Object.freeze({json:json$15}),OperationMapper=function(){function e(){var e=[arithmetic,basicMath,control,convolution,creation,dynamic,evaluation,logical,image$1,graph,matrices,normalization,reduction,sliceJoin,spectral,transformation],t=[].concat.apply([],e.map(function(e){return e.json}));this.opMappers=t.reduce(function(e,t){return e[t.tfOpName]=t,e},{});}return Object.defineProperty(e,"Instance",{get:function(){return this._instance||(this._instance=new this)},enumerable:!0,configurable:!0}),e.prototype.transformGraph=function(e,t){var a=this;void 0===t&&(t={});var r=[],n=[],s=e.node.reduce(function(e,t){return e[t.name]=a.mapNode(t),t.op.startsWith("Placeholder")&&r.push(e[t.name]),"Const"===t.op&&n.push(e[t.name]),e},{}),o=[],p=[],u={},i={};null!=t&&(u=this.mapSignatureEntries(t.inputs),i=this.mapSignatureEntries(t.outputs));var m=Object.keys(s);return m.forEach(function(e){var t=s[e];t.inputNames.forEach(function(e){var a=getNodeNameAndIndex(e)[0];t.inputs.push(s[a]),s[a].children.push(t);});}),0===Object.keys(i).length?m.forEach(function(e){var t=s[e];0===t.children.length&&p.push(t);}):Object.keys(i).forEach(function(e){var t=getNodeNameAndIndex(e)[0],a=s[t];null!=a&&(a.signatureKey=i[e],p.push(a));}),Object.keys(u).length>0?Object.keys(u).forEach(function(e){var t=getNodeNameAndIndex(e)[0],a=s[t];a&&(a.signatureKey=u[e],o.push(a));}):o=r,{nodes:s,inputs:o,outputs:p,weights:n,placeholders:r,signature:t}},e.prototype.mapSignatureEntries=function(e){return Object.keys(e||{}).reduce(function(t,a){return t[e[a].name]=a,t},{})},e.prototype.mapNode=function(e){var t=getRegisteredOp(e.op)||this.opMappers[e.op]||{};null==e.attr&&(e.attr={});var a={name:e.name,op:e.op,category:t.category,inputNames:(e.input||[]).map(function(e){return e.startsWith("^")?e.substr(1):e}),inputs:[],children:[],inputParams:{},attrParams:{},rawAttrs:e.attr};return null!=t.inputs&&(a.inputParams=t.inputs.reduce(function(e,t){return e[t.name]={type:t.type,inputIndexStart:t.start,inputIndexEnd:t.end},e},{})),null!=t.attrs&&(a.attrParams=t.attrs.reduce(function(t,a){var r=a.type,n=void 0;switch(a.type){case"string":void 0===(n=getStringParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getStringParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"string[]":void 0===(n=getStringArrayParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getStringArrayParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"number":void 0===(n=getNumberParam(e.attr,a.tfName,a.defaultValue||0))&&a.tfDeprecatedName&&(n=getNumberParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"number[]":void 0===(n=getNumericArrayParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getNumericArrayParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"bool":void 0===(n=getBoolParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getBoolParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"bool[]":void 0===(n=getBoolArrayParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getBoolArrayParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"shape":void 0===(n=getTensorShapeParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getTensorShapeParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"shape[]":void 0===(n=getTensorShapeArrayParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getTensorShapeArrayParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"dtype":void 0===(n=getDtypeParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getDtypeParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"dtype[]":void 0===(n=getDtypeArrayParam(e.attr,a.tfName,a.defaultValue))&&a.tfDeprecatedName&&(n=getDtypeArrayParam(e.attr,a.tfDeprecatedName,a.defaultValue));break;case"tensor":case"tensors":break;default:throw new Error("Unsupported param type: "+a.type+" for op: "+e.op)}return t[a.name]={value:n,type:r},t},{})),a},e}();function decodeBase64(e){var t=i().global;if(void 0!==t.atob)return t.atob(e);if("undefined"!=typeof Buffer)return new Buffer(e,"base64").toString();throw new Error("Unable to decode base64 in this environment. Missing built-in atob() or Buffer()")}function parseStringParam(e,t){var a=Array.isArray(e)?String.fromCharCode.apply(null,e):decodeBase64(e);return t?a:a.toLowerCase()}function getStringParam(e,t,a,r){void 0===r&&(r=!1);var n=e[t];return null!=n?parseStringParam(n.s,r):a}function getBoolParam(e,t,a){var r=e[t];return r?r.b:a}function getNumberParam(e,t,a){var r=e[t]||{},n=null!=r.i?r.i:null!=r.f?r.f:a;return "number"==typeof n?n:parseInt(n,10)}function parseDtypeParam(e){switch("string"==typeof e&&(e=DataType[e]),e){case DataType.DT_FLOAT:return "float32";case DataType.DT_INT32:case DataType.DT_INT64:case DataType.DT_INT8:case DataType.DT_UINT8:return "int32";case DataType.DT_BOOL:return "bool";case DataType.DT_DOUBLE:return "float32";case DataType.DT_STRING:return "string";default:return null}}function getDtypeParam(e,t,a){var r=e[t];return r&&r.type?parseDtypeParam(r.type):a}function getDtypeArrayParam(e,t,a){var r=e[t];return r&&r.list&&r.list.type?r.list.type.map(function(e){return parseDtypeParam(e)}):a}function parseTensorShapeParam(e){if(!e.unknownRank)return null!=e.dim?e.dim.map(function(e){return "number"==typeof e.size?e.size:parseInt(e.size,10)}):[]}function getTensorShapeParam(e,t,a){var r=e[t];return r&&r.shape?parseTensorShapeParam(r.shape):a}function getNumericArrayParam(e,t,a){var r=e[t];return r?((r.list.f&&r.list.f.length?r.list.f:r.list.i)||[]).map(function(e){return "number"==typeof e?e:parseInt(e,10)}):a}function getStringArrayParam(e,t,a,r){void 0===r&&(r=!1);var n=e[t];return n&&n.list&&n.list.s?n.list.s.map(function(e){return parseStringParam(e,r)}):a}function getTensorShapeArrayParam(e,t,a){var r=e[t];return r&&r.list&&r.list.shape?r.list.shape.map(function(e){return parseTensorShapeParam(e)}):a}function getBoolArrayParam(e,t,a){var r=e[t];return r&&r.list&&r.list.b?r.list.b:a}var NodeValueImpl=function(){function e(e,t,a){var r=this;this.node=e,this.tensorMap=t,this.context=a,this.inputs=[],this.attrs={},this.inputs=e.inputNames.map(function(e){return r.getInput(e)}),null!=e.rawAttrs&&(this.attrs=Object.keys(e.rawAttrs).reduce(function(e,t){return e[t]=r.getAttr(t),e},{}));}return e.prototype.getInput=function(e){return getTensor(e,this.tensorMap,this.context)},e.prototype.getAttr=function(e,t){var a=this.node.rawAttrs[e];if(null!=a.tensor)return getTensor(e,this.tensorMap,this.context);if(null!=a.i||null!=a.f)return getNumberParam(this.node.rawAttrs,e,t);if(null!=a.s)return getStringParam(this.node.rawAttrs,e,t);if(null!=a.b)return getBoolParam(this.node.rawAttrs,e,t);if(null!=a.shape)return getTensorShapeParam(this.node.rawAttrs,e,t);if(null!=a.type)return getDtypeParam(this.node.rawAttrs,e,t);if(null!=a.list){if(null!=a.list.i||null!=a.list.f)return getNumericArrayParam(this.node.rawAttrs,e,t);if(null!=a.list.s)return getStringArrayParam(this.node.rawAttrs,e,t);if(null!=a.list.shape)return getTensorShapeArrayParam(this.node.rawAttrs,e,t);if(null!=a.list.b)return getBoolArrayParam(this.node.rawAttrs,e,t);if(null!=a.list.type)return getDtypeArrayParam(this.node.rawAttrs,e,t)}return t},e}(),executeOp=function(e,t,a){switch(e.op){case"BiasAdd":case"AddV2":case"Add":return [Or(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"AddN":return [$u(getParamValue("tensors",e,t,a))];case"FloorMod":case"Mod":return [So(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Mul":return [To(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"RealDiv":case"Div":return [Bo(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"DivNoNan":return [bc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"FloorDiv":return [Co(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Sub":return [Oo(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Minimum":return [Io(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Maximum":return [Eo(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Pow":return [No(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"SquaredDifference":return [Hc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$1=function(e,t,a){switch(e.op){case"Abs":case"ComplexAbs":return [Lr(getParamValue("x",e,t,a))];case"Acos":return [Wr(getParamValue("x",e,t,a))];case"Acosh":return [Ur(getParamValue("x",e,t,a))];case"Asin":return [Vr(getParamValue("x",e,t,a))];case"Asinh":return [zr(getParamValue("x",e,t,a))];case"Atan":return [Gr(getParamValue("x",e,t,a))];case"Atan2":return [bo(getParamValue("x",e,t,a),getParamValue("y",e,t,a))];case"Atanh":return [Hr(getParamValue("x",e,t,a))];case"Ceil":return [qr(getParamValue("x",e,t,a))];case"Complex":return [Tn(getParamValue("real",e,t,a),getParamValue("imag",e,t,a))];case"Cos":return [jr(getParamValue("x",e,t,a))];case"Cosh":return [Xr(getParamValue("x",e,t,a))];case"Elu":return [nh(getParamValue("x",e,t,a))];case"Erf":return [Yr(getParamValue("x",e,t,a))];case"Exp":return [$r(getParamValue("x",e,t,a))];case"Expm1":return [Qr(getParamValue("x",e,t,a))];case"Floor":return [Jr(getParamValue("x",e,t,a))];case"Log":return [Zr(getParamValue("x",e,t,a))];case"Log1p":return [to(getParamValue("x",e,t,a))];case"Imag":return [Nn(getParamValue("x",e,t,a))];case"Neg":return [no(getParamValue("x",e,t,a))];case"Reciprocal":return [ro(getParamValue("x",e,t,a))];case"Real":return [Dn(getParamValue("x",e,t,a))];case"Relu":return [ah(getParamValue("x",e,t,a))];case"Round":return [oo(getParamValue("x",e,t,a))];case"Selu":return [sh(getParamValue("x",e,t,a))];case"Sigmoid":return [io(getParamValue("x",e,t,a))];case"Sin":return [ho(getParamValue("x",e,t,a))];case"Sign":return [so(getParamValue("x",e,t,a))];case"Sinh":return [fo(getParamValue("x",e,t,a))];case"Softplus":return [po(getParamValue("x",e,t,a))];case"Sqrt":return [vo(getParamValue("x",e,t,a))];case"Square":return [Gc(getParamValue("x",e,t,a))];case"Tanh":return [yo(getParamValue("x",e,t,a))];case"Tan":return [mo(getParamValue("x",e,t,a))];case"Relu6":case"ClipByValue":return [Kr(getParamValue("x",e,t,a),getParamValue("clipValueMin",e,t,a),getParamValue("clipValueMax",e,t,a))];case"Rsqrt":return [ao(getTensor(e.inputNames[0],t,a))];case"Prod":return [eh(getParamValue("x",e,t,a),getParamValue("axes",e,t,a))];case"LeakyRelu":return [rh(getParamValue("x",e,t,a),getParamValue("alpha",e,t,a))];case"Prelu":return [oh(getParamValue("x",e,t,a),getParamValue("alpha",e,t,a))];default:throw TypeError("Node type "+e.op+" is not implemented")}},TensorArray=function(){function e(t,a,r,n,s,o,p){this.name=t,this.dtype=a,this.maxSize=r,this.elementShape=n,this.identicalElementShapes=s,this.dynamicSize=o,this.clearAfterRead=p,this.tensors=[],this.closed_=!1,this.id=e.nextId++;}return Object.defineProperty(e.prototype,"closed",{get:function(){return this.closed_},enumerable:!0,configurable:!0}),e.prototype.clearAndClose=function(){this.tensors.forEach(function(e){return e.tensor.dispose()}),this.tensors=[],this.closed_=!0;},e.prototype.size=function(){return this.tensors.length},e.prototype.read=function(e){if(this.closed_)throw new Error("TensorArray "+this.name+" has already been closed.");if(e<0||e>=this.tensors.length)throw new Error("Tried to read from index "+e+", but array size is: "+this.tensors.length);var t=this.tensors[e];if(t.cleared)throw new Error("TensorArray "+this.name+": Could not read index "+e+" twice because it was cleared after a previous read (perhaps try setting clear_after_read = false?).");return this.clearAfterRead&&(t.cleared=!0),t.read=!0,t.tensor},e.prototype.readMany=function(e){var t=this;return e.map(function(e){return t.read(e)})},e.prototype.write=function(e,t){if(this.closed_)throw new Error("TensorArray "+this.name+" has already been closed.");if(e<0||!this.dynamicSize&&e>=this.maxSize)throw new Error("Tried to write to index "+e+", but array is not resizeable and size is: "+this.maxSize);var a=this.tensors[e]||{};if(t.dtype!==this.dtype)throw new Error("TensorArray "+this.name+": Could not write to TensorArray index "+e+",\n          because the value dtype is "+t.dtype+", but TensorArray dtype is "+this.dtype+".");if(0!==this.size()||null!=this.elementShape&&0!==this.elementShape.length||(this.elementShape=t.shape),this.assertShapesMatchAllowUndefinedSize(this.elementShape,t.shape,"TensorArray "+this.name+": Could not write to TensorArray index "+e+"."),a&&a.read)throw new Error("TensorArray "+this.name+": Could not write to TensorArray index "+e+", because it has already been read.");if(a&&a.written)throw new Error("TensorArray "+this.name+": Could not write to TensorArray index "+e+", because it has already been written.");a.tensor=t,a.written=!0,this.tensors[e]=a;},e.prototype.writeMany=function(e,t){var a=this;if(e.length!==t.length)throw new Error("TensorArray "+this.name+": could not write multiple tensors,because the index size: "+e.length+" is not the same as tensors size: "+t.length+".");e.forEach(function(e,r){return a.write(e,t[r])});},e.prototype.gather=function(e,t){if(t&&t!==this.dtype)throw new Error("TensorArray dtype is "+this.dtype+" but gather requested dtype "+t);if(!e){e=[];for(var a=0;a<this.size();a++)e.push(a);}if(0===e.length)return Fn([],[0].concat(this.elementShape));var r=this.readMany(e);return this.assertShapesMatchAllowUndefinedSize(this.elementShape,r[0].shape,"TensorArray shape mismatch: "),hr(r,0)},e.prototype.concat=function(e){if(e&&e!==this.dtype)throw new Error("TensorArray dtype is "+this.dtype+" but concat requested dtype "+e);if(0===this.size())return Fn([],[0].concat(this.elementShape));for(var t=[],a=0;a<this.size();a++)t.push(a);var r=this.readMany(t);return this.assertShapesMatchAllowUndefinedSize(this.elementShape,r[0].shape,"TensorArray shape mismatch: tensor array shape ("+this.elementShape+") vs first tensor shape ("+r[0].shape+")"),Yn(r,0)},e.prototype.scatter=function(e,t){if(t.dtype!==this.dtype)throw new Error("TensorArray dtype is "+this.dtype+" but tensor has dtype "+t.dtype);if(e.length!==t.shape[0])throw new Error("Expected len(indices) == tensor.shape[0], but saw: "+e.length+" vs. "+t.shape[0]);var a=Math.max.apply(Math,e);if(!this.dynamicSize&&a>=this.maxSize)throw new Error("Max index must be < array size ("+a+"  vs. "+this.maxSize+")");this.writeMany(e,fr(t,0));},e.prototype.split=function(e,t){var a=this;if(t.dtype!==this.dtype)throw new Error("TensorArray dtype is "+this.dtype+" but tensor has dtype "+t.dtype);var r=0,n=e.map(function(e){return r+=e});if(r!==t.shape[0])throw new Error("Expected sum of lengths to be equal to\n          tensor.shape[0], but sum of lengths is\n        "+r+", and tensor's shape is: "+t.shape);if(!this.dynamicSize&&e.length!==this.maxSize)throw new Error("TensorArray's size is not equal to the size of lengths ("+this.maxSize+" vs. "+e.length+"), and the TensorArray is not marked as dynamically resizeable");var s=0===r?0:t.size/r,o=[];Ze(function(){t=t.reshape([1,r,s]);for(var p=0;p<e.length;++p){var u=[0,0===p?0:n[p-1],0],i=[1,e[p],s];o[p]=Wl(t,u,i).reshape(a.elementShape);}return o});for(var p=[],u=0;u<e.length;u++)p[u]=u;this.writeMany(p,o);},e.prototype.assertShapesMatchAllowUndefinedSize=function(e,t,a){void 0===a&&(a=""),st.assert(this.shapesEqualAllowUndefinedSize(e,t),function(){return a+" Shapes "+e+" and "+t+" must match"});},e.prototype.shapesEqualAllowUndefinedSize=function(e,t){if(e.length!==t.length)return !1;for(var a=0;a<e.length;a++)if(-1!==e[a]&&-1!==t[a]&&e[a]!==t[a])return !1;return !0},e.nextId=0,e}(),_this=void 0,executeOp$2=function(e,t,a){return __awaiter$1(_this,void 0,void 0,function(){var r,n,s,o,p,u,i,m,l,c,d,y,f,g,h,N,x,V,b,P,T,v,O,S,_,w,A,D,E,I,M,C,k,z,F;return __generator$1(this,function(j){switch(j.label){case 0:switch(e.op){case"LoopCond":return [3,1];case"Switch":return [3,2];case"Merge":return [3,4];case"Enter":return [3,5];case"Exit":return [3,6];case"NextIteration":return [3,7];case"TensorArrayV3":return [3,8];case"TensorArrayWriteV3":return [3,9];case"TensorArrayReadV3":return [3,10];case"TensorArrayGatherV3":return [3,11];case"TensorArrayScatterV3":return [3,12];case"TensorArrayConcatV3":return [3,13];case"TensorArraySplitV3":return [3,14];case"TensorArraySizeV3":return [3,15];case"TensorArrayCloseV3":return [3,16]}return [3,17];case 1:return [2,[getParamValue("pred",e,t,a).clone()]];case 2:return r=getParamValue("pred",e,t,a),n=getParamValue("data",e,t,a),[4,r.data()];case 3:return [2,j.sent()[0]?[void 0,n.clone()]:[n.clone(),void 0]];case 4:return [2,(s=e.inputNames.find(function(e){return void 0!==getTensor(e,t,a)}))?[getTensor(s,t,a).clone()]:void 0];case 5:return o=getParamValue("frameName",e,t,a),p=getParamValue("tensor",e,t,a),a.enterFrame(o),[2,[p.clone()]];case 6:return u=getParamValue("tensor",e,t,a),a.exitFrame(),[2,[u.clone()]];case 7:return i=getParamValue("tensor",e,t,a),a.nextIteration(),[2,[i.clone()]];case 8:return m=getParamValue("size",e,t,a),l=getParamValue("dtype",e,t,a),c=getParamValue("elementShape",e,t,a),d=getParamValue("dynamicSize",e,t,a),y=getParamValue("clearAfterRead",e,t,a),f=getParamValue("identicalElementShapes",e,t,a),g=getParamValue("name",e,t,a),h=new TensorArray(g,l,m,c,f,d,y),a.addTensorArray(h),[2,[On(h.id),On(1)]];case 9:return N=getParamValue("tensorArrayId",e,t,a),x=getParamValue("index",e,t,a),V=getParamValue("tensor",e,t,a),a.getTensorArray(N).write(x,V),[2,[On(1)]];case 10:return b=getParamValue("tensorArrayId",e,t,a),P=getParamValue("index",e,t,a),[2,[a.getTensorArray(b).read(P)]];case 11:return T=getParamValue("tensorArrayId",e,t,a),v=getParamValue("indices",e,t,a),O=getParamValue("dtype",e,t,a),[2,[a.getTensorArray(T).gather(v,O)]];case 12:return S=getParamValue("tensorArrayId",e,t,a),_=getParamValue("indices",e,t,a),w=getParamValue("tensor",e,t,a),a.getTensorArray(S).scatter(_,w),[2,[On(1)]];case 13:return A=getParamValue("tensorArrayId",e,t,a),D=a.getTensorArray(A),E=getParamValue("dtype",e,t,a),[2,[D.concat(E)]];case 14:return I=getParamValue("tensorArrayId",e,t,a),M=getParamValue("tensor",e,t,a),C=getParamValue("lengths",e,t,a),a.getTensorArray(I).split(C,M),[2,[On(1)]];case 15:return k=getParamValue("tensorArrayId",e,t,a),z=a.getTensorArray(k),[2,[On(z.size(),"int32")]];case 16:return F=getParamValue("tensorArrayId",e,t,a),a.getTensorArray(F).clearAndClose(),[2,[On(0)]];case 17:throw TypeError("Node type "+e.op+" is not implemented")}})})},executeOp$3=function(e,t,a){switch(e.op){case"Conv1D":var r=getParamValue("stride",e,t,a),n=getParamValue("pad",e,t,a),s=getParamValue("dataFormat",e,t,a).toUpperCase(),o=getParamValue("dilation",e,t,a);return [fl(getParamValue("x",e,t,a),getParamValue("filter",e,t,a),r,n,s,o)];case"Conv2D":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),s=getParamValue("dataFormat",e,t,a).toUpperCase();var p=getParamValue("dilations",e,t,a);return [dl(getParamValue("x",e,t,a),getParamValue("filter",e,t,a),[r[1],r[2]],n,s,[p[1],p[2]])];case"_FusedConv2D":case"FusedDepthwiseConv2dNative":var u=getParamValue("fusedOps",e,t,a),i=u[0],m=u[1],l="biasadd"===i,c="prelu"===m,d="fusedbatchnorm"===i,y=getParamValue("numArgs",e,t,a);if(l){if(c&&2!==y)throw new Error("FusedConv2d and DepthwiseConv2d with BiasAdd and Prelu must have two extra arguments: bias and alpha.");if(!c&&1!==y)throw new Error("FusedConv2d and DepthwiseConv2d with BiasAdd must have one extra argument: bias.")}if(d)throw new Error("FusedConv2d and DepthwiseConv2d with FusedBatchNorm is not supported.");r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),s=getParamValue("dataFormat",e,t,a).toUpperCase(),p=getParamValue("dilations",e,t,a);var f=getParamValue("args",e,t,a),g=f[0],h=f[1];return [("_FusedConv2D"===e.op?hf.conv2d:hf.depthwiseConv2d)({x:getParamValue("x",e,t,a),filter:getParamValue("filter",e,t,a),strides:[r[1],r[2]],pad:n,dataFormat:s,dilations:[p[1],p[2]],bias:g,activation:m,preluActivationWeights:h})];case"Conv2DBackpropInput":case"Conv2dTranspose":var N=getParamValue("outputShape",e,t,a);r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a);return [wl(getParamValue("x",e,t,a),getParamValue("filter",e,t,a),N,[r[1],r[2]],n)];case"DepthwiseConv2dNative":case"DepthwiseConv2d":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),p=getParamValue("dilations",e,t,a),s=getParamValue("dataFormat",e,t,a).toUpperCase();return [ml(getParamValue("input",e,t,a),getParamValue("filter",e,t,a),[r[1],r[2]],n,s,[p[1],p[2]])];case"Conv3D":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),s=getParamValue("dataFormat",e,t,a).toUpperCase(),p=getParamValue("dilations",e,t,a);return [pl(getParamValue("x",e,t,a),getParamValue("filter",e,t,a),[r[1],r[2],r[3]],n,s,[p[1],p[2],p[3]])];case"AvgPool":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a);var x=getParamValue("kernelSize",e,t,a);return [Ol(getParamValue("x",e,t,a),[x[1],x[2]],[r[1],r[2]],n)];case"MaxPool":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),x=getParamValue("kernelSize",e,t,a);return [_l(getParamValue("x",e,t,a),[x[1],x[2]],[r[1],r[2]],n)];case"MaxPoolWithArgmax":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),x=getParamValue("kernelSize",e,t,a);var V=getParamValue("includeBatchInIndex",e,t,a),b=Ll(getParamValue("x",e,t,a),[x[1],x[2]],[r[1],r[2]],n,V);return [b.result,b.indexes];case"AvgPool3D":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),x=getParamValue("kernelSize",e,t,a);return [Pl(getParamValue("x",e,t,a),[x[1],x[2],x[3]],[r[1],r[2],r[3]],n)];case"MaxPool3D":r=getParamValue("strides",e,t,a),n=getParamValue("pad",e,t,a),x=getParamValue("kernelSize",e,t,a);return [Bl(getParamValue("x",e,t,a),[x[1],x[2],x[3]],[r[1],r[2],r[3]],n)];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$4=function(e,t,a){switch(e.op){case"Fill":var r=getParamValue("shape",e,t,a),n=getParamValue("dtype",e,t,a),s=getParamValue("value",e,t,a);return [Hn(r,s,n)];case"LinSpace":var o=getParamValue("start",e,t,a),p=getParamValue("stop",e,t,a),u=getParamValue("num",e,t,a);return [qn(o,p,u)];case"Multinomial":var i=getParamValue("logits",e,t,a),m=getParamValue("numSamples",e,t,a),l=getParamValue("seed",e,t,a);return [Ec(i,m,l)];case"OneHot":var c=getParamValue("indices",e,t,a),d=getParamValue("depth",e,t,a),y=getParamValue("onValue",e,t,a),f=getParamValue("offValue",e,t,a);return [Rc(c,d,y,f)];case"Ones":return [zn(getParamValue("shape",e,t,a),getParamValue("dtype",e,t,a))];case"OnesLike":return [jn(getParamValue("x",e,t,a))];case"RandomUniform":return [zc(getParamValue("shape",e,t,a),getParamValue("minval",e,t,a),getParamValue("maxval",e,t,a),getParamValue("dtype",e,t,a))];case"Range":o=getParamValue("start",e,t,a);var g=getParamValue("stop",e,t,a),h=getParamValue("step",e,t,a);return [Kn(o,g,h,getParamValue("dtype",e,t,a))];case"TruncatedNormal":r=getParamValue("shape",e,t,a);var N=getParamValue("mean",e,t,a),x=getParamValue("stdDev",e,t,a);l=getParamValue("seed",e,t,a);return [qc(r,N,x,getParamValue("dtype",e,t,a),l)];case"Zeros":return [Gn(getParamValue("shape",e,t,a),getParamValue("dtype",e,t,a))];case"ZerosLike":return [Xn(getParamValue("x",e,t,a))];default:throw TypeError("Node type "+e.op+" is not implemented")}},_this$1=void 0,executeOp$5=function(e,t,a){return __awaiter$1(_this$1,void 0,void 0,function(){var r,n,s,o,p,u,i,m;return __generator$1(this,function(l){switch(l.label){case 0:switch(e.op){case"NonMaxSuppressionV5":case"NonMaxSuppressionV3":case"NonMaxSuppressionV2":return [3,1];case"Where":return [3,5];case"ListDiff":return [3,7]}return [3,8];case 1:return r=getParamValue("boxes",e,t,a),n=getParamValue("scores",e,t,a),s=getParamValue("maxOutputSize",e,t,a),o=getParamValue("iouThreshold",e,t,a),p=getParamValue("scoreThreshold",e,t,a),"NonMaxSuppressionV5"!==e.op?[3,3]:(u=getParamValue("softNmsSigma",e,t,a),[4,nf.nonMaxSuppressionWithScoreAsync(r,n,s,o,p,u)]);case 2:return [2,[(m=l.sent()).selectedIndices,m.selectedScores]];case 3:return [4,nf.nonMaxSuppressionAsync(r,n,s,o,p)];case 4:return [2,[l.sent()]];case 5:return i=getParamValue("condition",e,t,a).asType("bool"),[4,xc(i)];case 6:return m=[l.sent()],i.dispose(),[2,m];case 7:return [2,dr(getParamValue("x",e,t,a),getParamValue("y",e,t,a))];case 8:throw TypeError("Node type "+e.op+" is not implemented")}})})},executeOp$6=function(e,t,a){switch(e.op){case"TopKV2":var r=getParamValue("x",e,t,a),n=getParamValue("k",e,t,a),s=getParamValue("sorted",e,t,a),o=ph(r,n,s);return [o.values,o.indices];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$7=function(e,t,a){switch(e.op){case"Const":return t[e.name];case"PlaceholderWithDefault":var r=getParamValue("default",e,t,a);return [getTensor(e.name,t,a)||r];case"Placeholder":return [getTensor(e.name,t,a)];case"Identity":case"StopGradient":case"FakeQuantWithMinMaxVars":return [getParamValue("x",e,t,a).clone()];case"IdentityN":return getParamValue("x",e,t,a).map(function(e){return e.clone()});case"Snapshot":return [getParamValue("x",e,t,a).clone()];case"Shape":return [Mn(getParamValue("x",e,t,a).shape,"int32")];case"ShapeN":return getParamValue("x",e,t,a).map(function(e){return Mn(e.shape)});case"Size":return [On(getParamValue("x",e,t,a).size,"int32")];case"Rank":return [On(getParamValue("x",e,t,a).rank,"int32")];case"NoOp":return [On(1)];case"Print":var n=getParamValue("x",e,t,a),s=getParamValue("data",e,t,a),o=getParamValue("message",e,t,a),p=getParamValue("summarize",e,t,a);console.warn("The graph has a tf.print() operation,usually used for debugging, which slows down performance."),console.log(o);for(var u=0;u<s.length;u++)console.log(Array.prototype.slice.call(s[u].dataSync()).slice(0,p));return [n];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$8=function(e,t,a){switch(e.op){case"ResizeBilinear":var r=getParamValue("images",e,t,a),n=getParamValue("size",e,t,a),s=getParamValue("alignCorners",e,t,a);return [nf.resizeBilinear(r,[n[0],n[1]],s)];case"ResizeNearestNeighbor":r=getParamValue("images",e,t,a),n=getParamValue("size",e,t,a),s=getParamValue("alignCorners",e,t,a);return [nf.resizeNearestNeighbor(r,[n[0],n[1]],s)];case"CropAndResize":var o=getParamValue("image",e,t,a),p=getParamValue("boxes",e,t,a),u=getParamValue("boxInd",e,t,a),i=getParamValue("cropSize",e,t,a),m=getParamValue("method",e,t,a),l=getParamValue("extrapolationValue",e,t,a);return [nf.cropAndResize(o,p,u,i,m,l)];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$9=function(e,t,a){switch(e.op){case"Equal":return [Kc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"NotEqual":return [nl(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Greater":return [Xc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"GreaterEqual":return [Yc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Less":return [Jc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"LessEqual":return [Zc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"LogicalAnd":return [pc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"LogicalNot":return [vc(getParamValue("a",e,t,a))];case"LogicalOr":return [gc(getParamValue("a",e,t,a),getParamValue("b",e,t,a))];case"Select":case"SelectV2":return [yc(getParamValue("condition",e,t,a),getParamValue("a",e,t,a),getParamValue("b",e,t,a))];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$10=function(e,t,a){switch(e.op){case"BatchMatMul":case"BatchMatMulV2":case"MatMul":return [El(getParamValue("a",e,t,a),getParamValue("b",e,t,a),getParamValue("transposeA",e,t,a),getParamValue("transposeB",e,t,a))];case"Transpose":return [ua(getParamValue("x",e,t,a),getParamValue("perm",e,t,a))];case"_FusedMatMul":var r=getParamValue("fusedOps",e,t,a),n=r[0],s=r[1],o="biasadd"===n,p="prelu"===s,u=getParamValue("numArgs",e,t,a);if(o){if(p&&2!==u)throw new Error("Fused MatMul with BiasAdd and Prelu must have two extra arguments: bias and alpha.");if(!p&&1!==u)throw new Error("Fused MatMul with BiasAdd must have one extra argument: bias.")}var i=getParamValue("args",e,t,a),m=i[0],l=i[1];return [hf.matMul({a:getParamValue("a",e,t,a),b:getParamValue("b",e,t,a),transposeA:getParamValue("transposeA",e,t,a),transposeB:getParamValue("transposeB",e,t,a),bias:m,activation:s,preluActivationWeights:l})];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$11=function(e,t,a){switch(e.op){case"FusedBatchNorm":case"FusedBatchNormV2":case"FusedBatchNormV3":return [nc(getParamValue("x",e,t,a),getParamValue("mean",e,t,a),getParamValue("variance",e,t,a),getParamValue("offset",e,t,a),getParamValue("scale",e,t,a),getParamValue("epsilon",e,t,a))];case"LRN":return [uh(getParamValue("x",e,t,a),getParamValue("radius",e,t,a),getParamValue("bias",e,t,a),getParamValue("alpha",e,t,a),getParamValue("beta",e,t,a))];case"Softmax":return [ia(getParamValue("x",e,t,a))];case"LogSoftmax":return [sa(getParamValue("x",e,t,a))];case"SparseToDense":return [wh(getParamValue("sparseIndices",e,t,a),getParamValue("outputShape",e,t,a),getParamValue("sparseValues",e,t,a),getParamValue("defaultValue",e,t,a))];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$12=function(e,t,a){switch(e.op){case"Max":var r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [$l(getParamValue("x",e,t,a),r,n)];case"Mean":r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [Ql(getParamValue("x",e,t,a),r,n)];case"Min":r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [Jl(getParamValue("x",e,t,a),r,n)];case"Sum":r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [th(getParamValue("x",e,t,a),r,n)];case"All":r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [ql(getParamValue("x",e,t,a),r,n)];case"Any":r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [Kl(getParamValue("x",e,t,a),r,n)];case"ArgMax":r=getParamValue("axis",e,t,a);return [jl(getParamValue("x",e,t,a),r)];case"ArgMin":r=getParamValue("axis",e,t,a);return [Xl(getParamValue("x",e,t,a),r)];case"Prod":r=getParamValue("axis",e,t,a),n=getParamValue("keepDims",e,t,a);return [eh(getParamValue("x",e,t,a),r,n)];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$13=function(e,t,a){switch(e.op){case"ConcatV2":case"Concat":var r=getParamValue("n",e,t,a),n=getParamValue("axis",e,t,a),s=getParamValue("tensors",e,t,a);return s=s.slice(0,r),[Yn(s,n)];case"GatherV2":case"Gather":n=getParamValue("axis",e,t,a);var o=getParamValue("x",e,t,a),p=getParamValue("indices",e,t,a);return [il(o,p.asType("int32"),n)];case"ReverseV2":case"Reverse":n=getParamValue("axis",e,t,a),o=getParamValue("x",e,t,a);return [kl(o,n)];case"Slice":var u=getParamValue("begin",e,t,a),i=getParamValue("size",e,t,a);return [Wl(getParamValue("x",e,t,a),u,i)];case"StridedSlice":u=getParamValue("begin",e,t,a);var m=getParamValue("end",e,t,a),l=getParamValue("strides",e,t,a),c=getParamValue("beginMask",e,t,a),d=getParamValue("endMask",e,t,a),y=getParamValue("ellipsisMask",e,t,a),f=getParamValue("newAxisMask",e,t,a),g=getParamValue("shrinkAxisMask",e,t,a),h=getParamValue("x",e,t,a);if(1===u.length&&h.shape.length>1)for(var N=1;N<h.shape.length;N++)u.push(0),m.push(h.shape[N]),l.push(l[0]);return [dh(h,u,m,l,c,d,y,f,g)];case"Pack":return Ze(function(){var r=getParamValue("axis",e,t,a),n=getParamValue("tensors",e,t,a),s=n[0].shape,o=n[0].squeeze().shape,p=n.map(function(e){var t=st.arraysEqual(e.shape,s);if(!t&&!st.arraysEqual(e.squeeze().shape,o))throw new Error("the input tensors shape does not match");return t?e:e.reshape(s)});return [hr(p,r)]});case"Unpack":return Ze(function(){var r=getParamValue("axis",e,t,a),n=getParamValue("tensor",e,t,a);return fr(n,r)});case"Tile":var x=getParamValue("reps",e,t,a);return [wc(getParamValue("x",e,t,a),x)];case"Split":case"SplitV":n=getParamValue("axis",e,t,a);var V=getParamValue("numOrSizeSplits",e,t,a);return tr(getParamValue("x",e,t,a),V,n);case"ScatterNd":p=getParamValue("indices",e,t,a);var b=getParamValue("values",e,t,a),P=getParamValue("shape",e,t,a);return [vh(p,b,P)];case"GatherNd":var T=getParamValue("x",e,t,a);p=getParamValue("indices",e,t,a);return [Ch(T,p)];case"SparseToDense":p=getParamValue("sparseIndices",e,t,a),P=getParamValue("outputShape",e,t,a);var v=getParamValue("sparseValues",e,t,a),O=getParamValue("defaultValue",e,t,a);return [wh(p,v,P,v.dtype===O.dtype?O:O.asType(v.dtype))];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$14=function(e,t,a){switch(e.op){case"FFT":return [gh(getParamValue("x",e,t,a))];case"IFFT":return [mh(getParamValue("x",e,t,a))];case"RFFT":return [yh(getParamValue("x",e,t,a))];case"IRFFT":return [xh(getParamValue("x",e,t,a))];default:throw TypeError("Node type "+e.op+" is not implemented")}},executeOp$15=function(e,t,a){switch(e.op){case"Cast":return [or(getParamValue("x",e,t,a),getParamValue("dtype",e,t,a))];case"ExpandDims":var r=getParamValue("axis",e,t,a);return [sr(getParamValue("x",e,t,a),r)];case"Squeeze":r=getParamValue("axis",e,t,a);return [lr(getParamValue("x",e,t,a),r)];case"Reshape":return [ur(getParamValue("x",e,t,a),getParamValue("shape",e,t,a))];case"PadV2":case"Pad":return [Ic(getParamValue("x",e,t,a),split$1(getParamValue("padding",e,t,a),2),getParamValue("constantValue",e,t,a))];case"SpaceToBatchND":var n=getParamValue("blockShape",e,t,a),s=split$1(getParamValue("paddings",e,t,a),2);return [cr(getParamValue("x",e,t,a),n,s)];case"BatchToSpaceND":n=getParamValue("blockShape",e,t,a);var o=split$1(getParamValue("crops",e,t,a),2);return [rr(getParamValue("x",e,t,a),n,o)];case"DepthToSpace":var p=getParamValue("blockSize",e,t,a),u=getParamValue("dataFormat",e,t,a).toUpperCase();return [ir(getParamValue("x",e,t,a),p,u)];default:throw TypeError("Node type "+e.op+" is not implemented")}};function executeOp$16(e,t,a){var r=function(e,t,a){switch(e.category){case"arithmetic":return Ze(function(){return executeOp(e,t,a)});case"basic_math":return Ze(function(){return executeOp$1(e,t,a)});case"control":return executeOp$2(e,t,a);case"convolution":return Ze(function(){return executeOp$3(e,t,a)});case"creation":return Ze(function(){return executeOp$4(e,t,a)});case"dynamic":return executeOp$5(e,t,a);case"evaluation":return Ze(function(){return executeOp$6(e,t,a)});case"image":return Ze(function(){return executeOp$8(e,t,a)});case"graph":return Ze(function(){return executeOp$7(e,t,a)});case"logical":return Ze(function(){return executeOp$9(e,t,a)});case"matrices":return Ze(function(){return executeOp$10(e,t,a)});case"normalization":return Ze(function(){return executeOp$11(e,t,a)});case"reduction":return Ze(function(){return executeOp$12(e,t,a)});case"slice_join":return Ze(function(){return executeOp$13(e,t,a)});case"spectral":return Ze(function(){return executeOp$14(e,t,a)});case"transformation":return Ze(function(){return executeOp$15(e,t,a)});case"custom":var r=getRegisteredOp(e.op);if(r&&r.customExecutor)return r.customExecutor(new NodeValueImpl(e,t,a));throw TypeError("Custom op "+e.op+" is not registered.");default:throw TypeError("Unknown op '"+e.op+"'. File an issue at https://github.com/tensorflow/tfjs/issues so we can add it, or register a custom execution with tf.registerOp()")}}(e,t,a);return r instanceof Promise?r.then(function(e){return [].concat(e)}):[].concat(r)}var ExecutionContext=function(){function e(e,t){this.weightMap=e,this.tensorArrayMap=t,this.rootContext={id:0,frameName:"",iterationId:0},this.contexts=[this.rootContext],this.lastId=0,this.generateCurrentContextIds();}return e.prototype.newFrame=function(e,t){return {id:e,frameName:t,iterationId:0}},Object.defineProperty(e.prototype,"currentContext",{get:function(){return this.contexts},set:function(e){this.contexts!==e&&(this.contexts=e,this.generateCurrentContextIds());},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"currentContextId",{get:function(){return this._currentContextIds[0]},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"currentContextIds",{get:function(){return this._currentContextIds},enumerable:!0,configurable:!0}),e.prototype.generateCurrentContextIds=function(){for(var e=[],t=0;t<this.contexts.length-1;t++){var a=this.contexts.slice(0,this.contexts.length-t);e.push(this.contextIdforContexts(a));}e.push(""),this._currentContextIds=e;},e.prototype.contextIdforContexts=function(e){return e?e.map(function(e){return 0===e.id&&0===e.iterationId?"":e.frameName+"-"+e.iterationId}).join("/"):""},e.prototype.enterFrame=function(e){this.contexts&&(this.lastId++,this.contexts=this.contexts.slice(),this.contexts.push(this.newFrame(this.lastId,e)),this._currentContextIds.unshift(this.contextIdforContexts(this.contexts)));},e.prototype.exitFrame=function(){if(!(this.contexts&&this.contexts.length>1))throw new Error("Cannot exit frame, the context is empty");this.contexts=this.contexts.slice(),this.contexts.splice(-1),this.currentContextIds.shift();},e.prototype.nextIteration=function(){if(!(this.contexts&&this.contexts.length>0))throw new Error("Cannot increase frame iteration, the context is empty");this.contexts=this.contexts.slice(),this.lastId++;var e=Object.assign({},this.contexts[this.contexts.length-1]);e.iterationId+=1,e.id=this.lastId,this.contexts.splice(-1,1,e),this._currentContextIds.splice(0,1,this.contextIdforContexts(this.contexts));},e.prototype.getWeight=function(e){return this.weightMap[e]},e.prototype.addTensorArray=function(e){this.tensorArrayMap[e.id]=e;},e.prototype.getTensorArray=function(e){return this.tensorArrayMap[e]},e}();function getExecutionSubgraph(e,t,a){for(var r=new Set,n=[],s=null,o=null,p=new Set,u=Object.keys(e).map(function(e){return parseNodeName(e)[0]}),i=t.slice();i.length>0;){var m=i.pop();(isControlFlow(m)||isDynamicShape(m))&&null==s&&(o=(s=m).children.map(function(e){return e.name}).filter(function(e){return r.has(e)})),r.add(m.name),null==a[m.name]&&(-1===u.indexOf(m.name)&&(0!==m.inputs.length?m.inputs.forEach(function(e){p.has(e.name)||(p.add(e.name),i.push(e));}):n.push(m.name)));}return {inputs:e,outputs:t,usedNodes:r,missingInputs:n,dynamicNode:s,syncInputs:o}}function getNodesInTopologicalOrder(e,t,a){var r=a.usedNodes,n=a.inputs,s=[];Object.keys(n).map(function(e){return parseNodeName(e)[0]}).map(function(t){return e.nodes[t]}).forEach(function(e){r.has(e.name)&&s.push(e);}),e.weights.forEach(function(e){r.has(e.name)&&s.push(e);});for(var o=new Set,p=[];s.length>0;){var u=s.pop();o.add(u.name),t[u.name]||p.push(u),u.children.forEach(function(e){!o.has(e.name)&&r.has(e.name)&&e.inputs.every(function(e){return o.has(e.name)})&&s.push(e);});}return p}var CONTROL_FLOW_OPS=["Switch","Merge","Enter","Exit","NextIteration"],DYNAMIC_SHAPE_OPS=["NonMaxSuppressionV2","NonMaxSuppressionV3","NonMaxSuppressionV5","Where"];function isControlFlow(e){return CONTROL_FLOW_OPS.indexOf(e.op)>=0}function isDynamicShape(e){return DYNAMIC_SHAPE_OPS.indexOf(e.op)>=0}var GraphExecutor=function(){function e(e){this.graph=e,this.compiledMap=new Map,this._weightMap={},this.SEPERATOR=",",this._outputs=e.outputs,this._inputs=e.inputs,this._signature=e.signature;}return Object.defineProperty(e.prototype,"weightMap",{get:function(){return this._weightMap},set:function(e){var t=Object.keys(e).map(function(t){return e[t].map(function(e){return e.id})});this.weightIds=[].concat.apply([],t),this._weightMap=e;},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"inputs",{get:function(){return this._inputs.map(function(e){return {name:e.name,shape:e.attrParams.shape?e.attrParams.shape.value:void 0,dtype:e.attrParams.dtype?e.attrParams.dtype.value:void 0}})},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"outputs",{get:function(){return this._outputs.map(function(e){return {name:e.name,shape:e.attrParams.shape?e.attrParams.shape.value:void 0,dtype:e.attrParams.dtype?e.attrParams.dtype.value:void 0}})},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"inputNodes",{get:function(){return this._inputs.map(function(e){return e.signatureKey||e.name})},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"outputNodes",{get:function(){return this._outputs.map(function(e){return e.signatureKey||e.name})},enumerable:!0,configurable:!0}),e.prototype.getCompilationKey=function(e,t){var a=e.map(function(e){return e.name}).sort(),r=t.map(function(e){return e.name}).sort();return a.join(this.SEPERATOR)+"--"+r.join(this.SEPERATOR)},e.prototype.compile=function(e,t){var a=getExecutionSubgraph(e,t,this.weightMap),r=a.missingInputs,n=a.dynamicNode,s=a.syncInputs;if(null!=n)throw new Error("This execution contains the node '"+n.name+"', which has the dynamic op '"+n.op+"'. Please use model.executeAsync() instead. Alternatively, to avoid the dynamic ops, specify the inputs ["+s+"]");if(r.length>0){var o=t.map(function(e){return e.name}),p=Object.keys(e);throw new Error("Cannot compute the outputs ["+o+"] from the provided inputs ["+p+"]. Missing the following inputs: ["+r+"]")}return getNodesInTopologicalOrder(this.graph,this.weightMap,a)},e.prototype.execute=function(e,t){var a=this;e=this.mapInputs(e);var r=Object.keys(e).sort();this.checkInputs(e),this.checkInputShapeAndType(e),t=this.mapOutputs(t),this.checkOutputs(t);var n=r.map(function(e){return a.graph.nodes[parseNodeName(e)[0]]}),s=t.map(function(e){return a.graph.nodes[parseNodeName(e)[0]]}),o=this.getCompilationKey(n,s),p=this.compiledMap.get(o);null==p&&(p=this.compile(e,s),this.compiledMap.set(o,p));var u={};return Ze(function(){var r=new ExecutionContext(a._weightMap,u),n=__assign$1({},a.weightMap);Object.keys(e).forEach(function(t){var a=parseNodeName(t),r=a[0],s=[];s[a[1]]=e[t],n[r]=s;});for(var s=a.getFrozenTensorIds(n),o={},i=0;i<p.length;i++){var m=p[i];if(!n[m.name]){var l=executeOp$16(m,n,r);if(l instanceof Promise)throw new Error("The execution of the op '"+m.op+"' returned a promise. Please use model.executeAsync() instead.");n[m.name]=l,a.checkTensorForDisposal(m.name,m,n,r,s,t,o);}}return t.map(function(e){return getTensor(e,n,r)})})},e.prototype.getFrozenTensorIds=function(e){var t=[].concat.apply([],Object.keys(e).map(function(t){return e[t]}).map(function(e){return e.map(function(e){return e.id})}));return new Set(t)},e.prototype.checkTensorForDisposal=function(e,t,a,r,n,s,o){"control"!==t.category&&-1===s.indexOf(e)&&(a[e].forEach(function(e){null!=e&&(o[e.id]=(o[e.id]||0)+t.children.length);}),t.inputs.forEach(function(e){if("control"!==e.category){var t=getTensorsForCurrentContenxt(e.name,a,r);null!=t&&t.forEach(function(e){if(e&&!n.has(e.id)){var t=o[e.id];1===t?(e.dispose(),delete o[e.id]):null!=t&&o[e.id]--;}});}}));},e.prototype.executeAsync=function(e,t){return __awaiter$1(this,void 0,void 0,function(){var a,r,n,s,o,p,u=this;return __generator$1(this,function(i){switch(i.label){case 0:return e=this.mapInputs(e),this.checkInputs(e),this.checkInputShapeAndType(e),t=this.mapOutputs(t),this.checkOutputs(t),a={},r=new ExecutionContext(this._weightMap,a),[4,this.executeWithControlFlow(e,r,t)];case 1:return n=i.sent(),s=t.map(function(e){return getTensor(e,n,r)}),o=new Set(s.map(function(e){return e.id})),p=new Set(Object.keys(e).map(function(t){return e[t].id})),Object.keys(n).forEach(function(e){n[e].forEach(function(e){!e||e.isDisposed||o.has(e.id)||p.has(e.id)||-1!==u.weightIds.indexOf(e.id)||e.dispose();});}),[2,s]}})})},e.prototype.executeWithControlFlow=function(e,t,a){return __awaiter$1(this,void 0,void 0,function(){var r,n,s,o,p,u,i,m,l,c,d,y,f,g,h,N,x=this;return __generator$1(this,function(V){switch(V.label){case 0:r=Object.keys(e),n=r.map(function(e){return x.graph.nodes[parseNodeName(e)[0]]}),s=a.map(function(e){return x.graph.nodes[parseNodeName(e)[0]]}),o=getExecutionSubgraph(e,s,this.weightMap),p=o.usedNodes,u=o.missingInputs,i=o.dynamicNode,m=o.syncInputs,l=n.concat(this.graph.weights).map(function(e){return {node:e,contexts:t.currentContext}}),c=__assign$1({},this.weightMap),Object.keys(e).forEach(function(t){var a=parseNodeName(t),r=a[0],n=[];n[a[1]]=e[t],c[r]=n;}),d={},y=this.getFrozenTensorIds(c),f={},V.label=1;case 1:return l.length>0?(g=this.processStack(n,l,t,c,f,y,a,d,p),[4,Promise.all(g)]):[3,3];case 2:return V.sent(),[3,1];case 3:if(null==i&&console.warn("This model execution did not contain any nodes with control flow or dynamic output shapes. You can use model.execute() instead."),(h=s.filter(function(e){return !isControlFlow(e)&&!getTensor(e.name,c,t)}).map(function(e){return e.name})).length>0)throw N="",null!=i&&(N="Alternatively, to avoid the dynamic ops, use model.execute() and specify the inputs ["+m+"]"),new Error("Cannot compute the outputs ["+h+"] from the provided inputs ["+r+"]. Consider providing the following inputs: ["+u+"]. "+N);return [2,c]}})})},e.prototype.processStack=function(e,t,a,r,n,s,o,p,u){for(var i=this,m=[],l=function(){var l=t.pop();a.currentContext=l.contexts;var d="";if("Enter"===l.node.op&&getParamValue("isConstant",l.node,r,a)&&(d=getNodeNameAndIndex(l.node.name,a)[0]),-1===e.indexOf(l.node)){var y=executeOp$16(l.node,r,a);d||(d=getNodeNameAndIndex(l.node.name,a)[0]);var f=a.currentContext;y instanceof Promise?m.push(y.then(function(e){return r[d]=e,a.currentContext=f,i.checkTensorForDisposal(d,l.node,r,a,s,o,p),i.processChildNodes(l.node,t,a,r,n,u),e})):(r[d]=y,c.checkTensorForDisposal(d,l.node,r,a,s,o,p),c.processChildNodes(l.node,t,a,r,n,u));}else c.processChildNodes(l.node,t,a,r,n,u);},c=this;t.length>0;)l();return m},e.prototype.processChildNodes=function(e,t,a,r,n,s){e.children.forEach(function(e){var o=getNodeNameAndIndex(e.name,a)[0];!n[o]&&s.has(e.name)&&("Merge"===e.op?e.inputNames.some(function(e){return !!getTensor(e,r,a)})&&(n[o]=!0,t.push({contexts:a.currentContext,node:e})):e.inputNames.every(function(e){return !!getTensor(e,r,a)})&&(n[o]=!0,t.push({contexts:a.currentContext,node:e})));});},e.prototype.dispose=function(){var e=this;Object.keys(this.weightMap).forEach(function(t){return e.weightMap[t].forEach(function(e){return e.dispose()})});},e.prototype.checkInputShapeAndType=function(e){var t=this;Object.keys(e).forEach(function(a){var r=e[a],n=parseNodeName(a)[0],s=t.graph.nodes[n];if(s.attrParams.shape&&s.attrParams.shape.value){var o=s.attrParams.shape.value,p=o.length===r.shape.length&&r.shape.every(function(e,t){return -1===o[t]||o[t]===e});st.assert(p,function(){return "The shape of dict['"+s.name+"'] provided in model.execute(dict) must be ["+o+"], but was ["+r.shape+"]"});}s.attrParams.dtype&&s.attrParams.dtype.value&&st.assert(r.dtype===s.attrParams.dtype.value,function(){return "The dtype of dict['"+s.name+"'] provided in model.execute(dict) must be "+s.attrParams.dtype.value+", but was "+r.dtype});});},e.prototype.mapInputs=function(e){var t={};for(var a in e){if(null!=this._signature&&null!=this._signature.inputs&&null!=this._signature.inputs[a])t[this._signature.inputs[a].name]=e[a];else t[a]=e[a];}return t},e.prototype.checkInputs=function(e){var t=this,a=Object.keys(e).filter(function(e){var a=parseNodeName(e)[0];return null==t.graph.nodes[a]});if(a.length>0)throw new Error("The dict provided in model.execute(dict) has keys: ["+a+"] that are not part of graph")},e.prototype.mapOutputs=function(e){var t=this;return e.map(function(e){return null!=t._signature&&null!=t._signature.outputs&&null!=t._signature.outputs[e]?t._signature.outputs[e].name:e},{})},e.prototype.checkOutputs=function(e){var t=this;e.forEach(function(e){var a=parseNodeName(e)[0];if(!t.graph.nodes[a])throw new Error("The output '"+e+"' is not found in the graph")});},e}(),TFHUB_SEARCH_PARAM="?tfjs-format=file",DEFAULT_MODEL_NAME="model.json",GraphModel=function(){function e(e,t){void 0===t&&(t={}),this.modelUrl=e,this.loadOptions=t,this.version="n/a",null==t&&(this.loadOptions={});}return Object.defineProperty(e.prototype,"modelVersion",{get:function(){return this.version},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"inputNodes",{get:function(){return this.executor.inputNodes},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"outputNodes",{get:function(){return this.executor.outputNodes},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"inputs",{get:function(){return this.executor.inputs},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"outputs",{get:function(){return this.executor.outputs},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"weights",{get:function(){return this.executor.weightMap},enumerable:!0,configurable:!0}),e.prototype.findIOHandler=function(){var e=this.modelUrl;if(null!=e.load)this.handler=e;else if(null!=this.loadOptions.requestInit)this.handler=Bd.browserHTTPRequest(e,this.loadOptions);else {var t=Bd.getLoadHandlers(e,this.loadOptions.onProgress);if(0===t.length)t.push(Bd.browserHTTPRequest(e,this.loadOptions));else if(t.length>1)throw new Error("Found more than one ("+t.length+") load handlers for URL '"+[e]+"'");this.handler=t[0];}},e.prototype.load=function(){return __awaiter$1(this,void 0,void 0,function(){var e,t,a,r;return __generator$1(this,function(n){switch(n.label){case 0:if(this.findIOHandler(),null==this.handler.load)throw new Error("Cannot proceed with model loading because the IOHandler provided does not have the `load` method implemented.");return e=this,[4,this.handler.load()];case 1:return e.artifacts=n.sent(),t=this.artifacts.modelTopology,a={},null!=this.artifacts.userDefinedMetadata&&(a=this.artifacts.userDefinedMetadata.signature),this.version=t.versions.producer+"."+t.versions.minConsumer,r=Bd.decodeWeights(this.artifacts.weightData,this.artifacts.weightSpecs),this.executor=new GraphExecutor(OperationMapper.Instance.transformGraph(t,a)),this.executor.weightMap=this.convertTensorMapToTensorsMap(r),[2,!0]}})})},e.prototype.save=function(e,t){return __awaiter$1(this,void 0,void 0,function(){var t;return __generator$1(this,function(a){if("string"==typeof e){if(0===(t=Bd.getSaveHandlers(e)).length)throw new Error("Cannot find any save handlers for URL '"+e+"'");if(t.length>1)throw new Error("Found more than one ("+t.length+") save handlers for URL '"+e+"'");e=t[0];}if(null==e.save)throw new Error("GraphModel.save() cannot proceed because the IOHandler provided does not have the `save` attribute defined.");return [2,e.save(this.artifacts)]})})},e.prototype.predict=function(e,t){return this.execute(e,this.outputNodes)},e.prototype.normalizeInputs=function(e){if(!(e instanceof wt||Array.isArray(e)))return e;if((e=Array.isArray(e)?e:[e]).length!==this.inputNodes.length)throw new Error("Input tensor count mismatch,the graph model has "+this.inputNodes.length+" placeholders, while there are "+e.length+" input tensors.");return this.inputNodes.reduce(function(t,a,r){return t[a]=e[r],t},{})},e.prototype.normalizeOutputs=function(e){return e=e||this.outputNodes,Array.isArray(e)?e:[e]},e.prototype.execute=function(e,t){e=this.normalizeInputs(e),t=this.normalizeOutputs(t);var a=this.executor.execute(e,t);return a.length>1?a:a[0]},e.prototype.executeAsync=function(e,t){return __awaiter$1(this,void 0,void 0,function(){var a;return __generator$1(this,function(r){switch(r.label){case 0:return e=this.normalizeInputs(e),t=this.normalizeOutputs(t),[4,this.executor.executeAsync(e,t)];case 1:return [2,(a=r.sent()).length>1?a:a[0]]}})})},e.prototype.convertTensorMapToTensorsMap=function(e){return Object.keys(e).reduce(function(t,a){return t[a]=[e[a]],t},{})},e.prototype.dispose=function(){this.executor.dispose();},e}();function loadGraphModel(e,t){return void 0===t&&(t={}),__awaiter$1(this,void 0,void 0,function(){var a;return __generator$1(this,function(r){switch(r.label){case 0:if(null==e)throw new Error("modelUrl in loadGraphModel() cannot be null. Please provide a url or an IOHandler that loads the model");return null==t&&(t={}),t.fromTFHub&&null==e.load&&(e.endsWith("/")||(e+="/"),e=""+e+DEFAULT_MODEL_NAME+TFHUB_SEARCH_PARAM),[4,(a=new GraphModel(e,t)).load()];case 1:return r.sent(),[2,a]}})})}var version$1="1.7.4";
+
+    /**
+     * @license
+     * Copyright 2020 Google LLC. All Rights Reserved.
+     * Licensed under the Apache License, Version 2.0 (the "License");
+     * you may not use this file except in compliance with the License.
+     * You may obtain a copy of the License at
+     *
+     * http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     * =============================================================================
+     */
+    var extendStatics$1=function(t,e){return (extendStatics$1=Object.setPrototypeOf||{__proto__:[]}instanceof Array&&function(t,e){t.__proto__=e;}||function(t,e){for(var r in e)e.hasOwnProperty(r)&&(t[r]=e[r]);})(t,e)};function __extends$1(t,e){function r(){this.constructor=t;}extendStatics$1(t,e),t.prototype=null===e?Object.create(e):(r.prototype=e.prototype,new r);}function __awaiter$2(t,e,r,n){return new(r||(r=Promise))(function(i,o){function a(t){try{u(n.next(t));}catch(t){o(t);}}function s(t){try{u(n.throw(t));}catch(t){o(t);}}function u(t){t.done?i(t.value):new r(function(e){e(t.value);}).then(a,s);}u((n=n.apply(t,e||[])).next());})}function __generator$2(t,e){var r,n,i,o,a={label:0,sent:function(){if(1&i[0])throw i[1];return i[1]},trys:[],ops:[]};return o={next:s(0),throw:s(1),return:s(2)},"function"==typeof Symbol&&(o[Symbol.iterator]=function(){return this}),o;function s(o){return function(s){return function(o){if(r)throw new TypeError("Generator is already executing.");for(;a;)try{if(r=1,n&&(i=2&o[0]?n.return:o[0]?n.throw||((i=n.return)&&i.call(n),0):n.next)&&!(i=i.call(n,o[1])).done)return i;switch(n=0,i&&(o=[2&o[0],i.value]),o[0]){case 0:case 1:i=o;break;case 4:return a.label++,{value:o[1],done:!1};case 5:a.label++,n=o[1],o=[0];continue;case 7:o=a.ops.pop(),a.trys.pop();continue;default:if(!(i=(i=a.trys).length>0&&i[i.length-1])&&(6===o[0]||2===o[0])){a=0;continue}if(3===o[0]&&(!i||o[1]>i[0]&&o[1]<i[3])){a.label=o[1];break}if(6===o[0]&&a.label<i[1]){a.label=i[1],i=o;break}if(i&&a.label<i[2]){a.label=i[2],a.ops.push(o);break}i[2]&&a.ops.pop(),a.trys.pop();continue}o=e.call(t,a);}catch(t){o=[6,t],n=0;}finally{r=i=0;}if(5&o[0])throw o[1];return {value:o[0]?o[1]:void 0,done:!0}}([o,s])}}}function createCommonjsModule(t,e){return t(e={exports:{}},e.exports),e.exports}var alea=createCommonjsModule(function(t){!function(t,e,r){function n(t,e){return e.c=t.c,e.s0=t.s0,e.s1=t.s1,e.s2=t.s2,e}function i(t,e){var r=new function(t){var e,r=this,n=(e=4022871197,function(t){t=t.toString();for(var r=0;r<t.length;r++){var n=.02519603282416938*(e+=t.charCodeAt(r));n-=e=n>>>0,e=(n*=e)>>>0,e+=4294967296*(n-=e);}return 2.3283064365386963e-10*(e>>>0)});r.next=function(){var t=2091639*r.s0+2.3283064365386963e-10*r.c;return r.s0=r.s1,r.s1=r.s2,r.s2=t-(r.c=0|t)},r.c=1,r.s0=n(" "),r.s1=n(" "),r.s2=n(" "),r.s0-=n(t),r.s0<0&&(r.s0+=1),r.s1-=n(t),r.s1<0&&(r.s1+=1),r.s2-=n(t),r.s2<0&&(r.s2+=1),n=null;}(t),i=e&&e.state,o=r.next;return o.int32=function(){return 4294967296*r.next()|0},o.double=function(){return o()+1.1102230246251565e-16*(2097152*o()|0)},o.quick=o,i&&("object"==typeof i&&n(i,r),o.state=function(){return n(r,{})}),o}e&&e.exports?e.exports=i:r&&r.amd?r(function(){return i}):this.alea=i;}(0,t,!1);}),xor128=createCommonjsModule(function(t){!function(t,e,r){function n(t,e){return e.x=t.x,e.y=t.y,e.z=t.z,e.w=t.w,e}function i(t,e){var r=new function(t){var e=this,r="";e.x=0,e.y=0,e.z=0,e.w=0,e.next=function(){var t=e.x^e.x<<11;return e.x=e.y,e.y=e.z,e.z=e.w,e.w^=e.w>>>19^t^t>>>8},t===(0|t)?e.x=t:r+=t;for(var n=0;n<r.length+64;n++)e.x^=0|r.charCodeAt(n),e.next();}(t),i=e&&e.state,o=function(){return (r.next()>>>0)/4294967296};return o.double=function(){do{var t=((r.next()>>>11)+(r.next()>>>0)/4294967296)/(1<<21);}while(0===t);return t},o.int32=r.next,o.quick=o,i&&("object"==typeof i&&n(i,r),o.state=function(){return n(r,{})}),o}e&&e.exports?e.exports=i:r&&r.amd?r(function(){return i}):this.xor128=i;}(0,t,!1);}),xorwow=createCommonjsModule(function(t){!function(t,e,r){function n(t,e){return e.x=t.x,e.y=t.y,e.z=t.z,e.w=t.w,e.v=t.v,e.d=t.d,e}function i(t,e){var r=new function(t){var e=this,r="";e.next=function(){var t=e.x^e.x>>>2;return e.x=e.y,e.y=e.z,e.z=e.w,e.w=e.v,(e.d=e.d+362437|0)+(e.v=e.v^e.v<<4^t^t<<1)|0},e.x=0,e.y=0,e.z=0,e.w=0,e.v=0,t===(0|t)?e.x=t:r+=t;for(var n=0;n<r.length+64;n++)e.x^=0|r.charCodeAt(n),n==r.length&&(e.d=e.x<<10^e.x>>>4),e.next();}(t),i=e&&e.state,o=function(){return (r.next()>>>0)/4294967296};return o.double=function(){do{var t=((r.next()>>>11)+(r.next()>>>0)/4294967296)/(1<<21);}while(0===t);return t},o.int32=r.next,o.quick=o,i&&("object"==typeof i&&n(i,r),o.state=function(){return n(r,{})}),o}e&&e.exports?e.exports=i:r&&r.amd?r(function(){return i}):this.xorwow=i;}(0,t,!1);}),xorshift7=createCommonjsModule(function(t){!function(t,e,r){function n(t,e){return e.x=t.x.slice(),e.i=t.i,e}function i(t,e){null==t&&(t=+new Date);var r=new function(t){var e=this;e.next=function(){var t,r,n=e.x,i=e.i;return t=n[i],r=(t^=t>>>7)^t<<24,r^=(t=n[i+1&7])^t>>>10,r^=(t=n[i+3&7])^t>>>3,r^=(t=n[i+4&7])^t<<7,t=n[i+7&7],r^=(t^=t<<13)^t<<9,n[i]=r,e.i=i+1&7,r},function(t,e){var r,n=[];if(e===(0|e))n[0]=e;else for(e=""+e,r=0;r<e.length;++r)n[7&r]=n[7&r]<<15^e.charCodeAt(r)+n[r+1&7]<<13;for(;n.length<8;)n.push(0);for(r=0;r<8&&0===n[r];++r);for(8==r?n[7]=-1:n[r],t.x=n,t.i=0,r=256;r>0;--r)t.next();}(e,t);}(t),i=e&&e.state,o=function(){return (r.next()>>>0)/4294967296};return o.double=function(){do{var t=((r.next()>>>11)+(r.next()>>>0)/4294967296)/(1<<21);}while(0===t);return t},o.int32=r.next,o.quick=o,i&&(i.x&&n(i,r),o.state=function(){return n(r,{})}),o}e&&e.exports?e.exports=i:r&&r.amd?r(function(){return i}):this.xorshift7=i;}(0,t,!1);}),xor4096=createCommonjsModule(function(t){!function(t,e,r){function n(t,e){return e.i=t.i,e.w=t.w,e.X=t.X.slice(),e}function i(t,e){null==t&&(t=+new Date);var r=new function(t){var e=this;e.next=function(){var t,r,n=e.w,i=e.X,o=e.i;return e.w=n=n+1640531527|0,r=i[o+34&127],t=i[o=o+1&127],r^=r<<13,t^=t<<17,r^=r>>>15,t^=t>>>12,r=i[o]=r^t,e.i=o,r+(n^n>>>16)|0},function(t,e){var r,n,i,o,a,s=[],u=128;for(e===(0|e)?(n=e,e=null):(e+="\0",n=0,u=Math.max(u,e.length)),i=0,o=-32;o<u;++o)e&&(n^=e.charCodeAt((o+32)%e.length)),0===o&&(a=n),n^=n<<10,n^=n>>>15,n^=n<<4,n^=n>>>13,o>=0&&(a=a+1640531527|0,i=0==(r=s[127&o]^=n+a)?i+1:0);for(i>=128&&(s[127&(e&&e.length||0)]=-1),i=127,o=512;o>0;--o)n=s[i+34&127],r=s[i=i+1&127],n^=n<<13,r^=r<<17,n^=n>>>15,r^=r>>>12,s[i]=n^r;t.w=a,t.X=s,t.i=i;}(e,t);}(t),i=e&&e.state,o=function(){return (r.next()>>>0)/4294967296};return o.double=function(){do{var t=((r.next()>>>11)+(r.next()>>>0)/4294967296)/(1<<21);}while(0===t);return t},o.int32=r.next,o.quick=o,i&&(i.X&&n(i,r),o.state=function(){return n(r,{})}),o}e&&e.exports?e.exports=i:r&&r.amd?r(function(){return i}):this.xor4096=i;}(0,t,!1);}),tychei=createCommonjsModule(function(t){!function(t,e,r){function n(t,e){return e.a=t.a,e.b=t.b,e.c=t.c,e.d=t.d,e}function i(t,e){var r=new function(t){var e=this,r="";e.next=function(){var t=e.b,r=e.c,n=e.d,i=e.a;return t=t<<25^t>>>7^r,r=r-n|0,n=n<<24^n>>>8^i,i=i-t|0,e.b=t=t<<20^t>>>12^r,e.c=r=r-n|0,e.d=n<<16^r>>>16^i,e.a=i-t|0},e.a=0,e.b=0,e.c=-1640531527,e.d=1367130551,t===Math.floor(t)?(e.a=t/4294967296|0,e.b=0|t):r+=t;for(var n=0;n<r.length+20;n++)e.b^=0|r.charCodeAt(n),e.next();}(t),i=e&&e.state,o=function(){return (r.next()>>>0)/4294967296};return o.double=function(){do{var t=((r.next()>>>11)+(r.next()>>>0)/4294967296)/(1<<21);}while(0===t);return t},o.int32=r.next,o.quick=o,i&&("object"==typeof i&&n(i,r),o.state=function(){return n(r,{})}),o}e&&e.exports?e.exports=i:r&&r.amd?r(function(){return i}):this.tychei=i;}(0,t,!1);}),seedrandom=createCommonjsModule(function(t){!function(e,r){var n,i=this,o=256,a=6,s="random",u=r.pow(o,a),c=r.pow(2,52),l=2*c,h=o-1;function f(t,f,v){var _=[],w=p(function t(e,r){var n,i=[],o=typeof e;if(r&&"object"==o)for(n in e)try{i.push(t(e[n],r-1));}catch(t){}return i.length?i:"string"==o?e:e+"\0"}((f=1==f?{entropy:!0}:f||{}).entropy?[t,m(e)]:null==t?function(){try{var t;return n&&(t=n.randomBytes)?t=t(o):(t=new Uint8Array(o),(i.crypto||i.msCrypto).getRandomValues(t)),m(t)}catch(t){var r=i.navigator,a=r&&r.plugins;return [+new Date,i,a,i.screen,m(e)]}}():t,3),_),y=new function(t){var e,r=t.length,n=this,i=0,a=n.i=n.j=0,s=n.S=[];r||(t=[r++]);for(;i<o;)s[i]=i++;for(i=0;i<o;i++)s[i]=s[a=h&a+t[i%r]+(e=s[i])],s[a]=e;(n.g=function(t){for(var e,r=0,i=n.i,a=n.j,s=n.S;t--;)e=s[i=h&i+1],r=r*o+s[h&(s[i]=s[a=h&a+e])+(s[a]=e)];return n.i=i,n.j=a,r})(o);}(_),g=function(){for(var t=y.g(a),e=u,r=0;t<c;)t=(t+r)*o,e*=o,r=y.g(1);for(;t>=l;)t/=2,e/=2,r>>>=1;return (t+r)/e};return g.int32=function(){return 0|y.g(4)},g.quick=function(){return y.g(4)/4294967296},g.double=g,p(m(y.S),e),(f.pass||v||function(t,e,n,i){return i&&(i.S&&d(i,y),t.state=function(){return d(y,{})}),n?(r[s]=t,e):t})(g,w,"global"in f?f.global:this==r,f.state)}function d(t,e){return e.i=t.i,e.j=t.j,e.S=t.S.slice(),e}function p(t,e){for(var r,n=t+"",i=0;i<n.length;)e[h&i]=h&(r^=19*e[h&i])+n.charCodeAt(i++);return m(e)}function m(t){return String.fromCharCode.apply(0,t)}if(r["seed"+s]=f,p(r.random(),e),t.exports){t.exports=f;try{n=require("crypto");}catch(t){}}}([],Math);});seedrandom.alea=alea,seedrandom.xor128=xor128,seedrandom.xorwow=xorwow,seedrandom.xorshift7=xorshift7,seedrandom.xor4096=xor4096,seedrandom.tychei=tychei;var seedrandom$1=seedrandom,seedrandom_1=seedrandom$1.alea;function deepMap(t,e){return deepMapInternal(t,e)}function deepMapInternal(t,e,r,n){if(void 0===r&&(r=new Map),void 0===n&&(n=new Set),null==t)return null;if(n.has(t))throw new Error("Circular references are not supported.");if(r.has(t))return r.get(t);var i=e(t);if(i.recurse&&null!==i.value)throw new Error("A deep map function may not return both a value and recurse=true.");if(i.recurse){if(isIterable(t)){var o=Array.isArray(t)?[]:{};for(var a in n.add(t),t){var s=deepMapInternal(t[a],e,r,n);o[a]=s;}return n.delete(t),o}throw new Error("Can't recurse into non-iterable type: "+t)}return r.set(t,i.value),i.value}function deepZip(t,e){return void 0===e&&(e=zipToList),deepZipInternal(t,e)}function deepZipInternal(t,e,r){void 0===r&&(r=new Set);var n=t[0];if(r.has(n))throw new Error("Circular references are not supported.");var i=e(t);if(i.recurse&&null!==i.value)throw new Error("A deep zip function may not return both a value and recurse=true.");if(i.recurse){if(isIterable(n)){var o=Array.isArray(n)?[]:{};r.add(n);var a=function(n){var i=deepZipInternal(t.map(function(t){return t[n]}),e,r);o[n]=i;};for(var s in n)a(s);return r.delete(n),o}throw new Error("Can't recurse into non-iterable type: "+n)}return i.value}function zipToList(t){return null===t?null:isIterable(t[0])?{value:null,recurse:!0}:{value:t,recurse:!1}}function deepMapAndAwaitAll(t,e){return __awaiter$2(this,void 0,void 0,function(){var r,n,i,o,a,s;return __generator$2(this,function(u){switch(u.label){case 0:r=new Map,deepMapInternal(t,e,r),n=0,i=Array.from(r.keys()),u.label=1;case 1:return n<i.length?(o=i[n],(a=r.get(o))instanceof Promise?[4,a]:[3,3]):[3,4];case 2:s=u.sent(),r.set(o,s),u.label=3;case 3:return n++,[3,1];case 4:return [2,deepMapInternal(t,e,r)]}})})}function isIterable(t){return null!=t&&!ArrayBuffer.isView(t)&&(Array.isArray(t)||"object"==typeof t&&!(t instanceof wt))}function canTensorify(t){return null==t||isPrimitive(t)||Array.isArray(t)||"object"==typeof t&&t instanceof wt||st.isTypedArray(t)}function isPrimitive(t){return null===t||"object"!=typeof t&&"function"!=typeof t}function deepClone(t){return deepMap(t,cloneIfTensor)}function cloneIfTensor(t){return t instanceof wt?{value:t.clone(),recurse:!1}:isIterable(t)?{value:null,recurse:!0}:{value:t,recurse:!1}}var RingBuffer=function(){function t(t){if(this.capacity=t,this.begin=0,this.end=0,null==t)throw new RangeError("Can't create a ring buffer of unknown capacity.");if(t<1)throw new RangeError("Can't create ring buffer of capacity < 1.");this.data=new Array(t),this.doubledCapacity=2*t;}return t.prototype.wrap=function(t){for(;t<0;)t+=this.doubledCapacity;return t%this.doubledCapacity},t.prototype.get=function(t){if(t<0)throw new RangeError("Can't get item at a negative index.");return this.data[t%this.capacity]},t.prototype.set=function(t,e){if(t<0)throw new RangeError("Can't set item at a negative index.");this.data[t%this.capacity]=e;},t.prototype.length=function(){var t=this.end-this.begin;return t<0&&(t=this.doubledCapacity+t),t},t.prototype.isFull=function(){return this.length()===this.capacity},t.prototype.isEmpty=function(){return 0===this.length()},t.prototype.push=function(t){if(this.isFull())throw new RangeError("Ring buffer is full.");this.set(this.end,t),this.end=this.wrap(this.end+1);},t.prototype.pushAll=function(t){for(var e=0,r=t;e<r.length;e++){var n=r[e];this.push(n);}},t.prototype.pop=function(){if(this.isEmpty())throw new RangeError("Ring buffer is empty.");this.end=this.wrap(this.end-1);var t=this.get(this.end);return this.set(this.end,void 0),t},t.prototype.unshift=function(t){if(this.isFull())throw new RangeError("Ring buffer is full.");this.begin=this.wrap(this.begin-1),this.set(this.begin,t);},t.prototype.shift=function(){if(this.isEmpty())throw new RangeError("Ring buffer is empty.");var t=this.get(this.begin);return this.set(this.begin,void 0),this.begin=this.wrap(this.begin+1),t},t.prototype.shuffleExcise=function(t){if(this.isEmpty())throw new RangeError("Ring buffer is empty.");var e=this.wrap(this.begin+t),r=this.get(e);return this.set(e,this.pop()),r},t}(),GrowingRingBuffer=function(t){function e(){return t.call(this,e.INITIAL_CAPACITY)||this}return __extends$1(e,t),e.prototype.isFull=function(){return !1},e.prototype.push=function(e){t.prototype.isFull.call(this)&&this.expand(),t.prototype.push.call(this,e);},e.prototype.unshift=function(e){t.prototype.isFull.call(this)&&this.expand(),t.prototype.unshift.call(this,e);},e.prototype.expand=function(){for(var t=2*this.capacity,e=new Array(t),r=this.length(),n=0;n<r;n++)e[n]=this.get(this.wrap(this.begin+n));this.data=e,this.capacity=t,this.doubledCapacity=2*this.capacity,this.begin=0,this.end=r;},e.INITIAL_CAPACITY=32,e}(RingBuffer);function iteratorFromItems(t){return new ArrayIterator(t)}function iteratorFromFunction(t){return new FunctionCallIterator(t)}function iteratorFromConcatenated(t,e){return new ChainedIterator(t,e)}function iteratorFromZipped(t,e){return void 0===e&&(e=ZipMismatchMode.FAIL),new ZipIterator(t,e)}var ZipMismatchMode,LazyIterator=function(){function t(){}return t.prototype.toArray=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e;return __generator$2(this,function(r){switch(r.label){case 0:return t=[],[4,this.next()];case 1:e=r.sent(),r.label=2;case 2:return e.done?[3,4]:(t.push(e.value),[4,this.next()]);case 3:return e=r.sent(),[3,2];case 4:return [2,t]}})})},t.prototype.toArrayForTest=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e,r;return __generator$2(this,function(n){switch(n.label){case 0:return t=this.prefetch(100),e=[],[4,t.next()];case 1:r=n.sent(),n.label=2;case 2:return r.done?[3,4]:(e.push(r.value),[4,t.next()]);case 3:return r=n.sent(),[3,2];case 4:return [2,e]}})})},t.prototype.resolveFully=function(){return __awaiter$2(this,void 0,void 0,function(){var t;return __generator$2(this,function(e){switch(e.label){case 0:return [4,this.next()];case 1:t=e.sent(),e.label=2;case 2:return t.done?[3,4]:[4,this.next()];case 3:return t=e.sent(),[3,2];case 4:return [2]}})})},t.prototype.resolveWhile=function(t){return __awaiter$2(this,void 0,void 0,function(){var e,r;return __generator$2(this,function(n){switch(n.label){case 0:return [4,this.next()];case 1:e=n.sent(),r=t(e.value),n.label=2;case 2:return e.done||!r?[3,4]:[4,this.next()];case 3:return e=n.sent(),r=t(e.value),[3,2];case 4:return [2]}})})},t.prototype.handleErrors=function(t){return new ErrorHandlingLazyIterator(this,t)},t.prototype.filter=function(t){return new FilterIterator(this,t)},t.prototype.map=function(t){return new MapIterator(this,t)},t.prototype.mapAsync=function(t){return new AsyncMapIterator(this,t)},t.prototype.serialMapAsync=function(t){return new AsyncMapIterator(this,t).serial()},t.prototype.flatmap=function(t){return new FlatmapIterator(this,t)},t.prototype.forEachAsync=function(t){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(e){return [2,this.map(t).resolveFully()]})})},t.prototype.serialForEach=function(t){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(e){return [2,this.serialMapAsync(t).resolveWhile(function(t){return !0===t})]})})},t.prototype.rowMajorBatch=function(t,e){return void 0===e&&(e=!0),new RowMajorBatchIterator(this,t,e)},t.prototype.columnMajorBatch=function(t,e,r){return void 0===e&&(e=!0),void 0===r&&(r=zipToList),this.rowMajorBatch(t,e).map(function(t){return deepZip(t,r)})},t.prototype.concatenate=function(t,e){return new ChainedIterator(iteratorFromItems([this,t]),e)},t.prototype.take=function(t){return t<0||null==t?this:new TakeIterator(this,t)},t.prototype.skip=function(t){return t<0||null==t?this:new SkipIterator(this,t)},t.prototype.prefetch=function(t){return new PrefetchIterator(this,t)},t.prototype.shuffle=function(t,e){return new ShuffleIterator(this,t,e)},t.prototype.serial=function(){return new SerialIterator(this)},t}(),ArrayIterator=function(t){function e(e){var r=t.call(this)||this;return r.items=e,r.trav=0,r}return __extends$1(e,t),e.prototype.summary=function(){return "Array of "+this.items.length+" items"},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t;return __generator$2(this,function(e){return this.trav>=this.items.length?[2,{value:null,done:!0}]:(t=this.items[this.trav],this.trav++,[2,{value:deepClone(t),done:!1}])})})},e}(LazyIterator),FunctionCallIterator=function(t){function e(e){var r=t.call(this)||this;return r.nextFn=e,r}return __extends$1(e,t),e.prototype.summary=function(){return "Function call"},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){try{return [2,this.nextFn()]}catch(t){throw t.message="Error thrown while iterating through a dataset: "+t.message,t}return [2]})})},e}(LazyIterator),SerialIterator=function(t){function e(e){var r=t.call(this)||this;return r.upstream=e,r.lastRead=Promise.resolve({value:null,done:!1}),r}return __extends$1(e,t),e.prototype.summary=function(){return this.upstream.summary()+" -> Serial"},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t=this;return __generator$2(this,function(e){return this.lastRead=this.lastRead.then(function(){return t.serialNext()}),[2,this.lastRead]})})},e.prototype.serialNext=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){return [2,this.upstream.next()]})})},e}(LazyIterator),SkipIterator=function(t){function e(e,r){var n=t.call(this)||this;return n.upstream=e,n.maxCount=r,n.count=0,n.lastRead=Promise.resolve({value:null,done:!1}),n}return __extends$1(e,t),e.prototype.summary=function(){return this.upstream.summary()+" -> Skip"},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t=this;return __generator$2(this,function(e){return this.lastRead=this.lastRead.then(function(){return t.serialNext()}),[2,this.lastRead]})})},e.prototype.serialNext=function(){return __awaiter$2(this,void 0,void 0,function(){var t;return __generator$2(this,function(e){switch(e.label){case 0:return this.count++<this.maxCount?[4,this.upstream.next()]:[3,2];case 1:return (t=e.sent()).done?[2,t]:(tn(t.value),[3,0]);case 2:return [2,this.upstream.next()]}})})},e}(LazyIterator),TakeIterator=function(t){function e(e,r){var n=t.call(this)||this;return n.upstream=e,n.maxCount=r,n.count=0,n}return __extends$1(e,t),e.prototype.summary=function(){return this.upstream.summary()+" -> Take"},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){return this.count++>=this.maxCount?[2,{value:null,done:!0}]:[2,this.upstream.next()]})})},e}(LazyIterator),RowMajorBatchIterator=function(t){function e(e,r,n){void 0===n&&(n=!0);var i=t.call(this)||this;return i.upstream=e,i.batchSize=r,i.enableSmallLastBatch=n,i.lastRead=Promise.resolve({value:null,done:!1}),i}return __extends$1(e,t),e.prototype.summary=function(){return this.upstream.summary()+" -> RowMajorBatch"},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t=this;return __generator$2(this,function(e){return this.lastRead=this.lastRead.then(function(){return t.serialNext()}),[2,this.lastRead]})})},e.prototype.serialNext=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e;return __generator$2(this,function(r){switch(r.label){case 0:t=[],r.label=1;case 1:return t.length<this.batchSize?[4,this.upstream.next()]:[3,3];case 2:return (e=r.sent()).done?this.enableSmallLastBatch&&t.length>0?[2,{value:t,done:!1}]:[2,{value:null,done:!0}]:(t.push(e.value),[3,1]);case 3:return [2,{value:t,done:!1}]}})})},e}(LazyIterator),FilterIterator=function(t){function e(e,r){var n=t.call(this)||this;return n.upstream=e,n.predicate=r,n.lastRead=Promise.resolve({value:null,done:!1}),n}return __extends$1(e,t),e.prototype.summary=function(){return this.upstream.summary()+" -> Filter"},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t=this;return __generator$2(this,function(e){return this.lastRead=this.lastRead.then(function(){return t.serialNext()}),[2,this.lastRead]})})},e.prototype.serialNext=function(){return __awaiter$2(this,void 0,void 0,function(){var t;return __generator$2(this,function(e){switch(e.label){case 0:return [4,this.upstream.next()];case 1:return (t=e.sent()).done||this.predicate(t.value)?[2,t]:(tn(t.value),[3,0]);case 2:return [2]}})})},e}(LazyIterator),MapIterator=function(t){function e(e,r){var n=t.call(this)||this;return n.upstream=e,n.transform=r,n}return __extends$1(e,t),e.prototype.summary=function(){return this.upstream.summary()+" -> Map"},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e,r,n,i,o,a;return __generator$2(this,function(s){switch(s.label){case 0:return [4,this.upstream.next()];case 1:if((t=s.sent()).done)return [2,{value:null,done:!0}];for(e=Mt.getTensorsInContainer(t.value),r=this.transform(t.value),n=Mt.getTensorsInContainer(r),i=0,o=e;i<o.length;i++)a=o[i],Mt.isTensorInList(a,n)||a.dispose();return [2,{value:r,done:!1}]}})})},e}(LazyIterator),ErrorHandlingLazyIterator=function(t){function e(e,r){var n=t.call(this)||this;return n.upstream=e,n.handler=r,n.count=0,n.lastRead=Promise.resolve({value:null,done:!1}),n}return __extends$1(e,t),e.prototype.summary=function(){return this.upstream.summary()+" -> handleErrors"},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t=this;return __generator$2(this,function(e){return this.lastRead=this.lastRead.then(function(){return t.serialNext()}),[2,this.lastRead]})})},e.prototype.serialNext=function(){return __awaiter$2(this,void 0,void 0,function(){var t;return __generator$2(this,function(e){switch(e.label){case 0:e.label=1;case 1:return e.trys.push([1,3,,4]),[4,this.upstream.next()];case 2:return [2,e.sent()];case 3:return t=e.sent(),this.handler(t)?[3,4]:[2,{value:null,done:!0}];case 4:return [3,0];case 5:return [2]}})})},e}(LazyIterator),AsyncMapIterator=function(t){function e(e,r){var n=t.call(this)||this;return n.upstream=e,n.transform=r,n}return __extends$1(e,t),e.prototype.summary=function(){return this.upstream.summary()+" -> AsyncMap"},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e,r,n,i,o,a;return __generator$2(this,function(s){switch(s.label){case 0:return [4,this.upstream.next()];case 1:return (t=s.sent()).done?[2,{value:null,done:!0}]:(e=Mt.getTensorsInContainer(t.value),[4,this.transform(t.value)]);case 2:for(r=s.sent(),n=Mt.getTensorsInContainer(r),i=0,o=e;i<o.length;i++)a=o[i],Mt.isTensorInList(a,n)||a.dispose();return [2,{value:r,done:!1}]}})})},e}(LazyIterator),OneToManyIterator=function(t){function e(){var e=t.call(this)||this;return e.outputQueue=new GrowingRingBuffer,e.lastRead=Promise.resolve({value:null,done:!1}),e}return __extends$1(e,t),e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t=this;return __generator$2(this,function(e){return this.lastRead=this.lastRead.then(function(){return t.serialNext()}),[2,this.lastRead]})})},e.prototype.serialNext=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){switch(t.label){case 0:return 0!==this.outputQueue.length()?[3,2]:[4,this.pump()];case 1:return t.sent()?[3,0]:[2,{value:null,done:!0}];case 2:return [2,{value:this.outputQueue.shift(),done:!1}]}})})},e}(LazyIterator),FlatmapIterator=function(t){function e(e,r){var n=t.call(this)||this;return n.upstream=e,n.transform=r,n}return __extends$1(e,t),e.prototype.summary=function(){return this.upstream.summary()+" -> Flatmap"},e.prototype.pump=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e,r,n,i,o,a;return __generator$2(this,function(s){switch(s.label){case 0:return [4,this.upstream.next()];case 1:if((t=s.sent()).done)return [2,!1];for(e=Mt.getTensorsInContainer(t.value),r=this.transform(t.value),n=Mt.getTensorsInContainer(r),this.outputQueue.pushAll(r),i=0,o=e;i<o.length;i++)a=o[i],Mt.isTensorInList(a,n)||a.dispose();return [2,!0]}})})},e}(OneToManyIterator),ChainedIterator=function(t){function e(e,r){var n=t.call(this)||this;return n.baseErrorHandler=r,n.lastRead=null,n.iterator=null,n.moreIterators=e,n}return __extends$1(e,t),e.prototype.summary=function(){return "TODO: fill in upstream of chained summaries -> Chained"},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){return this.lastRead=this.readFromChain(this.lastRead),[2,this.lastRead]})})},e.prototype.readFromChain=function(t){return __awaiter$2(this,void 0,void 0,function(){var e,r;return __generator$2(this,function(n){switch(n.label){case 0:return [4,t];case 1:return n.sent(),null!=this.iterator?[3,3]:[4,this.moreIterators.next()];case 2:if((e=n.sent()).done)return [2,{value:null,done:!0}];this.iterator=e.value,null!=this.baseErrorHandler&&(this.iterator=this.iterator.handleErrors(this.baseErrorHandler)),n.label=3;case 3:return [4,this.iterator.next()];case 4:return (r=n.sent()).done?(this.iterator=null,[2,this.readFromChain(t)]):[2,r]}})})},e}(LazyIterator);!function(t){t[t.FAIL=0]="FAIL",t[t.SHORTEST=1]="SHORTEST",t[t.LONGEST=2]="LONGEST";}(ZipMismatchMode||(ZipMismatchMode={}));var ZipIterator=function(t){function e(e,r){void 0===r&&(r=ZipMismatchMode.FAIL);var n=t.call(this)||this;return n.iterators=e,n.mismatchMode=r,n.count=0,n.currentPromise=null,n}return __extends$1(e,t),e.prototype.summary=function(){return "{TODO: fill in upstream of zip summaries} -> Zip"},e.prototype.nextState=function(t){return __awaiter$2(this,void 0,void 0,function(){function e(t){return t instanceof LazyIterator?{value:t.next().then(function(t){return r++,t.done&&n++,t.value}),recurse:!1}:{value:null,recurse:!0}}var r,n,i;return __generator$2(this,function(o){switch(o.label){case 0:return [4,t];case 1:return o.sent(),r=0,n=0,[4,deepMapAndAwaitAll(this.iterators,e)];case 2:if(i=o.sent(),r===n)return [2,{value:null,done:!0}];if(n>0)switch(this.mismatchMode){case ZipMismatchMode.FAIL:throw new Error("Zipped streams should have the same length. Mismatched at element "+this.count+".");case ZipMismatchMode.SHORTEST:return [2,{value:null,done:!0}];case ZipMismatchMode.LONGEST:}return this.count++,[2,{value:i,done:!1}]}})})},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){return this.currentPromise=this.nextState(this.currentPromise),[2,this.currentPromise]})})},e}(LazyIterator),PrefetchIterator=function(t){function e(e,r){var n=t.call(this)||this;return n.upstream=e,n.bufferSize=r,n.buffer=new RingBuffer(r),n}return __extends$1(e,t),e.prototype.summary=function(){return this.upstream.summary()+" -> Prefetch"},e.prototype.refill=function(){for(;!this.buffer.isFull();){var t=this.upstream.next();this.buffer.push(t);}},e.prototype.next=function(){return this.refill(),this.buffer.shift()},e}(LazyIterator),ShuffleIterator=function(t){function e(e,r,n){var i=t.call(this,e,r)||this;return i.upstream=e,i.windowSize=r,i.upstreamExhausted=!1,i.random=seedrandom_1(n||st.now().toString()),i.lastRead=Promise.resolve({value:null,done:!1}),i}return __extends$1(e,t),e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t=this;return __generator$2(this,function(e){return this.lastRead=this.lastRead.then(function(){return t.serialNext()}),[2,this.lastRead]})})},e.prototype.randomInt=function(t){return Math.floor(this.random()*t)},e.prototype.chooseIndex=function(){return this.randomInt(this.buffer.length())},e.prototype.serialNext=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e;return __generator$2(this,function(r){switch(r.label){case 0:this.upstreamExhausted||this.refill(),r.label=1;case 1:return this.buffer.isEmpty()?[3,3]:(t=this.chooseIndex(),[4,this.buffer.shuffleExcise(t)]);case 2:return (e=r.sent()).done?(this.upstreamExhausted=!0,[3,1]):(this.refill(),[2,e]);case 3:return [2,{value:null,done:!0}]}})})},e}(PrefetchIterator),Dataset=function(){function t(){this.size=null;}return t.prototype.batch=function(t,e){var r=this;void 0===e&&(e=!0);var n=this;return st.assert(t>0,function(){return "batchSize needs to be positive, but it is\n      "+t}),datasetFromIteratorFn(function(){return __awaiter$2(r,void 0,void 0,function(){return __generator$2(this,function(r){switch(r.label){case 0:return [4,n.iterator()];case 1:return [2,r.sent().columnMajorBatch(t,e,deepBatchConcat)]}})})},this.size===1/0||null==this.size?this.size:e?Math.ceil(this.size/t):Math.floor(this.size/t))},t.prototype.concatenate=function(t){var e=this,r=this;return datasetFromIteratorFn(function(){return __awaiter$2(e,void 0,void 0,function(){var e,n;return __generator$2(this,function(i){switch(i.label){case 0:return [4,r.iterator()];case 1:return n=(e=i.sent()).concatenate,[4,t.iterator()];case 2:return [2,n.apply(e,[i.sent()])]}})})},this.size===1/0||t.size===1/0?1/0:null!=this.size&&null!=t.size?this.size+t.size:null)},t.prototype.filter=function(t){var e=this,r=this;return datasetFromIteratorFn(function(){return __awaiter$2(e,void 0,void 0,function(){return __generator$2(this,function(e){switch(e.label){case 0:return [4,r.iterator()];case 1:return [2,e.sent().filter(function(e){return Ze(function(){return t(e)})})]}})})},this.size===1/0?1/0:null)},t.prototype.forEachAsync=function(t){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(e){switch(e.label){case 0:return [4,this.iterator()];case 1:return [2,e.sent().forEachAsync(t)]}})})},t.prototype.forEach=function(t){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(e){return Xe("dataset.forEach() is deprecated and will be removed. Please use dataset.forEachAsync() instead"),[2,this.forEachAsync(t)]})})},t.prototype.map=function(t){var e=this,r=this;return datasetFromIteratorFn(function(){return __awaiter$2(e,void 0,void 0,function(){return __generator$2(this,function(e){switch(e.label){case 0:return [4,r.iterator()];case 1:return [2,e.sent().map(function(e){return Ze(function(){return t(e)})})]}})})},this.size)},t.prototype.mapAsync=function(t){var e=this,r=this;return datasetFromIteratorFn(function(){return __awaiter$2(e,void 0,void 0,function(){return __generator$2(this,function(e){switch(e.label){case 0:return [4,r.iterator()];case 1:return [2,e.sent().mapAsync(t)]}})})},this.size)},t.prototype.prefetch=function(t){var e=this;if(null==t)throw new RangeError("`Dataset.prefetch()` requires bufferSize to be specified.");var r=this;return datasetFromIteratorFn(function(){return __awaiter$2(e,void 0,void 0,function(){return __generator$2(this,function(e){switch(e.label){case 0:return [4,r.iterator()];case 1:return [2,e.sent().prefetch(t)]}})})},this.size)},t.prototype.repeat=function(t){var e=this,r=this;return datasetFromIteratorFn(function(){return __awaiter$2(e,void 0,void 0,function(){var e=this;return __generator$2(this,function(n){return [2,iteratorFromConcatenated(iteratorFromFunction(function(){return __awaiter$2(e,void 0,void 0,function(){var t;return __generator$2(this,function(e){switch(e.label){case 0:return t={},[4,r.iterator()];case 1:return [2,(t.value=e.sent(),t.done=!1,t)]}})})}).take(t))]})})},null!=this.size&&t>0?this.size*t:0===t?0:null!=this.size&&(void 0===t||t<0)?1/0:null)},t.prototype.skip=function(t){var e=this,r=this;return datasetFromIteratorFn(function(){return __awaiter$2(e,void 0,void 0,function(){return __generator$2(this,function(e){switch(e.label){case 0:return [4,r.iterator()];case 1:return [2,e.sent().skip(t)]}})})},null!=this.size&&t>=0&&this.size>=t?this.size-t:null!=this.size&&(this.size<t||void 0===t||t<0)?0:null)},t.prototype.shuffle=function(t,e,r){var n=this;if(void 0===r&&(r=!0),null==t||t<0)throw null==this.size?new RangeError("`Dataset.shuffle()` requires bufferSize to be specified."):new RangeError("`Dataset.shuffle()` requires bufferSize to be specified.  If your data fits in main memory (for regular JS objects), and/or GPU memory (for `tf.Tensor`s), consider setting bufferSize to the dataset size ("+this.size+" elements)");var i=this,o=seedrandom_1(e||st.now().toString());return datasetFromIteratorFn(function(){return __awaiter$2(n,void 0,void 0,function(){var e;return __generator$2(this,function(n){switch(n.label){case 0:return e=o.int32(),r&&(e+=o.int32()),[4,i.iterator()];case 1:return [2,n.sent().shuffle(t,e.toString())]}})})},this.size)},t.prototype.take=function(t){var e=this,r=this;return datasetFromIteratorFn(function(){return __awaiter$2(e,void 0,void 0,function(){return __generator$2(this,function(e){switch(e.label){case 0:return [4,r.iterator()];case 1:return [2,e.sent().take(t)]}})})},null!=this.size&&this.size>t?t:null!=this.size&&this.size<=t?this.size:null)},t.prototype.toArray=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){switch(t.label){case 0:if(this.size===1/0)throw new Error("Can not convert infinite data stream to array.");return [4,this.iterator()];case 1:return [2,t.sent().toArray()]}})})},t.prototype.toArrayForTest=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){switch(t.label){case 0:if(this.size===1/0)throw new Error("Can not convert infinite data stream to array.");return [4,this.iterator()];case 1:return [2,t.sent().toArrayForTest()]}})})},t.MAX_BUFFER_SIZE=1e4,t}();function datasetFromIteratorFn(t,e){return void 0===e&&(e=null),new(function(r){function n(){var t=null!==r&&r.apply(this,arguments)||this;return t.size=e,t}return __extends$1(n,r),n.prototype.iterator=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(e){return [2,t()]})})},n}(Dataset))}function array(t){var e=this;return datasetFromIteratorFn(function(){return __awaiter$2(e,void 0,void 0,function(){return __generator$2(this,function(e){return [2,iteratorFromItems(t)]})})},t.length)}function zip(t){var e,r=this;if(!isIterable(t))throw new Error("The argument to zip() must be an object or array.");if(Array.isArray(t))for(var n=0;n<t.length;n++)e=null==e?t[n].size:Math.min(e,t[n].size);else if(t instanceof Object)for(var i in t)e=null==e?t[i].size:Math.min(e,t[i].size);return datasetFromIteratorFn(function(){return __awaiter$2(r,void 0,void 0,function(){return __generator$2(this,function(e){switch(e.label){case 0:return [4,deepMapAndAwaitAll(t,function(t){if(t instanceof Dataset)return {value:t.iterator(),recurse:!1};if(isIterable(t))return {value:null,recurse:!0};throw new Error("Leaves of the structure passed to zip() must be Datasets, not primitives.")})];case 1:return [2,iteratorFromZipped(e.sent(),ZipMismatchMode.SHORTEST)]}})})},e)}function deepBatchConcat(t){return null===t?null:canTensorify(t[0])?{value:batchConcat(t),recurse:!1}:{value:null,recurse:!0}}function batchConcat(t){if(0===t.length)throw new Error("Can't make a batch of zero elements.");return t[0]instanceof wt?hr(t):Fn(t)}var TextLineDataset=function(t){function e(e){var r=t.call(this)||this;return r.input=e,r}return __extends$1(e,t),e.prototype.iterator=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e;return __generator$2(this,function(r){switch(r.label){case 0:return [4,this.input.iterator()];case 1:return t=r.sent(),e=t.decodeUTF8(),[2,e.split("\n").map(function(t){return t.endsWith("\r")&&(t=t.slice(0,-1)),t})]}})})},e}(Dataset),CODE_QUOTE='"',STATE_OUT=Symbol("out"),STATE_FIELD=Symbol("field"),STATE_QUOTE=Symbol("quote"),STATE_QUOTE_AFTER_QUOTE=Symbol("quoteafterquote"),STATE_WITHIN_QUOTE_IN_QUOTE=Symbol("quoteinquote"),CSVDataset=function(t){function e(e,r){var n=t.call(this)||this;return n.input=e,n.hasHeader=!0,n.fullColumnNames=null,n.columnNamesValidated=!1,n.columnConfigs=null,n.configuredColumnsOnly=!1,n.delimiter=",",n.delimWhitespace=!1,n.base=new TextLineDataset(e),r||(r={}),n.hasHeader=!1!==r.hasHeader,n.fullColumnNames=r.columnNames,n.columnConfigs=r.columnConfigs,n.configuredColumnsOnly=r.configuredColumnsOnly,r.delimWhitespace?(st.assert(null==r.delimiter,function(){return "Delimiter should not be provided when delimWhitespace is true."}),n.delimWhitespace=!0,n.delimiter=" "):n.delimiter=r.delimiter?r.delimiter:",",n}return __extends$1(e,t),e.prototype.columnNames=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){switch(t.label){case 0:return this.columnNamesValidated?[3,2]:[4,this.setColumnNames()];case 1:t.sent(),t.label=2;case 2:return [2,this.configuredColumnsOnly?Object.keys(this.columnConfigs):this.fullColumnNames]}})})},e.prototype.setColumnNames=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e,r,n,i,o,a=this;return __generator$2(this,function(s){switch(s.label){case 0:return [4,this.maybeReadHeaderLine()];case 1:if(t=s.sent(),!this.fullColumnNames&&!t)throw new Error("Column names must be provided if there is no header line.");if(this.fullColumnNames&&t&&st.assert(t.length===this.fullColumnNames.length,function(){return "The length of provided columnNames ("+a.fullColumnNames.length.toString()+") does not match the length of the header line read from file ("+t.length.toString()+")."}),this.fullColumnNames||(this.fullColumnNames=t),e=this.fullColumnNames.reduce(function(t,e){return t[e]=t[e]+1||1,t},{}),r=Object.keys(e).filter(function(t){return e[t]>1}),st.assert(0===r.length,function(){return "Duplicate column names found: "+r.toString()}),this.columnConfigs)for(n=0,i=Object.keys(this.columnConfigs);n<i.length;n++)if(o=i[n],-1===this.fullColumnNames.indexOf(o))throw new Error('The key "'+o+'" provided in columnConfigs does not match any of the column names ('+this.fullColumnNames.toString()+").");return this.columnNamesValidated=!0,[2]}})})},e.prototype.maybeReadHeaderLine=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e;return __generator$2(this,function(r){switch(r.label){case 0:return this.hasHeader?[4,this.base.iterator()]:[3,3];case 1:return [4,r.sent().next()];case 2:if((t=r.sent()).done)throw new Error("No data was found for CSV parsing.");return e=t.value,[2,this.parseRow(e,!1)];case 3:return [2,null]}})})},e.prototype.iterator=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e=this;return __generator$2(this,function(r){switch(r.label){case 0:return this.columnNamesValidated?[3,2]:[4,this.setColumnNames()];case 1:r.sent(),r.label=2;case 2:return [4,this.base.iterator()];case 3:return t=r.sent(),this.hasHeader&&(t=t.skip(1)),[2,t.map(function(t){return e.makeDataElement(t)})]}})})},e.prototype.makeDataElement=function(t){for(var e=this.parseRow(t),r={},n={},i=0;i<this.fullColumnNames.length;i++){var o=this.fullColumnNames[i],a=this.columnConfigs?this.columnConfigs[o]:null;if(!this.configuredColumnsOnly||a){var s=e[i],u=null;if(""===s)if(a&&void 0!==a.default)u=a.default;else {if(a&&(a.required||a.isLabel))throw new Error("Required column "+o+" is empty in this line: "+t);u=void 0;}else {var c=Number(s);if(isNaN(c))u=a&&"bool"===a.dtype?this.getBoolean(s):s;else if(a&&a.dtype)switch(a.dtype){case"float32":u=c;break;case"int32":u=Math.floor(c);break;case"bool":u=this.getBoolean(s);break;default:u=c;}else u=c;}a&&a.isLabel?n[o]=u:r[o]=u;}}return 0===Object.keys(n).length?r:{xs:r,ys:n}},e.prototype.getBoolean=function(t){return "1"===t||"true"===t.toLowerCase()?1:0},e.prototype.parseRow=function(t,e){void 0===e&&(e=!0);for(var r=[],n=0,i=t.length,o=STATE_OUT,a=0;a<i;a++)switch(o){case STATE_OUT:switch(t.charAt(a)){case CODE_QUOTE:n=a+1,o=STATE_QUOTE;break;case this.delimiter:if(n=a+1," "===this.delimiter&&this.delimWhitespace)break;r.push(""),o=STATE_OUT;break;default:o=STATE_FIELD,n=a;}break;case STATE_FIELD:switch(t.charAt(a)){case this.delimiter:r.push(t.substring(n,a)),o=STATE_OUT,n=a+1;}break;case STATE_QUOTE:switch(t.charAt(a)){case CODE_QUOTE:o=STATE_QUOTE_AFTER_QUOTE;}break;case STATE_QUOTE_AFTER_QUOTE:switch(t.charAt(a)){case this.delimiter:r.push(t.substring(n,a-1)),o=STATE_OUT,n=a+1;break;case CODE_QUOTE:o=STATE_QUOTE;break;default:o=STATE_WITHIN_QUOTE_IN_QUOTE;}break;case STATE_WITHIN_QUOTE_IN_QUOTE:switch(t.charAt(a)){case CODE_QUOTE:o=STATE_QUOTE;}}if(o===STATE_QUOTE_AFTER_QUOTE?r.push(t.substring(n,i-1)):r.push(t.substring(n)),e&&r.length!==this.fullColumnNames.length)throw new Error("Invalid row in csv file. Should have "+this.fullColumnNames.length+" elements in a row, but got "+r);return r},e}(Dataset),MicrophoneIterator=function(t){function e(e){var r=t.call(this)||this;r.microphoneConfig=e,r.isClosed=!1,r.fftSize=e.fftSize||1024;var n=Math.log2(r.fftSize);if(r.fftSize<0||n<4||n>14||!Number.isInteger(n))throw new Error("Invalid fftSize: it must be a power of 2 between 2 to 4 and 2 to 14, but got "+r.fftSize);if(r.numFrames=e.numFramesPerSpectrogram||43,r.sampleRateHz=e.sampleRateHz,r.columnTruncateLength=e.columnTruncateLength||r.fftSize,r.audioTrackConstraints=e.audioTrackConstraints,r.smoothingTimeConstant=e.smoothingTimeConstant||0,r.includeSpectrogram=!1!==e.includeSpectrogram,r.includeWaveform=!0===e.includeWaveform,!r.includeSpectrogram&&!r.includeWaveform)throw new Error("Both includeSpectrogram and includeWaveform are false. At least one type of data should be returned.");return r}return __extends$1(e,t),e.prototype.summary=function(){return "microphone"},e.create=function(t){return void 0===t&&(t={}),__awaiter$2(this,void 0,void 0,function(){var r;return __generator$2(this,function(n){switch(n.label){case 0:if(i().get("IS_NODE"))throw new Error("microphone API is only supported in browser environment.");return [4,(r=new e(t)).start()];case 1:return n.sent(),[2,r]}})})},e.prototype.start=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e,r,n;return __generator$2(this,function(i){switch(i.label){case 0:return i.trys.push([0,2,,3]),t=this,[4,navigator.mediaDevices.getUserMedia({audio:null==this.audioTrackConstraints||this.audioTrackConstraints,video:!1})];case 1:return t.stream=i.sent(),[3,3];case 2:throw e=i.sent(),new Error("Error thrown while initializing video stream: "+e.message);case 3:if(!this.stream)throw new Error("Could not obtain audio from microphone.");if(r=window.AudioContext||window.webkitAudioContext,this.audioContext=new r,this.sampleRateHz){if(this.audioContext.sampleRate!==this.sampleRateHz)throw new Error("Mismatch in sampling rate: Expected: "+this.sampleRateHz+"; Actual: "+this.audioContext.sampleRate)}else this.sampleRateHz=this.audioContext.sampleRate;return n=this.audioContext.createMediaStreamSource(this.stream),this.analyser=this.audioContext.createAnalyser(),this.analyser.fftSize=2*this.fftSize,this.analyser.smoothingTimeConstant=this.smoothingTimeConstant,n.connect(this.analyser),this.freqData=new Float32Array(this.fftSize),this.timeData=new Float32Array(this.fftSize),[2]}})})},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e,r,n,i;return __generator$2(this,function(o){switch(o.label){case 0:return this.isClosed?[2,{value:null,done:!0}]:[4,this.getAudioData()];case 1:return r=o.sent(),this.includeSpectrogram&&(n=this.flattenQueue(r.freqDataQueue),t=this.getTensorFromAudioDataArray(n,[this.numFrames,this.columnTruncateLength,1])),this.includeWaveform&&(i=this.flattenQueue(r.timeDataQueue),e=this.getTensorFromAudioDataArray(i,[this.numFrames*this.fftSize,1])),[2,{value:{spectrogram:t,waveform:e},done:!1}]}})})},e.prototype.capture=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){switch(t.label){case 0:return [4,this.next()];case 1:return [2,t.sent().value]}})})},e.prototype.getAudioData=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e,r,n=this;return __generator$2(this,function(i){return t=[],e=[],r=0,[2,new Promise(function(i){var o=setInterval(function(){n.includeSpectrogram&&(n.analyser.getFloatFrequencyData(n.freqData),n.freqData[0]===-1/0&&i({freqDataQueue:t,timeDataQueue:e}),t.push(n.freqData.slice(0,n.columnTruncateLength))),n.includeWaveform&&(n.analyser.getFloatTimeDomainData(n.timeData),e.push(n.timeData.slice())),++r===n.numFrames&&(clearInterval(o),i({freqDataQueue:t,timeDataQueue:e}));},n.fftSize/n.sampleRateHz*1e3);})]})})},e.prototype.stop=function(){this.isClosed||(this.isClosed=!0,this.analyser.disconnect(),this.audioContext.close(),null!=this.stream&&this.stream.getTracks().length>0&&this.stream.getTracks()[0].stop());},e.prototype.toArray=function(){throw new Error("Can not convert infinite audio stream to array.")},e.prototype.getSampleRate=function(){return this.sampleRateHz},e.prototype.flattenQueue=function(t){var e=t[0].length,r=new Float32Array(t.length*e);return t.forEach(function(t,n){return r.set(t,n*e)}),r},e.prototype.getTensorFromAudioDataArray=function(t,e){var r=new Float32Array(st.sizeFromShape(e));return r.set(t,r.length-t.length),Fn(r,e)},e}(LazyIterator),WebcamIterator=function(t){function e(e,r){var n=t.call(this)||this;if(n.webcamVideoElement=e,n.webcamConfig=r,n.isClosed=!0,n.resize=!1,n.needToResize())if(n.resize=!0,n.cropSize=[n.webcamConfig.resizeHeight,n.webcamConfig.resizeWidth],n.cropBoxInd=Mn([0],"int32"),n.webcamConfig.centerCrop){var i=1*n.webcamConfig.resizeWidth/n.webcamVideoElement.width,o=1*n.webcamConfig.resizeHeight/n.webcamVideoElement.height,a=(1-i)/2,s=(1-o)/2,u=a+i,c=o+s;n.cropBox=Bn([s,a,c,u],[1,4]);}else n.cropBox=Bn([0,0,1,1],[1,4]);return n}return __extends$1(e,t),e.prototype.summary=function(){return "webcam"},e.create=function(t,r){return void 0===r&&(r={}),__awaiter$2(this,void 0,void 0,function(){var n;return __generator$2(this,function(i$1){switch(i$1.label){case 0:if(i().get("IS_NODE"))throw new Error("tf.data.webcam is only supported in browser environment.");if(!t){if(t=document.createElement("video"),!r.resizeWidth||!r.resizeHeight)throw new Error("Please provide webcam video element, or resizeWidth and resizeHeight to create a hidden video element.");t.width=r.resizeWidth,t.height=r.resizeHeight;}return [4,(n=new e(t,r)).start()];case 1:return i$1.sent(),[2,n]}})})},e.prototype.start=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e,r=this;return __generator$2(this,function(n){switch(n.label){case 0:this.webcamConfig.facingMode&&st.assert("user"===this.webcamConfig.facingMode||"environment"===this.webcamConfig.facingMode,function(){return "Invalid webcam facing mode: "+r.webcamConfig.facingMode+". Please provide 'user' or 'environment'"}),n.label=1;case 1:return n.trys.push([1,3,,4]),t=this,[4,navigator.mediaDevices.getUserMedia({video:{deviceId:this.webcamConfig.deviceId,facingMode:this.webcamConfig.facingMode?this.webcamConfig.facingMode:"user",width:this.webcamVideoElement.width,height:this.webcamVideoElement.height}})];case 2:return t.stream=n.sent(),[3,4];case 3:throw (e=n.sent()).message="Error thrown while initializing video stream: "+e.message,e;case 4:if(!this.stream)throw new Error("Could not obtain video from webcam.");try{this.webcamVideoElement.srcObject=this.stream;}catch(t){console.log(t),this.webcamVideoElement.src=window.URL.createObjectURL(this.stream);}return this.webcamVideoElement.play(),this.isClosed=!1,[2,new Promise(function(t){r.webcamVideoElement.onloadedmetadata=function(){t();};})]}})})},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t;return __generator$2(this,function(e){if(this.isClosed)return [2,{value:null,done:!0}];try{t=Vd.fromPixels(this.webcamVideoElement);}catch(t){throw new Error("Error thrown converting video to pixels: "+JSON.stringify(t))}if(!this.resize)return [2,{value:t,done:!1}];try{return [2,{value:this.cropAndResizeFrame(t),done:!1}]}catch(t){throw new Error("Error thrown cropping the video: "+t.message)}finally{t.dispose();}return [2]})})},e.prototype.needToResize=function(){return !(!this.webcamConfig.resizeWidth||!this.webcamConfig.resizeHeight||this.webcamVideoElement.width===this.webcamConfig.resizeWidth&&this.webcamVideoElement.height===this.webcamConfig.resizeHeight)},e.prototype.cropAndResizeFrame=function(t){var e=this;return Ze(function(){var r,n=t.toFloat().expandDims(0),i=(r=nf.cropAndResize(n,e.cropBox,e.cropBoxInd,e.cropSize,"bilinear")).shape;return r.reshape(i.slice(1))})},e.prototype.capture=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){switch(t.label){case 0:return [4,this.next()];case 1:return [2,t.sent().value]}})})},e.prototype.stop=function(){this.stream.getTracks().forEach(function(t){return t.stop()});try{this.webcamVideoElement.srcObject=null;}catch(t){console.log(t),this.webcamVideoElement.src=null;}this.isClosed=!0;},e.prototype.toArray=function(){throw new Error("Can not convert infinite video stream to array.")},e}(LazyIterator),DataSource=function(){return function(){}}(),StringIterator=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return __extends$1(e,t),e.prototype.split=function(t){return new SplitIterator(this,t)},e}(LazyIterator),SplitIterator=function(t){function e(e,r){var n=t.call(this)||this;return n.upstream=e,n.impl=new SplitIteratorImpl(e,r),n}return __extends$1(e,t),e.prototype.summary=function(){return this.impl.summary()},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){return [2,this.impl.next()]})})},e}(StringIterator),SplitIteratorImpl=function(t){function e(e,r){var n=t.call(this)||this;return n.upstream=e,n.separator=r,n.carryover="",n}return __extends$1(e,t),e.prototype.summary=function(){return this.upstream.summary()+" -> Split('"+this.separator+"')"},e.prototype.pump=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e,r,n,i;return __generator$2(this,function(o){switch(o.label){case 0:return [4,this.upstream.next()];case 1:if((t=o.sent()).done)return ""===this.carryover?[2,!1]:(this.outputQueue.push(this.carryover),this.carryover="",[2,!0]);for((e=t.value.split(this.separator))[0]=this.carryover+e[0],r=0,n=e.slice(0,-1);r<n.length;r++)i=n[r],this.outputQueue.push(i);return this.carryover=e[e.length-1],[2,!0]}})})},e}(OneToManyIterator),ByteChunkIterator=function(t){function e(){return null!==t&&t.apply(this,arguments)||this}return __extends$1(e,t),e.prototype.decodeUTF8=function(){return new Utf8Iterator(this)},e}(LazyIterator),Utf8Iterator=function(t){function e(e){var r=t.call(this)||this;return r.upstream=e,r.impl=new Utf8IteratorImpl(e),r}return __extends$1(e,t),e.prototype.summary=function(){return this.impl.summary()},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){return [2,this.impl.next()]})})},e}(StringIterator),Utf8IteratorImpl=function(t){function e(e){var r=t.call(this)||this;if(r.upstream=e,i().get("IS_BROWSER"))r.decoder=new TextDecoder("utf-8");else {var n=require("string_decoder").StringDecoder;r.decoder=new n("utf8");}return r}return __extends$1(e,t),e.prototype.summary=function(){return this.upstream.summary()+" -> Utf8"},e.prototype.pump=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e,r;return __generator$2(this,function(n){switch(n.label){case 0:return [4,this.upstream.next()];case 1:return (t=n.sent()).done?[2,!1]:(e=t.value,r=i().get("IS_BROWSER")?this.decoder.decode(e,{stream:!0}):this.decoder.write(Buffer.from(e.buffer)),this.outputQueue.push(r),[2,!0])}})})},e}(OneToManyIterator),FileChunkIterator=function(t){function e(e,r){void 0===r&&(r={});var n=t.call(this)||this;return n.file=e,n.options=r,st.assert(e instanceof Uint8Array||!!i().get("IS_BROWSER")&&(e instanceof File||e instanceof Blob),function(){return "FileChunkIterator only supports File, Blob and Uint8Array right now."}),n.offset=r.offset||0,n.chunkSize=r.chunkSize||1048576,n}return __extends$1(e,t),e.prototype.summary=function(){return "FileChunks "+this.file},e.prototype.next=function(){return __awaiter$2(this,void 0,void 0,function(){var t,e,r=this;return __generator$2(this,function(n){switch(n.label){case 0:return this.offset>=(this.file instanceof Uint8Array?this.file.byteLength:this.file.size)?[2,{value:null,done:!0}]:(t=new Promise(function(t,e){var n=r.offset+r.chunkSize;if(r.file instanceof Uint8Array)t(new Uint8Array(r.file.slice(r.offset,n)));else {var i=new FileReader;i.onload=function(r){var n=i.result;if(n instanceof ArrayBuffer&&(n=new Uint8Array(n)),!(n instanceof Uint8Array))return e(new TypeError("FileReader returned unknown type."));t(n);},i.onabort=function(t){return e(new Error("Aborted"))},i.onerror=function(t){return e(new Error(t.type))};var o=r.file.slice(r.offset,n);i.readAsArrayBuffer(o);}r.offset=n;}),e={},[4,t]);case 1:return [2,(e.value=n.sent(),e.done=!1,e)]}})})},e}(ByteChunkIterator);function urlChunkIterator(t,e){return void 0===e&&(e={}),__awaiter$2(this,void 0,void 0,function(){var r,n,i,o,a;return __generator$2(this,function(s){switch(s.label){case 0:return "string"==typeof t?r=t:(r=t.url,n=getRequestInitFromRequest(t)),[4,st.fetch(r,n)];case 1:return (i=s.sent()).ok?(a=Uint8Array.bind,[4,i.arrayBuffer()]):[3,3];case 2:return o=new(a.apply(Uint8Array,[void 0,s.sent()])),[2,new FileChunkIterator(o,e)];case 3:throw new Error(i.statusText)}})})}var getRequestInitFromRequest=function(t){return {method:t.method,headers:t.headers,body:t.body,mode:t.mode,credentials:t.credentials,cache:t.cache,redirect:t.redirect,referrer:t.referrer,integrity:t.integrity}};function isLocalPath(t){return "string"==typeof t&&"file://"===t.substr(0,7)}var FileDataSource=function(t){function e(e,r){void 0===r&&(r={});var n=t.call(this)||this;return n.input=e,n.options=r,n}return __extends$1(e,t),e.prototype.iterator=function(){return __awaiter$2(this,void 0,void 0,function(){var t;return __generator$2(this,function(e){return isLocalPath(this.input)&&i().get("IS_NODE")&&(t=require("fs"),this.input=t.readFileSync(this.input.substr(7))),[2,new FileChunkIterator(this.input,this.options)]})})},e}(DataSource),URLDataSource=function(t){function e(e,r){void 0===r&&(r={});var n=t.call(this)||this;return n.url=e,n.fileOptions=r,n}return __extends$1(e,t),e.prototype.iterator=function(){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(t){return isLocalPath(this.url)?[2,new FileDataSource(this.url,this.fileOptions).iterator()]:[2,urlChunkIterator(this.url,this.fileOptions)]})})},e}(DataSource);function csv(t,e){return void 0===e&&(e={}),new CSVDataset(new URLDataSource(t),e)}function func(t){var e=this,r=iteratorFromFunction(t);return datasetFromIteratorFn(function(){return __awaiter$2(e,void 0,void 0,function(){return __generator$2(this,function(t){return [2,r]})})})}function generator(t){var e=this;return datasetFromIteratorFn(function(){return __awaiter$2(e,void 0,void 0,function(){var e;return __generator$2(this,function(r){switch(r.label){case 0:return [4,t()];case 1:return e=r.sent(),[2,iteratorFromFunction(function(){return e.next()})]}})})})}function webcam(t,e){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(r){return [2,WebcamIterator.create(t,e)]})})}function microphone(t){return __awaiter$2(this,void 0,void 0,function(){return __generator$2(this,function(e){return [2,MicrophoneIterator.create(t)]})})}var version$2="1.7.4";
+
+    var tfData_esm = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        array: array,
+        Dataset: Dataset,
+        zip: zip,
+        CSVDataset: CSVDataset,
+        TextLineDataset: TextLineDataset,
+        csv: csv,
+        func: func,
+        generator: generator,
+        microphone: microphone,
+        webcam: webcam,
+        FileDataSource: FileDataSource,
+        URLDataSource: URLDataSource,
+        version_data: version$2
+    });
+
+    // @tensorflow/tfjs Copyright 2020 Google
+    var version$3="1.7.4",version$1$1={"tfjs-core":Kd,"tfjs-data":version$2,"tfjs-layers":version,"tfjs-converter":version$1,tfjs:version$3};
+
+    var tf_esm = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        data: tfData_esm,
+        version: version$1$1,
+        AdadeltaOptimizer: Yd,
+        AdagradOptimizer: $d,
+        AdamOptimizer: Qd,
+        AdamaxOptimizer: Jd,
+        Add: xr,
+        AddN: br,
+        BroadcastTo: Sr,
+        DataStorage: ca,
+        Div: wr,
+        get ENV () { return s; },
+        Environment: o,
+        FromPixels: Fr,
+        FusedBatchNorm: Cr,
+        Identity: Tr,
+        KernelBackend: la,
+        MaxPoolWithArgmax: _r,
+        MomentumOptimizer: tp,
+        NonMaxSuppressionV5: kr,
+        OneHot: Ar,
+        Optimizer: Xd,
+        PadV2: Nr,
+        RMSPropOptimizer: ep,
+        get Rank () { return Ct; },
+        get Reduction () { return Nh; },
+        SGDOptimizer: Zd,
+        Square: Rr,
+        SquaredDifference: Er,
+        Tensor: wt,
+        TensorBuffer: mt,
+        Tile: Dr,
+        Transpose: Ir,
+        Variable: St,
+        abs: Lr,
+        acos: Wr,
+        acosh: Ur,
+        add: Or,
+        addN: $u,
+        addStrict: xo,
+        all: ql,
+        any: Kl,
+        argMax: jl,
+        argMin: Xl,
+        asin: Vr,
+        asinh: zr,
+        atan: Gr,
+        atan2: bo,
+        atanh: Hr,
+        avgPool: Ol,
+        avgPool3d: Pl,
+        backend: hn,
+        backend_util: Sa,
+        basicLSTMCell: lh,
+        batchNorm: nc,
+        batchNorm2d: ac,
+        batchNorm3d: uc,
+        batchNorm4d: hc,
+        batchNormalization: ec,
+        batchNormalization2d: oc,
+        batchNormalization3d: sc,
+        batchNormalization4d: lc,
+        batchToSpaceND: rr,
+        booleanMaskAsync: ul,
+        broadcastTo: fc,
+        browser: Vd,
+        buffer: er,
+        cast: or,
+        ceil: qr,
+        clipByValue: Kr,
+        clone: dc,
+        complex: Tn,
+        concat: Yn,
+        concat1d: $n,
+        concat2d: Qn,
+        concat3d: Jn,
+        concat4d: Zn,
+        conv1d: fl,
+        conv2d: dl,
+        conv2dTranspose: wl,
+        conv3d: pl,
+        conv3dTranspose: Cl,
+        cos: jr,
+        cosh: Xr,
+        cumsum: ar,
+        customGrad: oa,
+        deprecationWarn: Xe,
+        depthToSpace: ir,
+        depthwiseConv2d: ml,
+        diag: Eh,
+        disableDeprecationWarnings: je,
+        dispose: tn,
+        disposeVariables: Ye,
+        div: Bo,
+        divNoNan: bc,
+        divStrict: wo,
+        dot: Rl,
+        dropout: Rh,
+        elu: nh,
+        enableDebugMode: Ke,
+        enableProdMode: qe,
+        engine: $e,
+        env: i,
+        equal: Kc,
+        equalStrict: jc,
+        erf: Yr,
+        exp: $r,
+        expandDims: sr,
+        expm1: Qr,
+        eye: Cc,
+        fft: gh,
+        fill: Hn,
+        findBackend: un,
+        findBackendFactory: cn,
+        floor: Jr,
+        floorDiv: Co,
+        frame: Ah,
+        fused: hf,
+        gather: il,
+        gatherND: Ch,
+        gather_util: Lo,
+        getBackend: an,
+        getGradient: h,
+        getKernel: l,
+        getKernelsForBackend: f,
+        grad: Zo,
+        grads: ta,
+        greater: Xc,
+        greaterEqual: Yc,
+        greaterEqualStrict: $c,
+        greaterStrict: Qc,
+        hammingWindow: Sh,
+        hannWindow: kh,
+        ifft: mh,
+        imag: Nn,
+        image: nf,
+        inTopKAsync: Fh,
+        io: Bd,
+        irfft: xh,
+        isFinite: lo,
+        isInf: co,
+        isNaN: uo,
+        keep: en,
+        leakyRelu: rh,
+        less: Jc,
+        lessEqual: Zc,
+        lessEqualStrict: tl,
+        lessStrict: el,
+        linalg: jh,
+        linspace: qn,
+        localResponseNormalization: uh,
+        log: Zr,
+        log1p: to,
+        logSigmoid: eo,
+        logSoftmax: sa,
+        logSumExp: Yl,
+        logicalAnd: pc,
+        logicalNot: vc,
+        logicalOr: gc,
+        logicalXor: mc,
+        losses: zh,
+        matMul: El,
+        math: Wd,
+        max: $l,
+        maxPool: _l,
+        maxPool3d: Bl,
+        maxPoolWithArgmax: Ll,
+        maximum: Eo,
+        maximumStrict: Ro,
+        mean: Ql,
+        memory: Qe,
+        min: Jl,
+        minimum: Io,
+        minimumStrict: ko,
+        mod: So,
+        modStrict: Ao,
+        moments: Zl,
+        movingAverage: fh,
+        mul: To,
+        mulStrict: Do,
+        multiRNNCell: hh,
+        multinomial: Ec,
+        neg: no,
+        nextFrame: ap,
+        norm: ch,
+        notEqual: nl,
+        notEqualStrict: rl,
+        oneHot: Rc,
+        ones: zn,
+        onesLike: jn,
+        op: An,
+        outerProduct: Il,
+        pad: Ic,
+        pad1d: kc,
+        pad2d: Sc,
+        pad3d: Ac,
+        pad4d: Tc,
+        pool: Ml,
+        pow: No,
+        powStrict: Fo,
+        prelu: oh,
+        print: nr,
+        prod: eh,
+        profile: Je,
+        rand: Dc,
+        randomGamma: Uc,
+        randomNormal: Vc,
+        randomUniform: zc,
+        range: Kn,
+        ready: on,
+        real: Dn,
+        reciprocal: ro,
+        registerBackend: ln,
+        registerGradient: p,
+        registerKernel: d,
+        relu: ah,
+        relu6: ih,
+        removeBackend: sn,
+        reshape: ur,
+        reverse: kl,
+        reverse1d: Sl,
+        reverse2d: Al,
+        reverse3d: Tl,
+        reverse4d: Dl,
+        rfft: yh,
+        round: oo,
+        rsqrt: ao,
+        scalar: On,
+        scatterND: vh,
+        scatter_util: Ho,
+        selu: sh,
+        separableConv2d: bl,
+        serialization: qd,
+        setBackend: rn,
+        setPlatform: fn,
+        setdiff1dAsync: dr,
+        sigmoid: io,
+        sign: so,
+        signal: Dh,
+        sin: ho,
+        sinh: fo,
+        slice: Wl,
+        slice1d: Ul,
+        slice2d: Vl,
+        slice3d: zl,
+        slice4d: Gl,
+        slice_util: Jo,
+        softmax: ia,
+        softplus: po,
+        spaceToBatchND: cr,
+        sparseToDense: wh,
+        spectral: bh,
+        split: tr,
+        sqrt: vo,
+        square: Gc,
+        squaredDifference: Hc,
+        squaredDifferenceStrict: _o,
+        squeeze: lr,
+        stack: hr,
+        step: go,
+        stft: Th,
+        stridedSlice: dh,
+        sub: Oo,
+        subStrict: Mo,
+        sum: th,
+        sumOutType: Dt,
+        tan: mo,
+        tanh: yo,
+        tensor: Fn,
+        tensor1d: Mn,
+        tensor2d: Bn,
+        tensor3d: Pn,
+        tensor4d: Ln,
+        tensor5d: Wn,
+        tensor6d: Un,
+        tensor_util: Mt,
+        test_util: Bc,
+        tidy: Ze,
+        tile: wc,
+        time: nn,
+        topk: ph,
+        train: rp,
+        transpose: ua,
+        truncatedNormal: qc,
+        unregisterGradient: g,
+        unregisterKernel: v,
+        unsortedSegmentSum: sl,
+        unstack: fr,
+        util: st,
+        valueAndGrad: ea,
+        valueAndGrads: na,
+        variable: Vn,
+        variableGrads: ra,
+        version_core: Kd,
+        webgl: jd,
+        where: yc,
+        whereAsync: xc,
+        zeros: Gn,
+        zerosLike: Xn,
+        constraints: exports_constraints,
+        initializers: exports_initializers,
+        layers: exports_layers,
+        metrics: exports_metrics,
+        models: exports_models,
+        regularizers: exports_regularizers,
+        CallbackList: CallbackList,
+        CustomCallback: CustomCallback,
+        History: History,
+        Callback: Callback,
+        callbacks: callbacks,
+        EarlyStopping: EarlyStopping,
+        InputSpec: InputSpec,
+        SymbolicTensor: SymbolicTensor,
+        LayersModel: LayersModel,
+        input: input,
+        loadLayersModel: loadLayersModel,
+        model: model,
+        registerCallbackConstructor: registerCallbackConstructor,
+        sequential: sequential,
+        RNN: RNN,
+        Sequential: Sequential,
+        LayerVariable: LayerVariable,
+        version_layers: version,
+        GraphModel: GraphModel,
+        loadGraphModel: loadGraphModel,
+        deregisterOp: deregisterOp,
+        registerOp: registerOp,
+        version_converter: version$1
+    });
+
+    var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+    function unwrapExports (x) {
+    	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+    }
+
+    function createCommonjsModule$1(fn, basedir, module) {
+    	return module = {
+    	  path: basedir,
+    	  exports: {},
+    	  require: function (path, base) {
+          return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
+        }
+    	}, fn(module, module.exports), module.exports;
+    }
+
+    function getCjsExportFromNamespace (n) {
+    	return n && n['default'] || n;
+    }
+
+    function commonjsRequire () {
+    	throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
+    }
+
+    var tf_1 = createCommonjsModule$1(function (module, exports) {
+    /**
+     * @license
+     * Copyright 2019 Google LLC. All Rights Reserved.
+     * Licensed under the Apache License, Version 2.0 (the "License");
+     * you may not use this file except in compliance with the License.
+     * You may obtain a copy of the License at
+     *
+     * http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     * =============================================================================
+     */
+    Object.defineProperty(exports, "__esModule", { value: true });
+
+    /**
+     * Receives an image and normalizes it between -1 and 1.
+     * Returns a batched image (1 - element batch) of shape [1, w, h, c]
+     * @param rasterElement the element with pixels to convert to a Tensor
+     */
+    function capture(rasterElement) {
+        return tf_esm.tidy(function () {
+            var pixels = tf_esm.browser.fromPixels(rasterElement);
+            // crop the image so we're using the center square
+            var cropped = cropTensor(pixels);
+            // Expand the outer most dimension so we have a batch size of 1
+            var batchedImage = cropped.expandDims(0);
+            // Normalize the image between -1 and a1. The image comes in between 0-255
+            // so we divide by 127 and subtract 1.
+            return batchedImage.toFloat().div(tf_esm.scalar(127)).sub(tf_esm.scalar(1));
+        });
+    }
+    exports.capture = capture;
+    function cropTensor(img) {
+        var size = Math.min(img.shape[0], img.shape[1]);
+        var centerHeight = img.shape[0] / 2;
+        var beginHeight = centerHeight - (size / 2);
+        var centerWidth = img.shape[1] / 2;
+        var beginWidth = centerWidth - (size / 2);
+        return img.slice([beginHeight, beginWidth, 0], [size, size, 3]);
+    }
+    exports.cropTensor = cropTensor;
+
+    });
+
+    unwrapExports(tf_1);
+    var tf_2 = tf_1.capture;
+    var tf_3 = tf_1.cropTensor;
+
+    var canvas = createCommonjsModule$1(function (module, exports) {
+    /**
+     * @license
+     * Copyright 2019 Google LLC. All Rights Reserved.
+     * Licensed under the Apache License, Version 2.0 (the "License");
+     * you may not use this file except in compliance with the License.
+     * You may obtain a copy of the License at
+     *
+     * http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     * =============================================================================
+     */
+    Object.defineProperty(exports, "__esModule", { value: true });
+    var newCanvas = function () { return document.createElement('canvas'); };
+    function resize(image, scale, canvas) {
+        if (canvas === void 0) { canvas = newCanvas(); }
+        canvas.width = image.width * scale;
+        canvas.height = image.height * scale;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+        return canvas;
+    }
+    exports.resize = resize;
+    function resizeMaxTo(image, maxSize, canvas) {
+        if (canvas === void 0) { canvas = newCanvas(); }
+        var max = Math.max(image.width, image.height);
+        return resize(image, maxSize / max, canvas);
+    }
+    exports.resizeMaxTo = resizeMaxTo;
+    function resizeMinTo(image, minSize, canvas) {
+        if (canvas === void 0) { canvas = newCanvas(); }
+        var min = Math.min(image.width, image.height);
+        return resize(image, minSize / min, canvas);
+    }
+    exports.resizeMinTo = resizeMinTo;
+    function cropTo(image, size, flipped, canvas) {
+        if (flipped === void 0) { flipped = false; }
+        if (canvas === void 0) { canvas = newCanvas(); }
+        // image image, bitmap, or canvas
+        var width = image.width;
+        var height = image.height;
+        // if video element
+        if (image instanceof HTMLVideoElement) {
+            width = image.videoWidth;
+            height = image.videoHeight;
+        }
+        var min = Math.min(width, height);
+        var scale = size / min;
+        var scaledW = Math.ceil(width * scale);
+        var scaledH = Math.ceil(height * scale);
+        var dx = scaledW - size;
+        var dy = scaledH - size;
+        canvas.width = canvas.height = size;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(image, ~~(dx / 2) * -1, ~~(dy / 2) * -1, scaledW, scaledH);
+        // canvas is already sized and cropped to center correctly
+        if (flipped) {
+            ctx.scale(-1, 1);
+            ctx.drawImage(canvas, size * -1, 0);
+        }
+        return canvas;
+    }
+    exports.cropTo = cropTo;
+
+    });
+
+    unwrapExports(canvas);
+    var canvas_1 = canvas.resize;
+    var canvas_2 = canvas.resizeMaxTo;
+    var canvas_3 = canvas.resizeMinTo;
+    var canvas_4 = canvas.cropTo;
+
+    var version_1 = createCommonjsModule$1(function (module, exports) {
+    /** @license See the LICENSE file. */
+    Object.defineProperty(exports, "__esModule", { value: true });
+    // This code is auto-generated, do not modify this file!
+    var version = '0.8.4';
+    exports.version = version;
+
+    });
+
+    unwrapExports(version_1);
+    var version_2 = version_1.version;
+
+    var customMobilenet = createCommonjsModule$1(function (module, exports) {
+    /**
+     * @license
+     * Copyright 2019 Google LLC. All Rights Reserved.
+     * Licensed under the Apache License, Version 2.0 (the "License");
+     * you may not use this file except in compliance with the License.
+     * You may obtain a copy of the License at
+     *
+     * http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     * =============================================================================
+     */
+    var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    var __generator = (commonjsGlobal && commonjsGlobal.__generator) || function (thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    };
+    Object.defineProperty(exports, "__esModule", { value: true });
+
+    var tfjs_1 = tf_esm;
+
+
+
+    var DEFAULT_MOBILENET_VERSION = 1;
+    var DEFAULT_TRAINING_LAYER_V1 = 'conv_pw_13_relu';
+    var DEFAULT_TRAINING_LAYER_V2 = "out_relu";
+    var DEFAULT_ALPHA_V1 = 0.25;
+    var DEFAULT_ALPHA_V2 = 0.35;
+    exports.IMAGE_SIZE = 224;
+    /**
+     * Receives a Metadata object and fills in the optional fields such as timeStamp
+     * @param data a Metadata object
+     */
+    var fillMetadata = function (data) {
+        // util.assert(typeof data.tfjsVersion === 'string', () => `metadata.tfjsVersion is invalid`);
+        data.packageVersion = data.packageVersion || version_1.version;
+        data.packageName = data.packageName || '@teachablemachine/image';
+        data.timeStamp = data.timeStamp || new Date().toISOString();
+        data.userMetadata = data.userMetadata || {};
+        data.modelName = data.modelName || 'untitled';
+        data.labels = data.labels || [];
+        return data;
+    };
+    // tslint:disable-next-line:no-any
+    var isMetadata = function (c) {
+        return !!c && Array.isArray(c.labels);
+    };
+    var isAlphaValid = function (version, alpha) {
+        if (version === 1) {
+            if (alpha !== 0.25 && alpha !== 0.5 && alpha !== 0.75 && alpha !== 1) {
+                console.warn("Invalid alpha. Options are: 0.25, 0.50, 0.75 or 1.00.");
+                console.log("Loading model with alpha: ", DEFAULT_ALPHA_V1.toFixed(2));
+                return DEFAULT_ALPHA_V1;
+            }
+        }
+        else {
+            if (alpha !== 0.35 && alpha !== 0.5 && alpha !== 0.75 && alpha !== 1) {
+                console.warn("Invalid alpha. Options are: 0.35, 0.50, 0.75 or 1.00.");
+                console.log("Loading model with alpha: ", DEFAULT_ALPHA_V2.toFixed(2));
+                return DEFAULT_ALPHA_V2;
+            }
+        }
+        return alpha;
+    };
+    var parseModelOptions = function (options) {
+        options = options || {};
+        if (options.checkpointUrl && options.trainingLayer) {
+            if (options.alpha || options.version) {
+                console.warn("Checkpoint URL passed to modelOptions, alpha options are ignored");
+            }
+            return [options.checkpointUrl, options.trainingLayer];
+        }
+        else {
+            options.version = options.version || DEFAULT_MOBILENET_VERSION;
+            if (options.version === 1) {
+                options.alpha = options.alpha || DEFAULT_ALPHA_V1;
+                options.alpha = isAlphaValid(options.version, options.alpha);
+                console.log("Loading mobilenet " + options.version + " and alpha " + options.alpha);
+                // exception is alpha of 1 can only be 1.0
+                var alphaString = options.alpha.toFixed(2);
+                if (alphaString === "1.00") {
+                    alphaString = "1.0";
+                }
+                return [
+                    // tslint:disable-next-line:max-line-length        
+                    "https://storage.googleapis.com/tfjs-models/tfjs/mobilenet_v1_" + alphaString + "_" + exports.IMAGE_SIZE + "/model.json",
+                    DEFAULT_TRAINING_LAYER_V1
+                ];
+            }
+            else if (options.version === 2) {
+                options.alpha = options.alpha || DEFAULT_ALPHA_V2;
+                options.alpha = isAlphaValid(options.version, options.alpha);
+                console.log("Loading mobilenet " + options.version + " and alpha " + options.alpha);
+                return [
+                    // tslint:disable-next-line:max-line-length        
+                    "https://storage.googleapis.com/teachable-machine-models/mobilenet_v2_weights_tf_dim_ordering_tf_kernels_" + options.alpha.toFixed(2) + "_" + exports.IMAGE_SIZE + "_no_top/model.json",
+                    DEFAULT_TRAINING_LAYER_V2
+                ];
+            }
+            else {
+                throw new Error("MobileNet V" + options.version + " doesn't exist");
+            }
+        }
+    };
+    /**
+     * process either a URL string or a Metadata object
+     * @param metadata a url to load metadata or a Metadata object
+     */
+    var processMetadata = function (metadata) { return __awaiter(void 0, void 0, void 0, function () {
+        var metadataJSON, metadataResponse;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (!(typeof metadata === 'string')) return [3 /*break*/, 3];
+                    return [4 /*yield*/, fetch(metadata)];
+                case 1:
+                    metadataResponse = _a.sent();
+                    return [4 /*yield*/, metadataResponse.json()];
+                case 2:
+                    metadataJSON = _a.sent();
+                    return [3 /*break*/, 4];
+                case 3:
+                    if (isMetadata(metadata)) {
+                        metadataJSON = metadata;
+                    }
+                    else {
+                        throw new Error('Invalid Metadata provided');
+                    }
+                    _a.label = 4;
+                case 4: return [2 /*return*/, fillMetadata(metadataJSON)];
+            }
+        });
+    }); };
+    /**
+     * Computes the probabilities of the topK classes given logits by computing
+     * softmax to get probabilities and then sorting the probabilities.
+     * @param logits Tensor representing the logits from MobileNet.
+     * @param topK The number of top predictions to show.
+     */
+    function getTopKClasses(labels, logits, topK) {
+        if (topK === void 0) { topK = 3; }
+        return __awaiter(this, void 0, void 0, function () {
+            var values;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, logits.data()];
+                    case 1:
+                        values = _a.sent();
+                        return [2 /*return*/, tf_esm.tidy(function () {
+                                topK = Math.min(topK, values.length);
+                                var valuesAndIndices = [];
+                                for (var i = 0; i < values.length; i++) {
+                                    valuesAndIndices.push({ value: values[i], index: i });
+                                }
+                                valuesAndIndices.sort(function (a, b) {
+                                    return b.value - a.value;
+                                });
+                                var topkValues = new Float32Array(topK);
+                                var topkIndices = new Int32Array(topK);
+                                for (var i = 0; i < topK; i++) {
+                                    topkValues[i] = valuesAndIndices[i].value;
+                                    topkIndices[i] = valuesAndIndices[i].index;
+                                }
+                                var topClassesAndProbs = [];
+                                for (var i = 0; i < topkIndices.length; i++) {
+                                    topClassesAndProbs.push({
+                                        className: labels[topkIndices[i]],
+                                        probability: topkValues[i]
+                                    });
+                                }
+                                return topClassesAndProbs;
+                            })];
+                }
+            });
+        });
+    }
+    exports.getTopKClasses = getTopKClasses;
+    var CustomMobileNet = /** @class */ (function () {
+        function CustomMobileNet(model, metadata) {
+            this.model = model;
+            this._metadata = fillMetadata(metadata);
+        }
+        Object.defineProperty(CustomMobileNet, "EXPECTED_IMAGE_SIZE", {
+            get: function () {
+                return exports.IMAGE_SIZE;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        CustomMobileNet.prototype.getMetadata = function () {
+            return this._metadata;
+        };
+        /**
+         * get the total number of classes existing within model
+         */
+        CustomMobileNet.prototype.getTotalClasses = function () {
+            var output = this.model.output;
+            var totalClasses = output.shape[1];
+            return totalClasses;
+        };
+        /**
+         * get the model labels
+         */
+        CustomMobileNet.prototype.getClassLabels = function () {
+            return this._metadata.labels;
+        };
+        /**
+         * Given an image element, makes a prediction through mobilenet returning the
+         * probabilities of the top K classes.
+         * @param image the image to classify
+         * @param maxPredictions the maximum number of classification predictions
+         */
+        CustomMobileNet.prototype.predictTopK = function (image, maxPredictions, flipped) {
+            if (maxPredictions === void 0) { maxPredictions = 10; }
+            if (flipped === void 0) { flipped = false; }
+            return __awaiter(this, void 0, void 0, function () {
+                var croppedImage, logits, classes;
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            croppedImage = canvas.cropTo(image, exports.IMAGE_SIZE, flipped);
+                            logits = tf_esm.tidy(function () {
+                                var captured = tf_1.capture(croppedImage);
+                                return _this.model.predict(captured);
+                            });
+                            return [4 /*yield*/, getTopKClasses(this._metadata.labels, logits, maxPredictions)];
+                        case 1:
+                            classes = _a.sent();
+                            tfjs_1.dispose(logits);
+                            return [2 /*return*/, classes];
+                    }
+                });
+            });
+        };
+        /**
+         * Given an image element, makes a prediction through mobilenet returning the
+         * probabilities for ALL classes.
+         * @param image the image to classify
+         * @param flipped whether to flip the image on X
+         */
+        CustomMobileNet.prototype.predict = function (image, flipped) {
+            if (flipped === void 0) { flipped = false; }
+            return __awaiter(this, void 0, void 0, function () {
+                var croppedImage, logits, values, classes, i;
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            croppedImage = canvas.cropTo(image, exports.IMAGE_SIZE, flipped);
+                            logits = tf_esm.tidy(function () {
+                                var captured = tf_1.capture(croppedImage);
+                                return _this.model.predict(captured);
+                            });
+                            return [4 /*yield*/, logits.data()];
+                        case 1:
+                            values = _a.sent();
+                            classes = [];
+                            for (i = 0; i < values.length; i++) {
+                                classes.push({
+                                    className: this._metadata.labels[i],
+                                    probability: values[i]
+                                });
+                            }
+                            tfjs_1.dispose(logits);
+                            return [2 /*return*/, classes];
+                    }
+                });
+            });
+        };
+        CustomMobileNet.prototype.dispose = function () {
+            this.truncatedModel.dispose();
+        };
+        return CustomMobileNet;
+    }());
+    exports.CustomMobileNet = CustomMobileNet;
+    /**
+     * load the base mobilenet model
+     * @param modelOptions options determining what model to load
+     */
+    function loadTruncatedMobileNet(modelOptions) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, checkpointUrl, trainingLayer, mobilenet, layer, truncatedModel, model, layer, truncatedModel, model;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = parseModelOptions(modelOptions), checkpointUrl = _a[0], trainingLayer = _a[1];
+                        return [4 /*yield*/, tf_esm.loadLayersModel(checkpointUrl)];
+                    case 1:
+                        mobilenet = _b.sent();
+                        if (modelOptions && modelOptions.version === 1) {
+                            layer = mobilenet.getLayer(trainingLayer);
+                            truncatedModel = tf_esm.model({ inputs: mobilenet.inputs, outputs: layer.output });
+                            model = tf_esm.sequential();
+                            model.add(truncatedModel);
+                            model.add(tf_esm.layers.flatten());
+                            return [2 /*return*/, model];
+                        }
+                        else {
+                            layer = mobilenet.getLayer(trainingLayer);
+                            truncatedModel = tf_esm.model({ inputs: mobilenet.inputs, outputs: layer.output });
+                            model = tf_esm.sequential();
+                            model.add(truncatedModel);
+                            model.add(tf_esm.layers.globalAveragePooling2d({})); // go from shape [7, 7, 1280] to [1280]
+                            return [2 /*return*/, model];
+                        }
+                }
+            });
+        });
+    }
+    exports.loadTruncatedMobileNet = loadTruncatedMobileNet;
+    function load(model, metadata) {
+        return __awaiter(this, void 0, void 0, function () {
+            var customModel, metadataJSON, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, tf_esm.loadLayersModel(model)];
+                    case 1:
+                        customModel = _b.sent();
+                        if (!metadata) return [3 /*break*/, 3];
+                        return [4 /*yield*/, processMetadata(metadata)];
+                    case 2:
+                        _a = _b.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        _a = null;
+                        _b.label = 4;
+                    case 4:
+                        metadataJSON = _a;
+                        return [2 /*return*/, new CustomMobileNet(customModel, metadataJSON)];
+                }
+            });
+        });
+    }
+    exports.load = load;
+    function loadFromFiles(model, weights, metadata) {
+        return __awaiter(this, void 0, void 0, function () {
+            var customModel, metadataFile, metadataJSON, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, tf_esm.loadLayersModel(tf_esm.io.browserFiles([model, weights]))];
+                    case 1:
+                        customModel = _b.sent();
+                        return [4 /*yield*/, new Response(metadata).json()];
+                    case 2:
+                        metadataFile = _b.sent();
+                        if (!metadata) return [3 /*break*/, 4];
+                        return [4 /*yield*/, processMetadata(metadataFile)];
+                    case 3:
+                        _a = _b.sent();
+                        return [3 /*break*/, 5];
+                    case 4:
+                        _a = null;
+                        _b.label = 5;
+                    case 5:
+                        metadataJSON = _a;
+                        return [2 /*return*/, new CustomMobileNet(customModel, metadataJSON)];
+                }
+            });
+        });
+    }
+    exports.loadFromFiles = loadFromFiles;
+
+    });
+
+    unwrapExports(customMobilenet);
+    var customMobilenet_1 = customMobilenet.IMAGE_SIZE;
+    var customMobilenet_2 = customMobilenet.getTopKClasses;
+    var customMobilenet_3 = customMobilenet.CustomMobileNet;
+    var customMobilenet_4 = customMobilenet.loadTruncatedMobileNet;
+    var customMobilenet_5 = customMobilenet.load;
+    var customMobilenet_6 = customMobilenet.loadFromFiles;
+
+    var alea$1 = createCommonjsModule$1(function (module) {
+    // A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
+    // http://baagoe.com/en/RandomMusings/javascript/
+    // https://github.com/nquinlan/better-random-numbers-for-javascript-mirror
+    // Original work is under MIT license -
+
+    // Copyright (C) 2010 by Johannes Baagøe <baagoe@baagoe.org>
+    //
+    // Permission is hereby granted, free of charge, to any person obtaining a copy
+    // of this software and associated documentation files (the "Software"), to deal
+    // in the Software without restriction, including without limitation the rights
+    // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    // copies of the Software, and to permit persons to whom the Software is
+    // furnished to do so, subject to the following conditions:
+    // 
+    // The above copyright notice and this permission notice shall be included in
+    // all copies or substantial portions of the Software.
+    // 
+    // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    // THE SOFTWARE.
+
+
+
+    (function(global, module, define) {
+
+    function Alea(seed) {
+      var me = this, mash = Mash();
+
+      me.next = function() {
+        var t = 2091639 * me.s0 + me.c * 2.3283064365386963e-10; // 2^-32
+        me.s0 = me.s1;
+        me.s1 = me.s2;
+        return me.s2 = t - (me.c = t | 0);
+      };
+
+      // Apply the seeding algorithm from Baagoe.
+      me.c = 1;
+      me.s0 = mash(' ');
+      me.s1 = mash(' ');
+      me.s2 = mash(' ');
+      me.s0 -= mash(seed);
+      if (me.s0 < 0) { me.s0 += 1; }
+      me.s1 -= mash(seed);
+      if (me.s1 < 0) { me.s1 += 1; }
+      me.s2 -= mash(seed);
+      if (me.s2 < 0) { me.s2 += 1; }
+      mash = null;
+    }
+
+    function copy(f, t) {
+      t.c = f.c;
+      t.s0 = f.s0;
+      t.s1 = f.s1;
+      t.s2 = f.s2;
+      return t;
+    }
+
+    function impl(seed, opts) {
+      var xg = new Alea(seed),
+          state = opts && opts.state,
+          prng = xg.next;
+      prng.int32 = function() { return (xg.next() * 0x100000000) | 0; };
+      prng.double = function() {
+        return prng() + (prng() * 0x200000 | 0) * 1.1102230246251565e-16; // 2^-53
+      };
+      prng.quick = prng;
+      if (state) {
+        if (typeof(state) == 'object') copy(state, xg);
+        prng.state = function() { return copy(xg, {}); };
+      }
+      return prng;
+    }
+
+    function Mash() {
+      var n = 0xefc8249d;
+
+      var mash = function(data) {
+        data = data.toString();
+        for (var i = 0; i < data.length; i++) {
+          n += data.charCodeAt(i);
+          var h = 0.02519603282416938 * n;
+          n = h >>> 0;
+          h -= n;
+          h *= n;
+          n = h >>> 0;
+          h -= n;
+          n += h * 0x100000000; // 2^32
+        }
+        return (n >>> 0) * 2.3283064365386963e-10; // 2^-32
+      };
+
+      return mash;
+    }
+
+
+    if (module && module.exports) {
+      module.exports = impl;
+    } else if (define && define.amd) {
+      define(function() { return impl; });
+    } else {
+      this.alea = impl;
+    }
+
+    })(
+      commonjsGlobal,
+       module,    // present in node.js
+      (typeof undefined) == 'function'    // present with an AMD loader
+    );
+    });
+
+    var xor128$1 = createCommonjsModule$1(function (module) {
+    // A Javascript implementaion of the "xor128" prng algorithm by
+    // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
+
+    (function(global, module, define) {
+
+    function XorGen(seed) {
+      var me = this, strseed = '';
+
+      me.x = 0;
+      me.y = 0;
+      me.z = 0;
+      me.w = 0;
+
+      // Set up generator function.
+      me.next = function() {
+        var t = me.x ^ (me.x << 11);
+        me.x = me.y;
+        me.y = me.z;
+        me.z = me.w;
+        return me.w ^= (me.w >>> 19) ^ t ^ (t >>> 8);
+      };
+
+      if (seed === (seed | 0)) {
+        // Integer seed.
+        me.x = seed;
+      } else {
+        // String seed.
+        strseed += seed;
+      }
+
+      // Mix in string seed, then discard an initial batch of 64 values.
+      for (var k = 0; k < strseed.length + 64; k++) {
+        me.x ^= strseed.charCodeAt(k) | 0;
+        me.next();
+      }
+    }
+
+    function copy(f, t) {
+      t.x = f.x;
+      t.y = f.y;
+      t.z = f.z;
+      t.w = f.w;
+      return t;
+    }
+
+    function impl(seed, opts) {
+      var xg = new XorGen(seed),
+          state = opts && opts.state,
+          prng = function() { return (xg.next() >>> 0) / 0x100000000; };
+      prng.double = function() {
+        do {
+          var top = xg.next() >>> 11,
+              bot = (xg.next() >>> 0) / 0x100000000,
+              result = (top + bot) / (1 << 21);
+        } while (result === 0);
+        return result;
+      };
+      prng.int32 = xg.next;
+      prng.quick = prng;
+      if (state) {
+        if (typeof(state) == 'object') copy(state, xg);
+        prng.state = function() { return copy(xg, {}); };
+      }
+      return prng;
+    }
+
+    if (module && module.exports) {
+      module.exports = impl;
+    } else if (define && define.amd) {
+      define(function() { return impl; });
+    } else {
+      this.xor128 = impl;
+    }
+
+    })(
+      commonjsGlobal,
+       module,    // present in node.js
+      (typeof undefined) == 'function'    // present with an AMD loader
+    );
+    });
+
+    var xorwow$1 = createCommonjsModule$1(function (module) {
+    // A Javascript implementaion of the "xorwow" prng algorithm by
+    // George Marsaglia.  See http://www.jstatsoft.org/v08/i14/paper
+
+    (function(global, module, define) {
+
+    function XorGen(seed) {
+      var me = this, strseed = '';
+
+      // Set up generator function.
+      me.next = function() {
+        var t = (me.x ^ (me.x >>> 2));
+        me.x = me.y; me.y = me.z; me.z = me.w; me.w = me.v;
+        return (me.d = (me.d + 362437 | 0)) +
+           (me.v = (me.v ^ (me.v << 4)) ^ (t ^ (t << 1))) | 0;
+      };
+
+      me.x = 0;
+      me.y = 0;
+      me.z = 0;
+      me.w = 0;
+      me.v = 0;
+
+      if (seed === (seed | 0)) {
+        // Integer seed.
+        me.x = seed;
+      } else {
+        // String seed.
+        strseed += seed;
+      }
+
+      // Mix in string seed, then discard an initial batch of 64 values.
+      for (var k = 0; k < strseed.length + 64; k++) {
+        me.x ^= strseed.charCodeAt(k) | 0;
+        if (k == strseed.length) {
+          me.d = me.x << 10 ^ me.x >>> 4;
+        }
+        me.next();
+      }
+    }
+
+    function copy(f, t) {
+      t.x = f.x;
+      t.y = f.y;
+      t.z = f.z;
+      t.w = f.w;
+      t.v = f.v;
+      t.d = f.d;
+      return t;
+    }
+
+    function impl(seed, opts) {
+      var xg = new XorGen(seed),
+          state = opts && opts.state,
+          prng = function() { return (xg.next() >>> 0) / 0x100000000; };
+      prng.double = function() {
+        do {
+          var top = xg.next() >>> 11,
+              bot = (xg.next() >>> 0) / 0x100000000,
+              result = (top + bot) / (1 << 21);
+        } while (result === 0);
+        return result;
+      };
+      prng.int32 = xg.next;
+      prng.quick = prng;
+      if (state) {
+        if (typeof(state) == 'object') copy(state, xg);
+        prng.state = function() { return copy(xg, {}); };
+      }
+      return prng;
+    }
+
+    if (module && module.exports) {
+      module.exports = impl;
+    } else if (define && define.amd) {
+      define(function() { return impl; });
+    } else {
+      this.xorwow = impl;
+    }
+
+    })(
+      commonjsGlobal,
+       module,    // present in node.js
+      (typeof undefined) == 'function'    // present with an AMD loader
+    );
+    });
+
+    var xorshift7$1 = createCommonjsModule$1(function (module) {
+    // A Javascript implementaion of the "xorshift7" algorithm by
+    // François Panneton and Pierre L'ecuyer:
+    // "On the Xorgshift Random Number Generators"
+    // http://saluc.engr.uconn.edu/refs/crypto/rng/panneton05onthexorshift.pdf
+
+    (function(global, module, define) {
+
+    function XorGen(seed) {
+      var me = this;
+
+      // Set up generator function.
+      me.next = function() {
+        // Update xor generator.
+        var X = me.x, i = me.i, t, v;
+        t = X[i]; t ^= (t >>> 7); v = t ^ (t << 24);
+        t = X[(i + 1) & 7]; v ^= t ^ (t >>> 10);
+        t = X[(i + 3) & 7]; v ^= t ^ (t >>> 3);
+        t = X[(i + 4) & 7]; v ^= t ^ (t << 7);
+        t = X[(i + 7) & 7]; t = t ^ (t << 13); v ^= t ^ (t << 9);
+        X[i] = v;
+        me.i = (i + 1) & 7;
+        return v;
+      };
+
+      function init(me, seed) {
+        var j, w, X = [];
+
+        if (seed === (seed | 0)) {
+          // Seed state array using a 32-bit integer.
+          w = X[0] = seed;
+        } else {
+          // Seed state using a string.
+          seed = '' + seed;
+          for (j = 0; j < seed.length; ++j) {
+            X[j & 7] = (X[j & 7] << 15) ^
+                (seed.charCodeAt(j) + X[(j + 1) & 7] << 13);
+          }
+        }
+        // Enforce an array length of 8, not all zeroes.
+        while (X.length < 8) X.push(0);
+        for (j = 0; j < 8 && X[j] === 0; ++j);
+        if (j == 8) w = X[7] = -1; else w = X[j];
+
+        me.x = X;
+        me.i = 0;
+
+        // Discard an initial 256 values.
+        for (j = 256; j > 0; --j) {
+          me.next();
+        }
+      }
+
+      init(me, seed);
+    }
+
+    function copy(f, t) {
+      t.x = f.x.slice();
+      t.i = f.i;
+      return t;
+    }
+
+    function impl(seed, opts) {
+      if (seed == null) seed = +(new Date);
+      var xg = new XorGen(seed),
+          state = opts && opts.state,
+          prng = function() { return (xg.next() >>> 0) / 0x100000000; };
+      prng.double = function() {
+        do {
+          var top = xg.next() >>> 11,
+              bot = (xg.next() >>> 0) / 0x100000000,
+              result = (top + bot) / (1 << 21);
+        } while (result === 0);
+        return result;
+      };
+      prng.int32 = xg.next;
+      prng.quick = prng;
+      if (state) {
+        if (state.x) copy(state, xg);
+        prng.state = function() { return copy(xg, {}); };
+      }
+      return prng;
+    }
+
+    if (module && module.exports) {
+      module.exports = impl;
+    } else if (define && define.amd) {
+      define(function() { return impl; });
+    } else {
+      this.xorshift7 = impl;
+    }
+
+    })(
+      commonjsGlobal,
+       module,    // present in node.js
+      (typeof undefined) == 'function'    // present with an AMD loader
+    );
+    });
+
+    var xor4096$1 = createCommonjsModule$1(function (module) {
+    // A Javascript implementaion of Richard Brent's Xorgens xor4096 algorithm.
+    //
+    // This fast non-cryptographic random number generator is designed for
+    // use in Monte-Carlo algorithms. It combines a long-period xorshift
+    // generator with a Weyl generator, and it passes all common batteries
+    // of stasticial tests for randomness while consuming only a few nanoseconds
+    // for each prng generated.  For background on the generator, see Brent's
+    // paper: "Some long-period random number generators using shifts and xors."
+    // http://arxiv.org/pdf/1004.3115v1.pdf
+    //
+    // Usage:
+    //
+    // var xor4096 = require('xor4096');
+    // random = xor4096(1);                        // Seed with int32 or string.
+    // assert.equal(random(), 0.1520436450538547); // (0, 1) range, 53 bits.
+    // assert.equal(random.int32(), 1806534897);   // signed int32, 32 bits.
+    //
+    // For nonzero numeric keys, this impelementation provides a sequence
+    // identical to that by Brent's xorgens 3 implementaion in C.  This
+    // implementation also provides for initalizing the generator with
+    // string seeds, or for saving and restoring the state of the generator.
+    //
+    // On Chrome, this prng benchmarks about 2.1 times slower than
+    // Javascript's built-in Math.random().
+
+    (function(global, module, define) {
+
+    function XorGen(seed) {
+      var me = this;
+
+      // Set up generator function.
+      me.next = function() {
+        var w = me.w,
+            X = me.X, i = me.i, t, v;
+        // Update Weyl generator.
+        me.w = w = (w + 0x61c88647) | 0;
+        // Update xor generator.
+        v = X[(i + 34) & 127];
+        t = X[i = ((i + 1) & 127)];
+        v ^= v << 13;
+        t ^= t << 17;
+        v ^= v >>> 15;
+        t ^= t >>> 12;
+        // Update Xor generator array state.
+        v = X[i] = v ^ t;
+        me.i = i;
+        // Result is the combination.
+        return (v + (w ^ (w >>> 16))) | 0;
+      };
+
+      function init(me, seed) {
+        var t, v, i, j, w, X = [], limit = 128;
+        if (seed === (seed | 0)) {
+          // Numeric seeds initialize v, which is used to generates X.
+          v = seed;
+          seed = null;
+        } else {
+          // String seeds are mixed into v and X one character at a time.
+          seed = seed + '\0';
+          v = 0;
+          limit = Math.max(limit, seed.length);
+        }
+        // Initialize circular array and weyl value.
+        for (i = 0, j = -32; j < limit; ++j) {
+          // Put the unicode characters into the array, and shuffle them.
+          if (seed) v ^= seed.charCodeAt((j + 32) % seed.length);
+          // After 32 shuffles, take v as the starting w value.
+          if (j === 0) w = v;
+          v ^= v << 10;
+          v ^= v >>> 15;
+          v ^= v << 4;
+          v ^= v >>> 13;
+          if (j >= 0) {
+            w = (w + 0x61c88647) | 0;     // Weyl.
+            t = (X[j & 127] ^= (v + w));  // Combine xor and weyl to init array.
+            i = (0 == t) ? i + 1 : 0;     // Count zeroes.
+          }
+        }
+        // We have detected all zeroes; make the key nonzero.
+        if (i >= 128) {
+          X[(seed && seed.length || 0) & 127] = -1;
+        }
+        // Run the generator 512 times to further mix the state before using it.
+        // Factoring this as a function slows the main generator, so it is just
+        // unrolled here.  The weyl generator is not advanced while warming up.
+        i = 127;
+        for (j = 4 * 128; j > 0; --j) {
+          v = X[(i + 34) & 127];
+          t = X[i = ((i + 1) & 127)];
+          v ^= v << 13;
+          t ^= t << 17;
+          v ^= v >>> 15;
+          t ^= t >>> 12;
+          X[i] = v ^ t;
+        }
+        // Storing state as object members is faster than using closure variables.
+        me.w = w;
+        me.X = X;
+        me.i = i;
+      }
+
+      init(me, seed);
+    }
+
+    function copy(f, t) {
+      t.i = f.i;
+      t.w = f.w;
+      t.X = f.X.slice();
+      return t;
+    }
+    function impl(seed, opts) {
+      if (seed == null) seed = +(new Date);
+      var xg = new XorGen(seed),
+          state = opts && opts.state,
+          prng = function() { return (xg.next() >>> 0) / 0x100000000; };
+      prng.double = function() {
+        do {
+          var top = xg.next() >>> 11,
+              bot = (xg.next() >>> 0) / 0x100000000,
+              result = (top + bot) / (1 << 21);
+        } while (result === 0);
+        return result;
+      };
+      prng.int32 = xg.next;
+      prng.quick = prng;
+      if (state) {
+        if (state.X) copy(state, xg);
+        prng.state = function() { return copy(xg, {}); };
+      }
+      return prng;
+    }
+
+    if (module && module.exports) {
+      module.exports = impl;
+    } else if (define && define.amd) {
+      define(function() { return impl; });
+    } else {
+      this.xor4096 = impl;
+    }
+
+    })(
+      commonjsGlobal,                                     // window object or global
+       module,    // present in node.js
+      (typeof undefined) == 'function'    // present with an AMD loader
+    );
+    });
+
+    var tychei$1 = createCommonjsModule$1(function (module) {
+    // A Javascript implementaion of the "Tyche-i" prng algorithm by
+    // Samuel Neves and Filipe Araujo.
+    // See https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
+
+    (function(global, module, define) {
+
+    function XorGen(seed) {
+      var me = this, strseed = '';
+
+      // Set up generator function.
+      me.next = function() {
+        var b = me.b, c = me.c, d = me.d, a = me.a;
+        b = (b << 25) ^ (b >>> 7) ^ c;
+        c = (c - d) | 0;
+        d = (d << 24) ^ (d >>> 8) ^ a;
+        a = (a - b) | 0;
+        me.b = b = (b << 20) ^ (b >>> 12) ^ c;
+        me.c = c = (c - d) | 0;
+        me.d = (d << 16) ^ (c >>> 16) ^ a;
+        return me.a = (a - b) | 0;
+      };
+
+      /* The following is non-inverted tyche, which has better internal
+       * bit diffusion, but which is about 25% slower than tyche-i in JS.
+      me.next = function() {
+        var a = me.a, b = me.b, c = me.c, d = me.d;
+        a = (me.a + me.b | 0) >>> 0;
+        d = me.d ^ a; d = d << 16 ^ d >>> 16;
+        c = me.c + d | 0;
+        b = me.b ^ c; b = b << 12 ^ d >>> 20;
+        me.a = a = a + b | 0;
+        d = d ^ a; me.d = d = d << 8 ^ d >>> 24;
+        me.c = c = c + d | 0;
+        b = b ^ c;
+        return me.b = (b << 7 ^ b >>> 25);
+      }
+      */
+
+      me.a = 0;
+      me.b = 0;
+      me.c = 2654435769 | 0;
+      me.d = 1367130551;
+
+      if (seed === Math.floor(seed)) {
+        // Integer seed.
+        me.a = (seed / 0x100000000) | 0;
+        me.b = seed | 0;
+      } else {
+        // String seed.
+        strseed += seed;
+      }
+
+      // Mix in string seed, then discard an initial batch of 64 values.
+      for (var k = 0; k < strseed.length + 20; k++) {
+        me.b ^= strseed.charCodeAt(k) | 0;
+        me.next();
+      }
+    }
+
+    function copy(f, t) {
+      t.a = f.a;
+      t.b = f.b;
+      t.c = f.c;
+      t.d = f.d;
+      return t;
+    }
+    function impl(seed, opts) {
+      var xg = new XorGen(seed),
+          state = opts && opts.state,
+          prng = function() { return (xg.next() >>> 0) / 0x100000000; };
+      prng.double = function() {
+        do {
+          var top = xg.next() >>> 11,
+              bot = (xg.next() >>> 0) / 0x100000000,
+              result = (top + bot) / (1 << 21);
+        } while (result === 0);
+        return result;
+      };
+      prng.int32 = xg.next;
+      prng.quick = prng;
+      if (state) {
+        if (typeof(state) == 'object') copy(state, xg);
+        prng.state = function() { return copy(xg, {}); };
+      }
+      return prng;
+    }
+
+    if (module && module.exports) {
+      module.exports = impl;
+    } else if (define && define.amd) {
+      define(function() { return impl; });
+    } else {
+      this.tychei = impl;
+    }
+
+    })(
+      commonjsGlobal,
+       module,    // present in node.js
+      (typeof undefined) == 'function'    // present with an AMD loader
+    );
+    });
+
+    var _nodeResolve_empty = {};
+
+    var _nodeResolve_empty$1 = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        'default': _nodeResolve_empty
+    });
+
+    var require$$0 = getCjsExportFromNamespace(_nodeResolve_empty$1);
+
+    var seedrandom$2 = createCommonjsModule$1(function (module) {
+    /*
+    Copyright 2014 David Bau.
+
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+    */
+
+    (function (pool, math) {
+    //
+    // The following constants are related to IEEE 754 limits.
+    //
+
+    // Detect the global object, even if operating in strict mode.
+    // http://stackoverflow.com/a/14387057/265298
+    var global = (0, eval)('this'),
+        width = 256,        // each RC4 output is 0 <= x < 256
+        chunks = 6,         // at least six RC4 outputs for each double
+        digits = 52,        // there are 52 significant digits in a double
+        rngname = 'random', // rngname: name for Math.random and Math.seedrandom
+        startdenom = math.pow(width, chunks),
+        significance = math.pow(2, digits),
+        overflow = significance * 2,
+        mask = width - 1,
+        nodecrypto;         // node.js crypto module, initialized at the bottom.
+
+    //
+    // seedrandom()
+    // This is the seedrandom function described above.
+    //
+    function seedrandom(seed, options, callback) {
+      var key = [];
+      options = (options == true) ? { entropy: true } : (options || {});
+
+      // Flatten the seed string or build one from local entropy if needed.
+      var shortseed = mixkey(flatten(
+        options.entropy ? [seed, tostring(pool)] :
+        (seed == null) ? autoseed() : seed, 3), key);
+
+      // Use the seed to initialize an ARC4 generator.
+      var arc4 = new ARC4(key);
+
+      // This function returns a random double in [0, 1) that contains
+      // randomness in every bit of the mantissa of the IEEE 754 value.
+      var prng = function() {
+        var n = arc4.g(chunks),             // Start with a numerator n < 2 ^ 48
+            d = startdenom,                 //   and denominator d = 2 ^ 48.
+            x = 0;                          //   and no 'extra last byte'.
+        while (n < significance) {          // Fill up all significant digits by
+          n = (n + x) * width;              //   shifting numerator and
+          d *= width;                       //   denominator and generating a
+          x = arc4.g(1);                    //   new least-significant-byte.
+        }
+        while (n >= overflow) {             // To avoid rounding up, before adding
+          n /= 2;                           //   last byte, shift everything
+          d /= 2;                           //   right using integer math until
+          x >>>= 1;                         //   we have exactly the desired bits.
+        }
+        return (n + x) / d;                 // Form the number within [0, 1).
+      };
+
+      prng.int32 = function() { return arc4.g(4) | 0; };
+      prng.quick = function() { return arc4.g(4) / 0x100000000; };
+      prng.double = prng;
+
+      // Mix the randomness into accumulated entropy.
+      mixkey(tostring(arc4.S), pool);
+
+      // Calling convention: what to return as a function of prng, seed, is_math.
+      return (options.pass || callback ||
+          function(prng, seed, is_math_call, state) {
+            if (state) {
+              // Load the arc4 state from the given state if it has an S array.
+              if (state.S) { copy(state, arc4); }
+              // Only provide the .state method if requested via options.state.
+              prng.state = function() { return copy(arc4, {}); };
+            }
+
+            // If called as a method of Math (Math.seedrandom()), mutate
+            // Math.random because that is how seedrandom.js has worked since v1.0.
+            if (is_math_call) { math[rngname] = prng; return seed; }
+
+            // Otherwise, it is a newer calling convention, so return the
+            // prng directly.
+            else return prng;
+          })(
+      prng,
+      shortseed,
+      'global' in options ? options.global : (this == math),
+      options.state);
+    }
+    math['seed' + rngname] = seedrandom;
+
+    //
+    // ARC4
+    //
+    // An ARC4 implementation.  The constructor takes a key in the form of
+    // an array of at most (width) integers that should be 0 <= x < (width).
+    //
+    // The g(count) method returns a pseudorandom integer that concatenates
+    // the next (count) outputs from ARC4.  Its return value is a number x
+    // that is in the range 0 <= x < (width ^ count).
+    //
+    function ARC4(key) {
+      var t, keylen = key.length,
+          me = this, i = 0, j = me.i = me.j = 0, s = me.S = [];
+
+      // The empty key [] is treated as [0].
+      if (!keylen) { key = [keylen++]; }
+
+      // Set up S using the standard key scheduling algorithm.
+      while (i < width) {
+        s[i] = i++;
+      }
+      for (i = 0; i < width; i++) {
+        s[i] = s[j = mask & (j + key[i % keylen] + (t = s[i]))];
+        s[j] = t;
+      }
+
+      // The "g" method returns the next (count) outputs as one number.
+      (me.g = function(count) {
+        // Using instance members instead of closure state nearly doubles speed.
+        var t, r = 0,
+            i = me.i, j = me.j, s = me.S;
+        while (count--) {
+          t = s[i = mask & (i + 1)];
+          r = r * width + s[mask & ((s[i] = s[j = mask & (j + t)]) + (s[j] = t))];
+        }
+        me.i = i; me.j = j;
+        return r;
+        // For robust unpredictability, the function call below automatically
+        // discards an initial batch of values.  This is called RC4-drop[256].
+        // See http://google.com/search?q=rsa+fluhrer+response&btnI
+      })(width);
+    }
+
+    //
+    // copy()
+    // Copies internal state of ARC4 to or from a plain object.
+    //
+    function copy(f, t) {
+      t.i = f.i;
+      t.j = f.j;
+      t.S = f.S.slice();
+      return t;
+    }
+    //
+    // flatten()
+    // Converts an object tree to nested arrays of strings.
+    //
+    function flatten(obj, depth) {
+      var result = [], typ = (typeof obj), prop;
+      if (depth && typ == 'object') {
+        for (prop in obj) {
+          try { result.push(flatten(obj[prop], depth - 1)); } catch (e) {}
+        }
+      }
+      return (result.length ? result : typ == 'string' ? obj : obj + '\0');
+    }
+
+    //
+    // mixkey()
+    // Mixes a string seed into a key that is an array of integers, and
+    // returns a shortened string seed that is equivalent to the result key.
+    //
+    function mixkey(seed, key) {
+      var stringseed = seed + '', smear, j = 0;
+      while (j < stringseed.length) {
+        key[mask & j] =
+          mask & ((smear ^= key[mask & j] * 19) + stringseed.charCodeAt(j++));
+      }
+      return tostring(key);
+    }
+
+    //
+    // autoseed()
+    // Returns an object for autoseeding, using window.crypto and Node crypto
+    // module if available.
+    //
+    function autoseed() {
+      try {
+        var out;
+        if (nodecrypto && (out = nodecrypto.randomBytes)) {
+          // The use of 'out' to remember randomBytes makes tight minified code.
+          out = out(width);
+        } else {
+          out = new Uint8Array(width);
+          (global.crypto || global.msCrypto).getRandomValues(out);
+        }
+        return tostring(out);
+      } catch (e) {
+        var browser = global.navigator,
+            plugins = browser && browser.plugins;
+        return [+new Date, global, plugins, global.screen, tostring(pool)];
+      }
+    }
+
+    //
+    // tostring()
+    // Converts an array of charcodes to a string
+    //
+    function tostring(a) {
+      return String.fromCharCode.apply(0, a);
+    }
+
+    //
+    // When seedrandom.js is loaded, we immediately mix a few bits
+    // from the built-in RNG into the entropy pool.  Because we do
+    // not want to interfere with deterministic PRNG state later,
+    // seedrandom will not call math.random on its own again after
+    // initialization.
+    //
+    mixkey(math.random(), pool);
+
+    //
+    // Nodejs and AMD support: export the implementation as a module using
+    // either convention.
+    //
+    if ( module.exports) {
+      module.exports = seedrandom;
+      // When in node.js, try using crypto package for autoseeding.
+      try {
+        nodecrypto = require$$0;
+      } catch (ex) {}
+    }
+
+    // End anonymous scope, and pass initial values.
+    })(
+      [],     // pool: entropy pool starts empty
+      Math    // math: package containing random, pow, and seedrandom
+    );
+    });
+
+    // A library of seedable RNGs implemented in Javascript.
+    //
+    // Usage:
+    //
+    // var seedrandom = require('seedrandom');
+    // var random = seedrandom(1); // or any seed.
+    // var x = random();       // 0 <= x < 1.  Every bit is random.
+    // var x = random.quick(); // 0 <= x < 1.  32 bits of randomness.
+
+    // alea, a 53-bit multiply-with-carry generator by Johannes Baagøe.
+    // Period: ~2^116
+    // Reported to pass all BigCrush tests.
+
+
+    // xor128, a pure xor-shift generator by George Marsaglia.
+    // Period: 2^128-1.
+    // Reported to fail: MatrixRank and LinearComp.
+
+
+    // xorwow, George Marsaglia's 160-bit xor-shift combined plus weyl.
+    // Period: 2^192-2^32
+    // Reported to fail: CollisionOver, SimpPoker, and LinearComp.
+
+
+    // xorshift7, by François Panneton and Pierre L'ecuyer, takes
+    // a different approach: it adds robustness by allowing more shifts
+    // than Marsaglia's original three.  It is a 7-shift generator
+    // with 256 bits, that passes BigCrush with no systmatic failures.
+    // Period 2^256-1.
+    // No systematic BigCrush failures reported.
+
+
+    // xor4096, by Richard Brent, is a 4096-bit xor-shift with a
+    // very long period that also adds a Weyl generator. It also passes
+    // BigCrush with no systematic failures.  Its long period may
+    // be useful if you have many generators and need to avoid
+    // collisions.
+    // Period: 2^4128-2^32.
+    // No systematic BigCrush failures reported.
+
+
+    // Tyche-i, by Samuel Neves and Filipe Araujo, is a bit-shifting random
+    // number generator derived from ChaCha, a modern stream cipher.
+    // https://eden.dei.uc.pt/~sneves/pubs/2011-snfa2.pdf
+    // Period: ~2^127
+    // No systematic BigCrush failures reported.
+
+
+    // The original ARC4-based prng included in this library.
+    // Period: ~2^1600
+
+
+    seedrandom$2.alea = alea$1;
+    seedrandom$2.xor128 = xor128$1;
+    seedrandom$2.xorwow = xorwow$1;
+    seedrandom$2.xorshift7 = xorshift7$1;
+    seedrandom$2.xor4096 = xor4096$1;
+    seedrandom$2.tychei = tychei$1;
+
+    var seedrandom$3 = seedrandom$2;
+
+    var teachableMobilenet = createCommonjsModule$1(function (module, exports) {
+    /**
+     * @license
+     * Copyright 2019 Google LLC. All Rights Reserved.
+     * Licensed under the Apache License, Version 2.0 (the "License");
+     * you may not use this file except in compliance with the License.
+     * You may obtain a copy of the License at
+     *
+     * http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     * =============================================================================
+     */
+    var __extends = (commonjsGlobal && commonjsGlobal.__extends) || (function () {
+        var extendStatics = function (d, b) {
+            extendStatics = Object.setPrototypeOf ||
+                ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+                function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            return extendStatics(d, b);
+        };
+        return function (d, b) {
+            extendStatics(d, b);
+            function __() { this.constructor = d; }
+            d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+        };
+    })();
+    var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    var __generator = (commonjsGlobal && commonjsGlobal.__generator) || function (thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    };
+    Object.defineProperty(exports, "__esModule", { value: true });
+
+    var tfjs_1 = tf_esm;
+
+
+
+    var VALIDATION_FRACTION = 0.15;
+    // tslint:disable-next-line:no-any
+    var isTensor = function (c) {
+        return typeof c.dataId === 'object' && c.shape === 'object';
+    };
+    /**
+     * Converts an integer into its one-hot representation and returns
+     * the data as a JS Array.
+     */
+    function flatOneHot(label, numClasses) {
+        var labelOneHot = new Array(numClasses).fill(0);
+        labelOneHot[label] = 1;
+        return labelOneHot;
+    }
+    /**
+     * Shuffle an array of Float32Array or Samples using Fisher-Yates algorithm
+     * Takes an optional seed value to make shuffling predictable
+     */
+    function fisherYates(array, seed) {
+        var _a;
+        var length = array.length;
+        // need to clone array or we'd be editing original as we goo
+        var shuffled = array.slice();
+        for (var i = (length - 1); i > 0; i -= 1) {
+            var randomIndex = void 0;
+            if (seed) {
+                randomIndex = Math.floor(seed() * (i + 1));
+            }
+            else {
+                randomIndex = Math.floor(Math.random() * (i + 1));
+            }
+            _a = [shuffled[randomIndex], shuffled[i]], shuffled[i] = _a[0], shuffled[randomIndex] = _a[1];
+        }
+        return shuffled;
+    }
+    var TeachableMobileNet = /** @class */ (function (_super) {
+        __extends(TeachableMobileNet, _super);
+        function TeachableMobileNet(truncated, metadata) {
+            var _this = _super.call(this, tf_esm.sequential(), metadata) || this;
+            // private __stopTrainingReject: (error: Error) => void;
+            // Number of total samples
+            _this.totalSamples = 0;
+            // Array of all the examples collected
+            _this.examples = [];
+            // the provided model is the truncated mobilenet
+            _this.truncatedModel = truncated;
+            return _this;
+        }
+        Object.defineProperty(TeachableMobileNet.prototype, "asSequentialModel", {
+            get: function () {
+                return this.model;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TeachableMobileNet.prototype, "isTrained", {
+            /**
+             * has the teachable model been trained?
+             */
+            get: function () {
+                return !!this.model && this.model.layers && this.model.layers.length > 2;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TeachableMobileNet.prototype, "isPrepared", {
+            /**
+             * has the dataset been prepared with all labels and samples processed?
+             */
+            get: function () {
+                return !!this.trainDataset;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        Object.defineProperty(TeachableMobileNet.prototype, "numClasses", {
+            /**
+             * how many classes are in the dataset?
+             */
+            get: function () {
+                return this._metadata.labels.length;
+            },
+            enumerable: true,
+            configurable: true
+        });
+        /**
+         * Add a sample of data under the provided className
+         * @param className the classification this example belongs to
+         * @param sample the image / tensor that belongs in this classification
+         */
+        // public async addExample(className: number, sample: HTMLCanvasElement | tf.Tensor) {
+        TeachableMobileNet.prototype.addExample = function (className, sample) {
+            return __awaiter(this, void 0, void 0, function () {
+                var cap, example, activation;
+                return __generator(this, function (_a) {
+                    cap = isTensor(sample) ? sample : tf_1.capture(sample);
+                    example = this.truncatedModel.predict(cap);
+                    activation = example.dataSync();
+                    cap.dispose();
+                    example.dispose();
+                    // save samples of each class separately
+                    this.examples[className].push(activation);
+                    // increase our sample counter
+                    this.totalSamples++;
+                    return [2 /*return*/];
+                });
+            });
+        };
+        /**
+         * Classify an input image / Tensor with your trained model. Return all results.
+         * @param image the input image / Tensor to classify against your model
+         * @param topK how many of the top results do you want? defautls to 3
+         */
+        TeachableMobileNet.prototype.predict = function (image, flipped) {
+            if (flipped === void 0) { flipped = false; }
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    if (!this.model) {
+                        throw new Error('Model has not been trained yet, called train() first');
+                    }
+                    return [2 /*return*/, _super.prototype.predict.call(this, image, flipped)];
+                });
+            });
+        };
+        /**
+         * Classify an input image / Tensor with your trained model. Return topK results
+         * @param image the input image / Tensor to classify against your model
+         * @param maxPredictions how many of the top results do you want? defautls to 3
+         * @param flipped whether to flip an image
+         */
+        TeachableMobileNet.prototype.predictTopK = function (image, maxPredictions, flipped) {
+            if (maxPredictions === void 0) { maxPredictions = 10; }
+            if (flipped === void 0) { flipped = false; }
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    if (!this.model) {
+                        throw new Error('Model has not been trained yet, called train() first');
+                    }
+                    return [2 /*return*/, _super.prototype.predictTopK.call(this, image, maxPredictions, flipped)];
+                });
+            });
+        };
+        /**
+         * process the current examples provided to calculate labels and format
+         * into proper tf.data.Dataset
+         */
+        TeachableMobileNet.prototype.prepare = function () {
+            for (var classes in this.examples) {
+                if (classes.length === 0) {
+                    throw new Error('Add some examples before training');
+                }
+            }
+            var datasets = this.convertToTfDataset();
+            this.trainDataset = datasets.trainDataset;
+            this.validationDataset = datasets.validationDataset;
+        };
+        /**
+         * Process the examples by first shuffling randomly per class, then adding
+         * one-hot labels, then splitting into training/validation datsets, and finally
+         * sorting one last time
+         */
+        TeachableMobileNet.prototype.convertToTfDataset = function () {
+            // first shuffle each class individually
+            // TODO: we could basically replicate this by insterting randomly
+            for (var i = 0; i < this.examples.length; i++) {
+                this.examples[i] = fisherYates(this.examples[i], this.seed);
+            }
+            // then break into validation and test datasets
+            var trainDataset = [];
+            var validationDataset = [];
+            var _loop_1 = function (i) {
+                var y = flatOneHot(i, this_1.numClasses);
+                var classLength = this_1.examples[i].length;
+                var numValidation = Math.ceil(VALIDATION_FRACTION * classLength);
+                var numTrain = classLength - numValidation;
+                var classTrain = this_1.examples[i].slice(0, numTrain).map(function (dataArray) {
+                    return { data: dataArray, label: y };
+                });
+                var classValidation = this_1.examples[i].slice(numTrain).map(function (dataArray) {
+                    return { data: dataArray, label: y };
+                });
+                trainDataset = trainDataset.concat(classTrain);
+                validationDataset = validationDataset.concat(classValidation);
+            };
+            var this_1 = this;
+            // for each class, add samples to train and validation dataset
+            for (var i = 0; i < this.examples.length; i++) {
+                _loop_1(i);
+            }
+            // finally shuffle both train and validation datasets
+            trainDataset = fisherYates(trainDataset, this.seed);
+            validationDataset = fisherYates(validationDataset, this.seed);
+            var trainX = tf_esm.data.array(trainDataset.map(function (sample) { return sample.data; }));
+            var validationX = tf_esm.data.array(validationDataset.map(function (sample) { return sample.data; }));
+            var trainY = tf_esm.data.array(trainDataset.map(function (sample) { return sample.label; }));
+            var validationY = tf_esm.data.array(validationDataset.map(function (sample) { return sample.label; }));
+            // return tf.data dataset objects
+            return {
+                trainDataset: tf_esm.data.zip({ xs: trainX, ys: trainY }),
+                validationDataset: tf_esm.data.zip({ xs: validationX, ys: validationY })
+            };
+        };
+        /**
+         * Saving `model`'s topology and weights as two files
+         * (`my-model-1.json` and `my-model-1.weights.bin`) as well as
+         * a `metadata.json` file containing metadata such as text labels to be
+         * downloaded from browser.
+         * @param handlerOrURL An instance of `IOHandler` or a URL-like,
+         * scheme-based string shortcut for `IOHandler`.
+         * @param config Options for saving the model.
+         * @returns A `Promise` of `SaveResult`, which summarizes the result of
+         * the saving, such as byte sizes of the saved artifacts for the model's
+         *   topology and weight values.
+         */
+        TeachableMobileNet.prototype.save = function (handlerOrURL, config) {
+            return __awaiter(this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    return [2 /*return*/, this.model.save(handlerOrURL, config)];
+                });
+            });
+        };
+        /**
+         * Train your data into a new model and join it with mobilenet
+         * @param params the parameters for the model / training
+         * @param callbacks provide callbacks to receive training events
+         */
+        TeachableMobileNet.prototype.train = function (params, callbacks) {
+            if (callbacks === void 0) { callbacks = {}; }
+            return __awaiter(this, void 0, void 0, function () {
+                var originalOnTrainEnd, numLabels, inputShape, inputSize, varianceScaling, optimizer, trainData, validationData, history, jointModel;
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            originalOnTrainEnd = callbacks.onTrainEnd || (function () { });
+                            callbacks.onTrainEnd = function (logs) {
+                                if (_this.__stopTrainingResolve) {
+                                    _this.__stopTrainingResolve();
+                                    _this.__stopTrainingResolve = null;
+                                }
+                                originalOnTrainEnd(logs);
+                            };
+                            // Rest of trian function
+                            if (!this.isPrepared) {
+                                this.prepare();
+                            }
+                            numLabels = this.getLabels().length;
+                            tfjs_1.util.assert(numLabels === this.numClasses, function () { return "Can not train, has " + numLabels + " labels and " + _this.numClasses + " classes"; });
+                            inputShape = this.truncatedModel.outputs[0].shape.slice(1);
+                            inputSize = tf_esm.util.sizeFromShape(inputShape);
+                            if (this.seed) {
+                                varianceScaling = tf_esm.initializers.varianceScaling({ seed: 3.14 });
+                            }
+                            else {
+                                varianceScaling = tf_esm.initializers.varianceScaling({});
+                            }
+                            this.trainingModel = tf_esm.sequential({
+                                layers: [
+                                    tf_esm.layers.dense({
+                                        inputShape: [inputSize],
+                                        units: params.denseUnits,
+                                        activation: 'relu',
+                                        kernelInitializer: varianceScaling,
+                                        useBias: true
+                                    }),
+                                    tf_esm.layers.dense({
+                                        kernelInitializer: varianceScaling,
+                                        useBias: false,
+                                        activation: 'softmax',
+                                        units: this.numClasses
+                                    })
+                                ]
+                            });
+                            optimizer = tf_esm.train.adam(params.learningRate);
+                            // const optimizer = tf.train.rmsprop(params.learningRate);
+                            this.trainingModel.compile({
+                                optimizer: optimizer,
+                                // loss: 'binaryCrossentropy',
+                                loss: 'categoricalCrossentropy',
+                                metrics: ['accuracy']
+                            });
+                            if (!(params.batchSize > 0)) {
+                                throw new Error("Batch size is 0 or NaN. Please choose a non-zero fraction");
+                            }
+                            trainData = this.trainDataset.batch(params.batchSize);
+                            validationData = this.validationDataset.batch(params.batchSize);
+                            return [4 /*yield*/, this.trainingModel.fitDataset(trainData, {
+                                    epochs: params.epochs,
+                                    validationData: validationData,
+                                    callbacks: callbacks
+                                })];
+                        case 1:
+                            history = _a.sent();
+                            jointModel = tf_esm.sequential();
+                            jointModel.add(this.truncatedModel);
+                            jointModel.add(this.trainingModel);
+                            this.model = jointModel;
+                            optimizer.dispose(); // cleanup of memory
+                            return [2 /*return*/, this.model];
+                    }
+                });
+            });
+        };
+        /*
+         * Setup the exampls array to hold samples per class
+         */
+        TeachableMobileNet.prototype.prepareDataset = function () {
+            for (var i = 0; i < this.numClasses; i++) {
+                this.examples[i] = [];
+            }
+        };
+        TeachableMobileNet.prototype.setLabel = function (index, label) {
+            this._metadata.labels[index] = label;
+        };
+        TeachableMobileNet.prototype.setLabels = function (labels) {
+            this._metadata.labels = labels;
+            this.prepareDataset();
+        };
+        TeachableMobileNet.prototype.getLabel = function (index) {
+            return this._metadata.labels[index];
+        };
+        TeachableMobileNet.prototype.getLabels = function () {
+            return this._metadata.labels;
+        };
+        TeachableMobileNet.prototype.setName = function (name) {
+            this._metadata.modelName = name;
+        };
+        TeachableMobileNet.prototype.getName = function () {
+            return this._metadata.modelName;
+        };
+        TeachableMobileNet.prototype.stopTraining = function () {
+            var _this = this;
+            var promise = new Promise(function (resolve, reject) {
+                _this.trainingModel.stopTraining = true;
+                _this.__stopTrainingResolve = resolve;
+                // this.__stopTrainingReject = reject;
+            });
+            return promise;
+        };
+        TeachableMobileNet.prototype.dispose = function () {
+            this.trainingModel.dispose();
+            _super.prototype.dispose.call(this);
+        };
+        /*
+         * Calculate each class accuracy using the validation dataset
+         */
+        TeachableMobileNet.prototype.calculateAccuracyPerClass = function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var validationXs, validationYs, batchSize, iterations, batchesX, batchesY, itX, itY, allX, allY, i, batchedXTensor, batchedXPredictionTensor, argMaxX, batchedYTensor, argMaxY, reference, predictions, i;
+                var _this = this;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            validationXs = this.validationDataset.mapAsync(function (dataset) { return __awaiter(_this, void 0, void 0, function () {
+                                return __generator(this, function (_a) {
+                                    return [2 /*return*/, dataset.xs];
+                                });
+                            }); });
+                            validationYs = this.validationDataset.mapAsync(function (dataset) { return __awaiter(_this, void 0, void 0, function () {
+                                return __generator(this, function (_a) {
+                                    return [2 /*return*/, dataset.ys];
+                                });
+                            }); });
+                            batchSize = Math.min(validationYs.size, 32);
+                            iterations = Math.ceil(validationYs.size / batchSize);
+                            batchesX = validationXs.batch(batchSize);
+                            batchesY = validationYs.batch(batchSize);
+                            return [4 /*yield*/, batchesX.iterator()];
+                        case 1:
+                            itX = _a.sent();
+                            return [4 /*yield*/, batchesY.iterator()];
+                        case 2:
+                            itY = _a.sent();
+                            allX = [];
+                            allY = [];
+                            i = 0;
+                            _a.label = 3;
+                        case 3:
+                            if (!(i < iterations)) return [3 /*break*/, 7];
+                            return [4 /*yield*/, itX.next()];
+                        case 4:
+                            batchedXTensor = _a.sent();
+                            batchedXPredictionTensor = this.trainingModel.predict(batchedXTensor.value);
+                            argMaxX = batchedXPredictionTensor.argMax(1);
+                            allX.push(argMaxX);
+                            return [4 /*yield*/, itY.next()];
+                        case 5:
+                            batchedYTensor = _a.sent();
+                            argMaxY = batchedYTensor.value.argMax(1);
+                            allY.push(argMaxY);
+                            // 3. dispose of all our tensors
+                            batchedXTensor.value.dispose();
+                            batchedXPredictionTensor.dispose();
+                            batchedYTensor.value.dispose();
+                            _a.label = 6;
+                        case 6:
+                            i++;
+                            return [3 /*break*/, 3];
+                        case 7:
+                            reference = tf_esm.concat(allY);
+                            predictions = tf_esm.concat(allX);
+                            // only if we concatenated more than one tensor for preference and reference
+                            if (iterations !== 1) {
+                                for (i = 0; i < allX.length; i++) {
+                                    allX[i].dispose();
+                                    allY[i].dispose();
+                                }
+                            }
+                            return [2 /*return*/, { reference: reference, predictions: predictions }];
+                    }
+                });
+            });
+        };
+        /*
+         * optional seed for predictable shuffling of dataset
+         */
+        TeachableMobileNet.prototype.setSeed = function (seed) {
+            this.seed = seedrandom$3(seed);
+        };
+        return TeachableMobileNet;
+    }(customMobilenet.CustomMobileNet));
+    exports.TeachableMobileNet = TeachableMobileNet;
+    function createTeachable(metadata, modelOptions) {
+        return __awaiter(this, void 0, void 0, function () {
+            var mobilenet;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, customMobilenet.loadTruncatedMobileNet(modelOptions)];
+                    case 1:
+                        mobilenet = _a.sent();
+                        return [2 /*return*/, new TeachableMobileNet(mobilenet, metadata)];
+                }
+            });
+        });
+    }
+    exports.createTeachable = createTeachable;
+
+    });
+
+    unwrapExports(teachableMobilenet);
+    var teachableMobilenet_1 = teachableMobilenet.TeachableMobileNet;
+    var teachableMobilenet_2 = teachableMobilenet.createTeachable;
+
+    function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+    /**
+     * Return a descriptor removing the value and returning a getter
+     * The getter will return a .bind version of the function
+     * and memoize the result against a symbol on the instance
+     */
+    function boundMethod(target, key, descriptor) {
+      var fn = descriptor.value;
+
+      if (typeof fn !== 'function') {
+        throw new TypeError("@boundMethod decorator can only be applied to methods not: ".concat(_typeof(fn)));
+      } // In IE11 calling Object.defineProperty has a side-effect of evaluating the
+      // getter for the property which is being replaced. This causes infinite
+      // recursion and an "Out of stack space" error.
+
+
+      var definingProperty = false;
+      return {
+        configurable: true,
+        get: function get() {
+          // eslint-disable-next-line no-prototype-builtins
+          if (definingProperty || this === target.prototype || this.hasOwnProperty(key) || typeof fn !== 'function') {
+            return fn;
+          }
+
+          var boundFn = fn.bind(this);
+          definingProperty = true;
+          Object.defineProperty(this, key, {
+            configurable: true,
+            get: function get() {
+              return boundFn;
+            },
+            set: function set(value) {
+              fn = value;
+              delete this[key];
+            }
+          });
+          definingProperty = false;
+          return boundFn;
+        },
+        set: function set(value) {
+          fn = value;
+        }
+      };
+    }
+    /**
+     * Use boundMethod to bind all methods on the target.prototype
+     */
+
+    function boundClass(target) {
+      // (Using reflect to get all keys including symbols)
+      var keys; // Use Reflect if exists
+
+      if (typeof Reflect !== 'undefined' && typeof Reflect.ownKeys === 'function') {
+        keys = Reflect.ownKeys(target.prototype);
+      } else {
+        keys = Object.getOwnPropertyNames(target.prototype); // Use symbols if support is provided
+
+        if (typeof Object.getOwnPropertySymbols === 'function') {
+          keys = keys.concat(Object.getOwnPropertySymbols(target.prototype));
+        }
+      }
+
+      keys.forEach(function (key) {
+        // Ignore special case target method
+        if (key === 'constructor') {
+          return;
+        }
+
+        var descriptor = Object.getOwnPropertyDescriptor(target.prototype, key); // Only methods need binding
+
+        if (typeof descriptor.value === 'function') {
+          Object.defineProperty(target.prototype, key, boundMethod(target, key, descriptor));
+        }
+      });
+      return target;
+    }
+    function autobind() {
+      if (arguments.length === 1) {
+        return boundClass.apply(void 0, arguments);
+      }
+
+      return boundMethod.apply(void 0, arguments);
+    }
+
+    var webcam$1 = createCommonjsModule$1(function (module, exports) {
+    /**
+     * @license
+     * Copyright 2019 Google LLC. All Rights Reserved.
+     * Licensed under the Apache License, Version 2.0 (the "License");
+     * you may not use this file except in compliance with the License.
+     * You may obtain a copy of the License at
+     *
+     * http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     * =============================================================================
+     */
+    var __decorate = (commonjsGlobal && commonjsGlobal.__decorate) || function (decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+        else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+    };
+    var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
+        function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+        return new (P || (P = Promise))(function (resolve, reject) {
+            function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+            function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+            function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+            step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+    };
+    var __generator = (commonjsGlobal && commonjsGlobal.__generator) || function (thisArg, body) {
+        var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+        function verb(n) { return function (v) { return step([n, v]); }; }
+        function step(op) {
+            if (f) throw new TypeError("Generator is already executing.");
+            while (_) try {
+                if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+                if (y = 0, t) op = [op[0] & 2, t.value];
+                switch (op[0]) {
+                    case 0: case 1: t = op; break;
+                    case 4: _.label++; return { value: op[1], done: false };
+                    case 5: _.label++; y = op[1]; op = [0]; continue;
+                    case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                    default:
+                        if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                        if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                        if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                        if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                        if (t[2]) _.ops.pop();
+                        _.trys.pop(); continue;
+                }
+                op = body.call(thisArg, _);
+            } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+            if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+        }
+    };
+    Object.defineProperty(exports, "__esModule", { value: true });
+
+
+    var defaultVideoOptions = {
+        facingMode: 'user',
+        frameRate: 24
+    };
+    var fillConstraints = function (options) {
+        options.facingMode = options.facingMode || defaultVideoOptions.facingMode;
+        options.frameRate = options.frameRate || defaultVideoOptions.frameRate;
+        options.aspectRatio = options.aspectRatio || defaultVideoOptions.aspectRatio;
+        return options;
+    };
+    var Webcam = /** @class */ (function () {
+        function Webcam(width, height, flip) {
+            if (width === void 0) { width = 400; }
+            if (height === void 0) { height = 400; }
+            if (flip === void 0) { flip = false; }
+            this.width = width;
+            this.height = height;
+            this.flip = flip;
+        }
+        Webcam.prototype.getWebcam = function (options) {
+            if (options === void 0) { options = {}; }
+            if (!window.navigator.mediaDevices || !window.navigator.mediaDevices.getUserMedia) {
+                return Promise.reject('Your browser does not support WebRTC. Please try another one.');
+            }
+            options.width = 640;
+            var videoOptions = fillConstraints(options);
+            var video = document.createElement('video');
+            return window.navigator.mediaDevices.getUserMedia({ video: videoOptions })
+                .then(function (mediaStream) {
+                video.srcObject = mediaStream;
+                video.addEventListener('loadedmetadata', function (event) {
+                    var vw = video.videoWidth, vh = video.videoHeight;
+                    video.width = vw;
+                    video.height = vh;
+                });
+                return video;
+            }, function () {
+                return Promise.reject('Could not open your camera. You may have denied access.');
+            });
+        };
+        // setup or setupWebcam
+        Webcam.prototype.setup = function (options) {
+            if (options === void 0) { options = {}; }
+            return __awaiter(this, void 0, void 0, function () {
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            if (!!this.webcam) return [3 /*break*/, 2];
+                            _a = this;
+                            return [4 /*yield*/, this.getWebcam(options)];
+                        case 1:
+                            _a.webcam = _b.sent();
+                            if (!this.canvas) {
+                                this.canvas = document.createElement('canvas');
+                                this.canvas.width = this.width;
+                                this.canvas.height = this.height;
+                            }
+                            _b.label = 2;
+                        case 2: return [2 /*return*/];
+                    }
+                });
+            });
+        };
+        Webcam.prototype.play = function () {
+            var promise = this.webcam.play();
+            return promise;
+        };
+        Webcam.prototype.pause = function () {
+            this.webcam.pause();
+        };
+        Webcam.prototype.stop = function () {
+            this.stopStreamedVideo(this.webcam);
+        };
+        Webcam.prototype.update = function () {
+            this.renderCameraToCanvas();
+        };
+        Webcam.prototype.stopStreamedVideo = function (videoEl) {
+            var stream = videoEl.srcObject;
+            var tracks = stream.getTracks();
+            tracks.forEach(function (track) {
+                track.stop();
+            });
+            videoEl.srcObject = null;
+        };
+        Webcam.prototype.renderCameraToCanvas = function () {
+            if (this.canvas && this.webcam) {
+                var ctx = this.canvas.getContext('2d');
+                if (this.webcam.videoWidth !== 0) {
+                    var croppedCanvas = canvas.cropTo(this.webcam, this.width, this.flip);
+                    ctx.drawImage(croppedCanvas, 0, 0);
+                }
+            }
+        };
+        __decorate([
+            autobind.default
+        ], Webcam.prototype, "getWebcam", null);
+        __decorate([
+            autobind.default
+        ], Webcam.prototype, "setup", null);
+        __decorate([
+            autobind.default
+        ], Webcam.prototype, "play", null);
+        __decorate([
+            autobind.default
+        ], Webcam.prototype, "pause", null);
+        __decorate([
+            autobind.default
+        ], Webcam.prototype, "stop", null);
+        __decorate([
+            autobind.default
+        ], Webcam.prototype, "update", null);
+        __decorate([
+            autobind.default
+        ], Webcam.prototype, "stopStreamedVideo", null);
+        __decorate([
+            autobind.default
+        ], Webcam.prototype, "renderCameraToCanvas", null);
+        return Webcam;
+    }());
+    exports.Webcam = Webcam;
+
+    });
+
+    unwrapExports(webcam$1);
+    var webcam_1 = webcam$1.Webcam;
+
+    var dist = createCommonjsModule$1(function (module, exports) {
+    /**
+     * @license
+     * Copyright 2019 Google LLC. All Rights Reserved.
+     * Licensed under the Apache License, Version 2.0 (the "License");
+     * you may not use this file except in compliance with the License.
+     * You may obtain a copy of the License at
+     *
+     * http://www.apache.org/licenses/LICENSE-2.0
+     *
+     * Unless required by applicable law or agreed to in writing, software
+     * distributed under the License is distributed on an "AS IS" BASIS,
+     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     * See the License for the specific language governing permissions and
+     * limitations under the License.
+     * =============================================================================
+     */
+    Object.defineProperty(exports, "__esModule", { value: true });
+
+    exports.IMAGE_SIZE = customMobilenet.IMAGE_SIZE;
+    exports.CustomMobileNet = customMobilenet.CustomMobileNet;
+    exports.load = customMobilenet.load;
+    exports.loadFromFiles = customMobilenet.loadFromFiles;
+    exports.loadTruncatedMobileNet = customMobilenet.loadTruncatedMobileNet;
+
+    exports.TeachableMobileNet = teachableMobilenet.TeachableMobileNet;
+    exports.createTeachable = teachableMobilenet.createTeachable;
+
+    exports.Webcam = webcam$1.Webcam;
+
+    exports.version = version_1.version;
+
+    });
+
+    unwrapExports(dist);
+    var dist_1 = dist.IMAGE_SIZE;
+    var dist_2 = dist.CustomMobileNet;
+    var dist_3 = dist.load;
+    var dist_4 = dist.loadFromFiles;
+    var dist_5 = dist.loadTruncatedMobileNet;
+    var dist_6 = dist.TeachableMobileNet;
+    var dist_7 = dist.createTeachable;
+    var dist_8 = dist.Webcam;
+    var dist_9 = dist.version;
+
+    /* src/App.svelte generated by Svelte v3.24.1 */
+
+    function create_if_block_2(ctx) {
+    	let h2;
+    	let t0;
+    	let t1;
+    	let t2;
+    	let t3;
+
+    	return {
+    		c() {
+    			h2 = element("h2");
+    			t0 = text("Wykryto ");
+    			t1 = text(/*name*/ ctx[4]);
+    			t2 = text(" w ");
+    			t3 = text(/*percentage*/ ctx[3]);
+    			attr(h2, "class", "svelte-n5yb99");
+    		},
+    		m(target, anchor) {
+    			insert(target, h2, anchor);
+    			append(h2, t0);
+    			append(h2, t1);
+    			append(h2, t2);
+    			append(h2, t3);
+    		},
+    		p(ctx, dirty) {
+    			if (dirty & /*name*/ 16) set_data(t1, /*name*/ ctx[4]);
+    			if (dirty & /*percentage*/ 8) set_data(t3, /*percentage*/ ctx[3]);
+    		},
+    		d(detaching) {
+    			if (detaching) detach(h2);
+    		}
+    	};
+    }
+
+    // (121:20) 
+    function create_if_block_1(ctx) {
+    	let h2;
+
+    	return {
+    		c() {
+    			h2 = element("h2");
+    			h2.textContent = "ładuje ... . .";
+    			attr(h2, "class", "svelte-n5yb99");
+    		},
+    		m(target, anchor) {
+    			insert(target, h2, anchor);
+    		},
+    		p: noop,
+    		d(detaching) {
+    			if (detaching) detach(h2);
+    		}
+    	};
+    }
+
+    // (119:2) {#if errorMessage}
+    function create_if_block(ctx) {
+    	let h2;
+    	let t;
+
+    	return {
+    		c() {
+    			h2 = element("h2");
+    			t = text(/*errorMessage*/ ctx[1]);
+    			set_style(h2, "color", "red");
+    			attr(h2, "class", "svelte-n5yb99");
+    		},
+    		m(target, anchor) {
+    			insert(target, h2, anchor);
+    			append(h2, t);
+    		},
+    		p(ctx, dirty) {
+    			if (dirty & /*errorMessage*/ 2) set_data(t, /*errorMessage*/ ctx[1]);
+    		},
+    		d(detaching) {
+    			if (detaching) detach(h2);
+    		}
+    	};
+    }
+
+    function create_fragment(ctx) {
+    	let main;
+    	let h1;
+    	let t6;
+    	let video;
+    	let t7;
+    	let t8;
+    	let br1;
+    	let t9;
+    	let br2;
+    	let t10;
+    	let div;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*errorMessage*/ ctx[1]) return create_if_block;
+    		if (/*loading*/ ctx[2]) return create_if_block_1;
+    		if (/*percentage*/ ctx[3] && /*name*/ ctx[4]) return create_if_block_2;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type && current_block_type(ctx);
+
+    	return {
+    		c() {
+    			main = element("main");
+    			h1 = element("h1");
+
+    			h1.innerHTML = `Wyciągnij Asa z rękawa
+    <br>
+    ♠
+    <snap style="color:red;">♦</snap>
+    ♣
+    <snap style="color:red;">♥</snap>
+    ツ 😎`;
+
+    			t6 = space();
+    			video = element("video");
+    			t7 = space();
+    			if (if_block) if_block.c();
+    			t8 = space();
+    			br1 = element("br");
+    			t9 = space();
+    			br2 = element("br");
+    			t10 = space();
+    			div = element("div");
+
+    			div.innerHTML = `Prosta aplikacja ML/AI, która wykrywa przy pomocy kamery internetowej rodzaj
+    <a href="https://pl.wikipedia.org/wiki/Karty" alt="Wikipedia opis kart do gry" rel="noopener noreferrer" target="_blank" class="svelte-n5yb99">karty do gry.</a> 
+    <br>
+    Aplikacja napisana przy użyciu frameworka
+    <a href="https://svelte.dev" alt="Svelte website" rel="noopener noreferrer" target="_blank" class="svelte-n5yb99">Svelte.js</a>
+    oraz biblioteki
+    <a href="https://www.tensorflow.org/" alt="Website Tensorflow Google" rel="noopener noreferrer" target="_blank" class="svelte-n5yb99">TF.js/tensorflow.keras.</a> 
+    <br>
+    Model został wytrenowany na 30 zdjęciach dla każdej z czterech figur/karty,
+    w tym wypadku były to Asy.
+    <br>
+    Model dość dobrze radzi sobie, również z innymi kartami tego samego koloru -
+    zapraszam od zabawy ツ
+    <br> 
+    <a href="https://trochymiak.net" alt="website Piotr Trochymiak" rel="noopener noreferrer" target="_blank" class="svelte-n5yb99">^p^</a>`;
+
+    			attr(h1, "class", "svelte-n5yb99");
+    			attr(video, "width", "330");
+    			attr(video, "height", "300");
+    			attr(video, "class", "svelte-n5yb99");
+    			attr(div, "class", "pep svelte-n5yb99");
+    			attr(main, "class", "svelte-n5yb99");
+    		},
+    		m(target, anchor) {
+    			insert(target, main, anchor);
+    			append(main, h1);
+    			append(main, t6);
+    			append(main, video);
+    			/*video_binding*/ ctx[5](video);
+    			append(main, t7);
+    			if (if_block) if_block.m(main, null);
+    			append(main, t8);
+    			append(main, br1);
+    			append(main, t9);
+    			append(main, br2);
+    			append(main, t10);
+    			append(main, div);
+    		},
+    		p(ctx, [dirty]) {
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block) {
+    				if_block.p(ctx, dirty);
+    			} else {
+    				if (if_block) if_block.d(1);
+    				if_block = current_block_type && current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(main, t8);
+    				}
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d(detaching) {
+    			if (detaching) detach(main);
+    			/*video_binding*/ ctx[5](null);
+
+    			if (if_block) {
+    				if_block.d();
+    			}
+    		}
+    	};
+    }
+
+    const URL = "model00/";
+
+    function classNameToLabel(className) {
+    	switch (className) {
+    		case "Pik":
+    			return "kartę Pik";
+    		case "Kier":
+    			return "kartę Kier";
+    		case "Karo":
+    			return "kartę Karo";
+    		case "Trefl":
+    			return "kartę Trefl";
+    		default:
+    			return "Nic....";
+    	}
+    }
+
+    function instance($$self, $$props, $$invalidate) {
+    	let videoEl;
+    	let errorMessage;
+    	let model;
+    	let loading = true;
+    	let percentage = "";
+    	let name = "";
+    	const button = document.getElementById("button");
+    	const select = document.getElementById("select");
+    	const modelURL = URL + "model.json";
+    	const metadataURL = URL + "metadata.json";
+
+    	const constraints = {
+    		video: true,
+    		facingMode: { exact: "environment" }
+    	};
+
+    	onMount(async () => {
+    		try {
+    			model = await dist_3(modelURL, metadataURL);
+    			const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    			$$invalidate(0, videoEl.srcObject = stream, videoEl);
+    			videoEl.play();
+    			setInterval(predict, 1000);
+    			$$invalidate(2, loading = false);
+    		} catch(e) {
+    			console.error(e, "camera access denied");
+    			$$invalidate(1, errorMessage = "Kamera nie podłączona i nie działa :(");
+    		}
+    	});
+
+    	async function predict() {
+    		const predictions = await model.predict(videoEl);
+    		const [choosenPrediction] = predictions.sort((a, b) => b.probability - a.probability);
+
+    		//console.log(predictions);
+    		if (choosenPrediction) {
+    			$$invalidate(3, percentage = (choosenPrediction.probability * 100).toFixed(2) + "%");
+    			$$invalidate(4, name = classNameToLabel(choosenPrediction.className));
+    		}
+    	}
+
+    	function video_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			videoEl = $$value;
+    			$$invalidate(0, videoEl);
+    		});
+    	}
+
+    	return [videoEl, errorMessage, loading, percentage, name, video_binding];
+    }
+
+    class App extends SvelteComponent {
+    	constructor(options) {
+    		super();
+    		init(this, options, instance, create_fragment, safe_not_equal, {});
+    	}
+    }
+
+    const app = new App({
+    	target: document.body,
+    });
+
+    return app;
+
+}());
+//# sourceMappingURL=bundle.js.map
