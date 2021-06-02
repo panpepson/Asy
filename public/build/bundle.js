@@ -3081,7 +3081,7 @@ var app = (function () {
     	};
     }
 
-    // (111:20) 
+    // (132:20) 
     function create_if_block_1(ctx) {
     	let h2;
 
@@ -3101,7 +3101,7 @@ var app = (function () {
     	};
     }
 
-    // (109:2) {#if errorMessage}
+    // (130:2) {#if errorMessage}
     function create_if_block(ctx) {
     	let h2;
     	let t;
@@ -3173,12 +3173,12 @@ var app = (function () {
     			div = element("div");
 
     			div.innerHTML = `Prosta aplikacja ML/AI, która wykrywa przy pomocy kamery internetowej rodzaj
-    <a href="https://pl.wikipedia.org/wiki/Karty" alt="Wikipedia opis kart do gry" class="svelte-n5yb99">karty do gry.</a> 
+    <a href="https://pl.wikipedia.org/wiki/Karty" alt="Wikipedia opis kart do gry" rel="noopener noreferrer" target="_blank" class="svelte-n5yb99">karty do gry.</a> 
     <br>
     Aplikacja napisana przy użyciu frameworka
-    <a href="https://svelte.dev" alt="Svelte website" class="svelte-n5yb99">Svelte.js</a>
+    <a href="https://svelte.dev" alt="Svelte website" rel="noopener noreferrer" target="_blank" class="svelte-n5yb99">Svelte.js</a>
     oraz biblioteki
-    <a href="https://www.tensorflow.org/" alt="Website Tensorflow Google" class="svelte-n5yb99">TF.js/tensorflow.keras.</a> 
+    <a href="https://www.tensorflow.org/" alt="Website Tensorflow Google" rel="noopener noreferrer" target="_blank" class="svelte-n5yb99">TF.js/tensorflow.keras.</a> 
     <br>
     Model został wytrenowany na 30 zdjęciach dla każdej z czterech figur/karty,
     w tym wypadku były to Asy.
@@ -3186,7 +3186,7 @@ var app = (function () {
     Model dość dobrze radzi sobie, również z innymi kartami tego samego koloru -
     zapraszam od zabawy ツ
     <br> 
-    <a href="https://trochymiak.net" alt="website Piotr Trochymiak" class="svelte-n5yb99">^p^</a>`;
+    <a href="https://trochymiak.net" alt="website Piotr Trochymiak" rel="noopener noreferrer" target="_blank" class="svelte-n5yb99">^p^</a>`;
 
     			attr(h1, "class", "svelte-n5yb99");
     			attr(video, "width", "330");
@@ -3260,20 +3260,31 @@ var app = (function () {
     	let loading = true;
     	let percentage = "";
     	let name = "";
+    	const button = document.getElementById("button");
+    	const select = document.getElementById("select");
     	const modelURL = URL + "model.json";
     	const metadataURL = URL + "metadata.json";
+
+    	const constraints = {
+    		//  video: true, 
+    		video: {
+    			width: { min: 1280, ideal: 1920, max: 2560 },
+    			height: { min: 720, ideal: 1080, max: 1440 },
+    			facingMode: { exact: "environment" }
+    		}
+    	};
 
     	onMount(async () => {
     		try {
     			model = await dist_3(modelURL, metadataURL);
-    			const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    			const stream = await navigator.mediaDevices.getUserMedia(constraints);
     			$$invalidate(0, videoEl.srcObject = stream, videoEl);
     			videoEl.play();
     			setInterval(predict, 1000);
     			$$invalidate(2, loading = false);
     		} catch(e) {
     			console.error(e, "camera access denied");
-    			$$invalidate(1, errorMessage = "Kamera nie podłączona i nie dziąła :(");
+    			$$invalidate(1, errorMessage = "Kamera nie podłączona i nie działa :(");
     		}
     	});
 

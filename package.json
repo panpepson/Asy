@@ -17,8 +17,8 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
-    "sirv-cli": "^1.0.0",
     "@teachablemachine/image": "^0.8.4",
-    "@tensorflow/tfjs": "^1.4.1"
+    "@tensorflow/tfjs": "^1.4.1",
+    "sirv-cli": "^1.0.0"
   }
 }

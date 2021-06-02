@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import * as tf from "@tensorflow/tfjs";
   import * as tmImage from "@teachablemachine/image";
+ // import Webcam from 'webcam-easy';
 
   let videoEl;
   let errorMessage;
@@ -10,14 +11,34 @@
   let percentage = "";
   let name = "";
 
+const button = document.getElementById('button');
+const select = document.getElementById('select');
+
+
   const URL = "model00/";
   const modelURL = URL + "model.json";
   const metadataURL = URL + "metadata.json";
 
+const constraints = { 
+    //  video: true, 
+    video: {
+    width: {
+      min: 1280,
+      ideal: 1920,
+      max: 2560,
+    },
+    height: {
+      min: 720,
+      ideal: 1080,
+      max: 1440
+    },
+     facingMode:  { exact: "environment"}
+  }
+}
   onMount(async () => {
     try {
       model = await tmImage.load(modelURL, metadataURL);
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
 
       videoEl.srcObject = stream;
       videoEl.play();
@@ -115,7 +136,7 @@
   {/if}
   <br />
   <br />
-  <div class="pep">
+    <div class="pep">
     Prosta aplikacja ML/AI, która wykrywa przy pomocy kamery internetowej rodzaj
     <a
       href="https://pl.wikipedia.org/wiki/Karty"
