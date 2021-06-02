@@ -3081,7 +3081,7 @@ var app = (function () {
     	};
     }
 
-    // (121:20) 
+    // (132:20) 
     function create_if_block_1(ctx) {
     	let h2;
 
@@ -3101,7 +3101,7 @@ var app = (function () {
     	};
     }
 
-    // (119:2) {#if errorMessage}
+    // (130:2) {#if errorMessage}
     function create_if_block(ctx) {
     	let h2;
     	let t;
@@ -3266,8 +3266,12 @@ var app = (function () {
     	const metadataURL = URL + "metadata.json";
 
     	const constraints = {
-    		video: true,
-    		facingMode: { exact: "environment" }
+    		//  video: true, 
+    		video: {
+    			width: { min: 1280, ideal: 1920, max: 2560 },
+    			height: { min: 720, ideal: 1080, max: 1440 },
+    			facingMode: { exact: "environment" }
+    		}
     	};
 
     	onMount(async () => {
