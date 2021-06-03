@@ -66,13 +66,13 @@ const constraints = {
   function classNameToLabel(className) {
     switch (className) {
       case "Pik":
-        return "kartę Pik";
+        return "kartę Pik ♠";
       case "Kier":
-        return "kartę Kier";
+        return "kartę Kier ♥";
       case "Karo":
-        return "kartę Karo";
+        return "kartę Karo ♦";
       case "Trefl":
-        return "kartę Trefl";
+        return "kartę Trefl ♣";
       default:
         return "Nic....";
     }
